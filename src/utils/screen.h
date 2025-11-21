@@ -1,7 +1,9 @@
-#ifndef UTILS_COLOR_H
-#define UTILS_COLOR_H
+#ifndef UTILS_SCREEN_H
+#define UTILS_SCREEN_H
+
 
 #include <stdio.h>
+#include <windows.h>
 
 
 typedef enum Color {
@@ -24,7 +26,16 @@ typedef enum Color {
 } Color;
 
 
+
+int sizeScreen(int *columns, int *rows);
+void clearScreen();
+
+void cursor(int x, int y);
+void hideCursor();
+void showCursor();
+
 void setColor(Color color);
 void resetColor();
+
 
 #endif

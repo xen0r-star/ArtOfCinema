@@ -4,12 +4,7 @@
         "**/.svn": true,
         "**/.hg": true,
         "**/.DS_Store": true,
-        "**/Thumbs.db": true,
-        ".vscode": true,
-        ".wakatime-project": true
+        "**/Thumbs.db": true
     },
-    "hide-files.files": [
-        ".vscode",
-        ".wakatime-project"
-    ]
+    "hide-files.files": []
 }

@@ -1,17 +1,25 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-#include "../utils/color.h"
+#include "../utils/screen.h"
 
+
+#define MAX_BUTTONS 10
 
 typedef struct Button {
     int x, y;
+    int width;
     Color color;
     char *label;
     void (*onClick)(void);
-};
+} Button;
 
 
-Button *createButton(int x, int y, Color color, const char *label, void (*onClick)(void));
+void createButton(int x, int y, int width, Color color, char *label, void (*onClick)(void));
+
+int deleteButton(Button *button);
+void deleteAllButtons();
+
+void handleClick();
 
 #endif
