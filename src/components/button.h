@@ -20,6 +20,7 @@ void createButton(int x, int y, int width, Color color, char *label, void (*onCl
 int deleteButton(Button *button);
 void deleteAllButtons();
 
-void handleClick();
+Button *getButton(int index);
+int getButtonCount();
 
 #endif

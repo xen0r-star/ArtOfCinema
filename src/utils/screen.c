@@ -59,6 +59,10 @@ void setColor(Color color) {
     printf("\033[%dm", color);
 }
 
+void setBackground(Background background) {
+    printf("\033[%dm", background);
+}
+
 void resetColor() {
     printf("\033[0m");
 }

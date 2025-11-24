@@ -50,31 +50,10 @@ void deleteAllButtons() {
     button_count = 0;
 }
 
+Button *getButton(int index) {
+    return &buttons[index];
+}
 
-void handleClick() {
-    if (button_count <= 0) return;
-
-    HANDLE h = GetStdHandle(STD_INPUT_HANDLE);
-    SetConsoleMode(h, ENABLE_MOUSE_INPUT | ENABLE_EXTENDED_FLAGS);
-
-    INPUT_RECORD rec;
-    DWORD n;
-
-    ReadConsoleInput(h, &rec, 1, &n);
-    if (rec.EventType == MOUSE_EVENT) {
-        int x = rec.Event.MouseEvent.dwMousePosition.X;
-        int y = rec.Event.MouseEvent.dwMousePosition.Y;
-        WORD bstate = rec.Event.MouseEvent.dwButtonState;
-
-        if (bstate & FROM_LEFT_1ST_BUTTON_PRESSED) {
-            for (int i = 0; i < button_count; i++) {
-                Button *b = &buttons[i];
-                if (x >= b->x && x < b->x + b->width &&
-                    y >= b->y && y < b->y + 3) {
-                    if (b->onClick) b->onClick();
-                    return;
-                }
-            }
-        }
-    }
+int getButtonCount() {
+    return button_count;
 }

@@ -6,5 +6,13 @@
         "**/.DS_Store": true,
         "**/Thumbs.db": true
     },
-    "hide-files.files": []
+    "hide-files.files": [],
+    "files.associations": {
+        "*.windows": "makefile",
+        "loading.h": "c",
+        "screen.h": "c",
+        "logo.h": "c",
+        "windows.h": "c",
+        "input.h": "c"
+    }
 }
