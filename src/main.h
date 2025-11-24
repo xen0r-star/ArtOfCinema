@@ -6,7 +6,9 @@
 #include <windows.h>
 
 #include "./utils/screen.h"
+#include "./utils/align.h" // ALIGN
 #include "./components/logo.h"
+#include "./components/text.h" // TEXT
 #include "./components/input.h"
 #include "./components/button.h"
 #include "./components/footer.h"

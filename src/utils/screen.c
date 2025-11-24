@@ -54,6 +54,10 @@ void showCursor() {
     SetConsoleCursorInfo(h, &info);
 }
 
+// boolean verifColor() {
+//     if()
+//     return true;
+// }
 
 void setColor(Color color) {
     printf("\033[%dm", color);

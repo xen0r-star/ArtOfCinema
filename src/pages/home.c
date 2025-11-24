@@ -1,6 +1,5 @@
 #include "home.h"
 
-
 void printHELLO() {
     cursor(10, 10);
 
@@ -17,10 +16,12 @@ int showHomePage() {
     // Dessine le logo
     drawLogo((columns / 2) - (LOGO_WIDTH / 2), 4);
 
-    // Supprime les anciens inputs/buttons avant d'en créer de nouveaux
     deleteAllInputs();
+    deleteAllTexts();
+
+    createText(5, 10, "Votre Compte ARTOFCINEMA" , COLOR_GREEN, CENTER);
+    createText((columns - TEXT_WIDTH) / 2, 11, "ABC" , COLOR_GREEN, RIGHT);
     
-    // Crée le button et le input
     createInput((columns - INPUT_WIDTH) / 2, 15, "Email", "exemple@artofcinema.com" , NULL);
     createButton((columns - 21) / 2, rows - 5, 18, COLOR_GREEN, "CONTINUER", printHELLO);
 

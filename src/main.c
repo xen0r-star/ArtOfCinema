@@ -8,10 +8,9 @@ int main() {
 
     int columns, rows, previousColumns = 0, previousRows = 0;
     AppPage page = PAGE_LOADING, previousPage = -1;
-    
 
     while(1) {
-        // Recuperer la taille de l'ecrant
+        // Recuperer la taille de l'écran
         sizeScreen(&columns, &rows);
 
         // Si taille change OU changement de page
