@@ -7,14 +7,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
 
       - name: 🛠️ Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y build-essential
+        run: choco install make
 
       - name: 🧱 Build with Makefile
         run: make
@@ -27,7 +27,7 @@ jobs:
 
   release:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: 📥 Download artifact
