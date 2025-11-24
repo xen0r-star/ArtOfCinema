@@ -14,8 +14,9 @@ int AlignmentOBJ(const Align align, const int columns, const char *test) {
             return columns + 1 - strlen(test);
             break;
 
-        case DEF: // Comportement par défaut de l'alignement a réfléchir
+        case DEF:
+        default:
             return 10;
-            break;
+            
     }
 }

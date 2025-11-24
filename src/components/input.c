@@ -1,32 +1,26 @@
 #include "input.h"
-#include "button.h"  // Inclure button.h pour accéder aux boutons
 
 
-Input inputs[MAX_INPUTS];
-int input_count = 0;
+static Input inputs[MAX_INPUTS];
+static int input_count = 0;
 
-void createInput(int x, int y, const char *label, const char *placeholder, const char *value) {
+
+void createInput(int x, int y, const char *label, const char *placeholder) {
     if (input_count >= MAX_INPUTS) return;
 
-
-    Input *input = &inputs[input_count];
+    // Enregistre l'input
+    Input *input = &inputs[input_count++];
 
     input->x = x;
     input->y = y;
-    input->label = (label != NULL) ? _strdup(label) : NULL;
-    input->placeholder = (placeholder != NULL) ? _strdup(placeholder) : NULL;
+    input->label = label ? _strdup(label) : NULL;
+    input->placeholder = placeholder ? _strdup(placeholder) : NULL;
     
-    // Initialise value avec calloc (met à zéro)
-    input->value = (char*)calloc(INPUT_WIDTH, sizeof(char));
-    if (input->value != NULL && value != NULL) {
-        strncpy(input->value, value, INPUT_WIDTH - 1);
-        input->value[INPUT_WIDTH - 1] = '\0'; // Sécurité
-    }
-    
+    input->value = calloc(INPUT_WIDTH, 1); // Initialise la valeur à une chaîne vide
     input->isFocused = 0;
-    input_count++;
 
 
+    // Dessine l'input
     setColor(COLOR_WHITE);
     cursor(x, y);
     printf("\311\315 ");
@@ -48,6 +42,41 @@ void createInput(int x, int y, const char *label, const char *placeholder, const
     for (int j = 0; j < INPUT_WIDTH - 2; j++) printf("\315");
     printf("\274");
 }
+
+void drawInputValue(Input *input) {
+    cursorVisibility(0);
+
+    int len = 0;
+    int max_len = INPUT_WIDTH - 3; // Espace disponible avant la bordure
+    
+    // Affiche le contenu ou le placeholder
+    cursor(input->x + 2, input->y + 1);
+    if (strlen(input->value) == 0) {
+        setColor(COLOR_BRIGHT_BLACK);
+        printf("%s", input->placeholder);
+        len += strlen(input->placeholder);
+        
+    } else {
+        setColor(COLOR_WHITE);
+        printf("%s", input->value);
+        len += strlen(input->value);
+    }
+
+    // Efface seulement la fin pour éviter les textes cligniotants
+    for(int i = len; i < max_len; i++) {
+        printf(" ");
+    }
+
+    resetColor();
+    
+    // Positionne et affiche le curseur
+    if (input->isFocused) {
+        int textLen = strlen(input->value);
+        cursor(input->x + 2 + textLen, input->y + 1);
+        cursorVisibility(1);
+    }
+}
+
 
 
 int deleteInput(Input *input) {
@@ -71,9 +100,9 @@ int deleteInput(Input *input) {
 
 void deleteAllInputs() {
     for (int i = 0; i < input_count; i++) {
-        if (inputs[i].label) free(inputs[i].label);
+        if (inputs[i].label)       free(inputs[i].label);
         if (inputs[i].placeholder) free(inputs[i].placeholder);
-        if (inputs[i].value) free(inputs[i].value);
+        if (inputs[i].value)       free(inputs[i].value);
     }
     input_count = 0;
 }
@@ -84,31 +113,4 @@ Input *getInput(int index) {
 
 int getInputCount() {
     return input_count;
-}
-
-
-void redrawInput(Input *input) {
-    setColor(COLOR_WHITE);
-    cursor(input->x + 2, input->y + 1);
-    
-    // Efface le contenu
-    for(int i = 0; i < INPUT_WIDTH - 4; i++) printf(" ");
-    cursor(input->x + 2, input->y + 1);
-    
-    // Affiche le contenu ou le placeholder
-    if (strlen(input->value) == 0) {
-        setColor(COLOR_BRIGHT_BLACK);
-        printf("%s", input->placeholder);
-    } else {
-        setColor(COLOR_WHITE);
-        printf("%s", input->value);
-    }
-    
-    // Affiche le curseur si focus
-    if (input->isFocused) {
-        printf("_");
-    }
-    
-    resetColor();
-    fflush(stdout);
 }

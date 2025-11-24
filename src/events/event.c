@@ -5,7 +5,6 @@ void event() {
     if (getInputCount() <= 0 && getButtonCount() <= 0) return;
 
 
-    // Detection click souris
     HANDLE h = GetStdHandle(STD_INPUT_HANDLE);
     SetConsoleMode(h, ENABLE_MOUSE_INPUT | ENABLE_EXTENDED_FLAGS);
 
@@ -13,7 +12,7 @@ void event() {
     DWORD n;
 
     ReadConsoleInput(h, &rec, 1, &n);
-    if (rec.EventType == MOUSE_EVENT) {
+    if (rec.EventType == MOUSE_EVENT) { // Detection souris
         int x = rec.Event.MouseEvent.dwMousePosition.X;
         int y = rec.Event.MouseEvent.dwMousePosition.Y;
         WORD bstate = rec.Event.MouseEvent.dwButtonState;
@@ -42,49 +41,46 @@ void event() {
                             input->isFocused = 0;
 
                             // Redessine l'ancien input focusé
-                            redrawInput(input);
+                            drawInputValue(input);
                         }
                     }
 
                     input->isFocused = 1;
                     // Redessine le nouvel input focusé
-                    redrawInput(input);
+                    drawInputValue(input);
                     break;
                 }
             }
         }
-    }
 
-
-
-    // Detection clavier
-    Input *input = NULL;
-    for (int i = 0; i < getInputCount(); i++) {
-        Input *inp = getInput(i);
-        if (inp->isFocused) {
-            input = inp;
-            break;
-        }
-    }
-    if (input == NULL) return;
-
-    // Le kbhit() retour cassiment toujours 0
-    if (kbhit()) {
-        char ch = getch();
-        if (ch == 8) { // Touche effacer
-            int len = strlen(input->value);
-            if (len > 0) {
-                input->value[len - 1] = '\0';
-            }
-
-        } else if (ch >= 32 && ch <= 126) { // Caractere imprimable
-            int len = strlen(input->value);
-            if (len < INPUT_WIDTH - 4) {
-                input->value[len] = ch;
-                input->value[len + 1] = '\0';
+    } else if (rec.EventType == KEY_EVENT && rec.Event.KeyEvent.bKeyDown) { // Detection clavier
+        // Regarder quel input est focus
+        Input *input = NULL;
+        for (int i = 0; i < getInputCount(); i++) {
+            Input *inp = getInput(i);
+            if (inp->isFocused) {
+                input = inp;
+                break;
             }
         }
 
-        redrawInput(input);
+        if (input != NULL) {
+            char ch = rec.Event.KeyEvent.uChar.AsciiChar; // Récupère le caractère entré
+            if (ch == 8) { // Touche effacer
+                int len = strlen(input->value);
+                if (len > 0) {
+                    input->value[len - 1] = '\0'; // Supprime le dernier caractère
+                }
+
+            } else if (ch >= 32 && ch <= 126) { // Caractere imprimable
+                int len = strlen(input->value);
+                if (len < INPUT_WIDTH - 4) {
+                    input->value[len] = ch; // Ajoute le caractère à la fin
+                    input->value[len + 1] = '\0';
+                }
+            }
+
+            drawInputValue(input);
+        }
     }
 }

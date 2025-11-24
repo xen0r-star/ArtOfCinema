@@ -10,26 +10,49 @@ void drawLoadingBar(int progressValue) {
     int y = rows / 2 + 2;
 
 
+    // Partie remplie
     cursor(startX, y);
     if (progressWidth <= 25)        setBackground(BACKGROUND_COLOR_RED);
     else if (progressWidth <= 50)   setBackground(BACKGROUND_COLOR_YELLOW);
     else                            setBackground(BACKGROUND_COLOR_GREEN);
     for (int i = 0; i < progressWidth; i++) printf(" ");
 
+
+    // Partie vide
     setBackground(BACKGROUND_COLOR_WHITE);
     cursor(startX + progressWidth, y);
     for (int i = progressWidth; i < SIZE_LOADING_BAR; i++) printf(" ");
 
-    setColor(COLOR_BLACK);
-    cursor(columns / 2 - 1, y);
-    printf("%3d%%", progressValue);
+
+    // Pourcentage
+    char buffer[8];
+    sprintf(buffer, "%3d%%", progressValue);
+
+    int textX = columns / 2 - (int)strlen(buffer) / 2;
+
+    for (int i = 0; i < (int)strlen(buffer); i++) {
+        int charPos = textX + i;
+
+        cursor(charPos, y);
+
+        if (charPos < startX + progressWidth) {
+            if (progressWidth <= 25)        setBackground(BACKGROUND_COLOR_RED);
+            else if (progressWidth <= 50)   setBackground(BACKGROUND_COLOR_YELLOW);
+            else                            setBackground(BACKGROUND_COLOR_GREEN);
+
+        } else {
+            setBackground(BACKGROUND_COLOR_WHITE);
+        }
+
+        setColor(COLOR_BLACK);
+        printf("%c", buffer[i]);
+    }
 
     resetColor();
 }
 
 
-int showLoadingScreen() {
-    clearScreen();
+void showLoadingScreen() {
     int columns, rows;
     sizeScreen(&columns, &rows);
 
@@ -60,7 +83,7 @@ int showLoadingScreen() {
 
 
     // Animation de chargement
-    for (int i = 1; i <= 100; i++) {
+    for (int i = 2; i <= 100; i += 2) {
         // Texte de chargement
         setColor(COLOR_BRIGHT_GREEN);
         cursor((columns - 5) / 2, rows / 2);
@@ -90,5 +113,5 @@ int showLoadingScreen() {
     Sleep(1500);
 
 
-    return PAGE_HOME;
+    setCurrentPage(PAGE_HOME);
 }

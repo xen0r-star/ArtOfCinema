@@ -3,6 +3,7 @@
 
 #include <conio.h>
 #include "../utils/screen.h"
+#include "../utils/cursor.h"
 
 
 #define INPUT_WIDTH 41
@@ -17,7 +18,8 @@ typedef struct Input {
 } Input;
 
 
-void createInput(int x, int y, const char *label, const char *placeholder, const char *value);
+void createInput(int x, int y, const char *label, const char *placeholder);
+void drawInputValue(Input *input);
 
 int deleteInput(Input *input);
 void deleteAllInputs();
@@ -25,6 +27,5 @@ void deleteAllInputs();
 Input *getInput(int index);
 int getInputCount();
 
-void redrawInput(Input *input);
 
 #endif

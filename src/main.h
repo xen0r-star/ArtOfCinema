@@ -6,9 +6,9 @@
 #include <windows.h>
 
 #include "./utils/screen.h"
-#include "./utils/align.h" // ALIGN
+#include "./utils/align.h"
 #include "./components/logo.h"
-#include "./components/text.h" // TEXT
+#include "./components/text.h"
 #include "./components/input.h"
 #include "./components/button.h"
 #include "./components/footer.h"
@@ -33,11 +33,12 @@ typedef enum {
     PAGE_DIRECTOR_FILM,
     PAGE_DIRECTOR_SHOP,
     PAGE_CLIENT,
-    // SUITE CLIENT A FAIRE
 
     PAGE_EXIT
 } AppPage;
 
-// COMMENT CA FONCTIONNE PAGE ?
-// DANS LE SWITCH DU MAIN J'ADD ?
+
+AppPage getCurrentPage();
+void setCurrentPage(AppPage newPage);
+
 #endif

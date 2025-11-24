@@ -1,8 +1,8 @@
 #include "button.h"
 
 
-Button buttons[MAX_BUTTONS];
-int button_count = 0;
+static Button buttons[MAX_BUTTONS];
+static int button_count = 0;
 
 
 void createButton(int x, int y, int width, Color color, char *label, void (*onClick)(void)) {
