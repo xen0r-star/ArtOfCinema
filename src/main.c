@@ -24,7 +24,44 @@ int main() {
                 case PAGE_HOME:
                     page = showHomePage();
                     break;
+                case PAGE_LOGIN:
+                    page = showHomePage();
+                    break;
+                case PAGE_VALIDE_LOGIN:
+                    page = showHomePage();
+                    break;
+                case PAGE_NVALIDE_LOGIN:
+                    page = showHomePage();
+                    break;
+                case PAGE_SIGNUP:
+                    page = showHomePage();
+                    break;
+                case PAGE_VALIDE_SIGNUP:
+                    page = showHomePage();
+                    break;
+                case PAGE_DIRECTOR:
+                    page = showHomePage();
+                    break;
+                case PAGE_DIRECTOR_FILM:
+                    page = showHomePage();
+                    break;
+                case PAGE_DIRECTOR_SHOP:
+                    page = showHomePage();
+                    break;
+                case PAGE_CLIENT:
+                    page = showHomePage();
+                    break;
+                case PAGE_EXIT: 
+                    return;
             }
+            // OUI GLOBAL C BIEN MAIS EN #C C POSSIBLE ?
+            // Comme la variable buttons dans le fichier button.c
+            // la mettre tout en haut des methode et lui faire une methode qui la retourne
+            // getPage() un bail du genre
+            // sur l'exemple j'ai vu il utilise juste une fct qui get une variable d'un fichier.c,
+            //  et la fct est accessible partout donc il considere la variable comme "global", 
+
+            // LAISSONS LES COMMENTAIRES COMME CECI, MOI JDOIS TAILLER c'est CIAO
             
             // Met a jour les anciennes valeurs
             previousColumns = columns;

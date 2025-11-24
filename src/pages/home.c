@@ -20,10 +20,10 @@ int showHomePage() {
     deleteAllTexts();
 
     createText(5, 10, "Votre Compte ARTOFCINEMA" , COLOR_GREEN, CENTER);
-    createText((columns - TEXT_WIDTH) / 2, 11, "ABC" , COLOR_GREEN, RIGHT);
+    createText(5 , 11, "Entrez votre email pour vous connecter ou creer un compte." , COLOR_WHITE, CENTER);
     
-    createInput((columns - INPUT_WIDTH) / 2, 15, "Email", "exemple@artofcinema.com" , NULL);
-    createButton((columns - 21) / 2, rows - 5, 18, COLOR_GREEN, "CONTINUER", printHELLO);
+    createInput((columns - INPUT_WIDTH) / 2, 15, "Email", "exemple@artofcinema.be" , NULL);
+    createButton((columns - 21) / 2, rows - 7, 18, COLOR_GREEN, "CONTINUER", printHELLO);
 
     // Dessine le footer
     drawFooter();
