@@ -1,6 +1,5 @@
 #include "loading.h"
 
-
 void drawLoadingBar(int progressValue) {
     int columns, rows;
     sizeScreen(&columns, &rows);

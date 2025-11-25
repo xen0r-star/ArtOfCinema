@@ -34,39 +34,42 @@ int main() {
                     break;
 
                 case PAGE_LOGIN:
-                    showHomePage();
+                    showLoginPage();
                     break;
 
                 case PAGE_VALIDE_LOGIN:
-                    showHomePage();
+                    showValideLoginPage();
                     break;
 
                 case PAGE_NVALIDE_LOGIN:
-                    showHomePage();
+                    showNValideLoginPage();
                     break;
 
                 case PAGE_SIGNUP:
-                    showHomePage();
+                    showSignupPage();
                     break;
 
                 case PAGE_VALIDE_SIGNUP:
-                    showHomePage();
+                    showValideSignupPage();
+                    break;
+                case PAGE_NVALIDE_SIGNUP:
+                    showNValideSignupPage();
                     break;
 
                 case PAGE_DIRECTOR:
-                    showHomePage();
+                    showDirectorPage();
                     break;
 
                 case PAGE_DIRECTOR_FILM:
-                    showHomePage();
+                    showDirectorFilmPage();
                     break;
 
                 case PAGE_DIRECTOR_SHOP:
-                    showHomePage();
+                    showDirectorShopPage();
                     break;
 
                 case PAGE_CLIENT:
-                    showHomePage();
+                    showClientPage();
                     break;
 
                 case PAGE_EXIT: 
