@@ -1,8 +1,10 @@
 #ifndef UTILS_EMAIL_H
 #define UTILS_EMAIL_H
 
-// #include <regex.h>
+#include <string.h>
+#include <stdbool.h>
 
-int isValidEmail(const char *email);
+
+bool isValidEmail(const char *email);
 
 #endif
