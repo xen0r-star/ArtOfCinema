@@ -2,14 +2,15 @@
 
 
 static AppPage page = PAGE_LOADING;
+static AppPage previousPage = -1;
+
 
 int main() {
     SetConsoleTitle("Art Of Cinema - Terminal Edition");
     hideCursor();
 
     int columns, rows, previousColumns = 0, previousRows = 0;
-    AppPage previousPage = -1;
-
+    
     while(1) {
         // Recuperer la taille de l'écran
         sizeScreen(&columns, &rows);
@@ -29,43 +30,12 @@ int main() {
                     showLoadingScreen();
                     break;
 
-                case PAGE_HOME:
-                    showHomePage();
-                    break;
-
                 case PAGE_LOGIN:
                     showLoginPage();
                     break;
 
-                case PAGE_VALIDE_LOGIN:
-                    showValideLoginPage();
-                    break;
-
-                case PAGE_NVALIDE_LOGIN:
-                    showNValideLoginPage();
-                    break;
-
-                case PAGE_SIGNUP:
-                    showSignupPage();
-                    break;
-
-                case PAGE_VALIDE_SIGNUP:
-                    showValideSignupPage();
-                    break;
-                case PAGE_NVALIDE_SIGNUP:
-                    showNValideSignupPage();
-                    break;
-
                 case PAGE_DIRECTOR:
                     showDirectorPage();
-                    break;
-
-                case PAGE_DIRECTOR_FILM:
-                    showDirectorFilmPage();
-                    break;
-
-                case PAGE_DIRECTOR_SHOP:
-                    showDirectorShopPage();
                     break;
 
                 case PAGE_CLIENT:
@@ -95,4 +65,5 @@ AppPage getCurrentPage() {
 
 void setCurrentPage(AppPage newPage) {
     page = newPage;
+    previousPage = -1;
 }

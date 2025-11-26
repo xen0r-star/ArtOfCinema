@@ -55,8 +55,9 @@ void showLoadingScreen() {
     int columns, rows;
     sizeScreen(&columns, &rows);
 
-    // Dessine le logo
     drawLogo((columns / 2) - (LOGO_WIDTH / 2), 4);
+    drawFooter();
+    drawVersionFooter();
 
 
     // Bordure de la barre de chargement
@@ -77,8 +78,6 @@ void showLoadingScreen() {
     for (int j = 0; j < SIZE_LOADING_BAR + 2; j++) printf("\315");
     printf("\274");
 
-    // Dessine le footer
-    drawFooter();
 
 
     // Animation de chargement
@@ -112,5 +111,5 @@ void showLoadingScreen() {
     Sleep(1500);
 
 
-    setCurrentPage(PAGE_HOME);
+    setCurrentPage(PAGE_LOGIN);
 }

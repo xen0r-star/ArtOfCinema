@@ -23,6 +23,8 @@ void event() {
                 Button *button = getButton(i);
                 if (x >= button->x && x < button->x + button->width &&
                     y >= button->y && y < button->y + 3) {
+
+                    cursorVisibility(0);
                     if (button->onClick) button->onClick();
                     return;
                 }
