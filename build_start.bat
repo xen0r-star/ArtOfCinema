@@ -1,5 +1,5 @@
 @echo off
-:: 2. Initialisation fichiers
+:: Step 1 - Initialisation fichiers
 echo Step 1 - Init
 
 setlocal enabledelayedexpansion
@@ -9,8 +9,8 @@ echo.
 echo Dossier de lancement %cd%
 echo.
 
+:: Step 2 - Cherche tout les .c dans le dossier actuel et les sous-dossiers (/R)
 echo Step 2 - Search Files
-:: 2. Cherche tout les .c dans le dossier actuel et les sous-dossiers (/R)
 for /R %%f in (*.c) do (
     @REM echo Fichier trouve : %%f
 	set "SOURCES=!SOURCES! "%%f""
@@ -21,21 +21,24 @@ echo.
 @REM echo Fichier trouves : !SOURCES!
 echo Fichier trouves !
 
-:: 3. Compilation fichier .c
+:: Step 3 - Compilation fichier .c
 echo.
 @REM echo Compilation de : !SOURCES!
-echo Compilation des fichiers en cours...
+echo Step 3 - Compilation of the files in progress...
 
 gcc !SOURCES! -o app.exe
 
-:: 4. Vérification
+:: Step 4 - Vérification
 if %errorlevel% neq 0 (
 	echo ECHEC de la compilation.
 	pause
 	exit /b
 )
 
-echo Lancement du programme...
+echo Step 4 - No errors of compilation
+
+:: Step 5 - Lancement du programme
+echo Step 5 - Lancement du programme...
 echo -------------------------
 app.exe
 echo.
