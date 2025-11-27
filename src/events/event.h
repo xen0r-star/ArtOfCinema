@@ -4,6 +4,7 @@
 #include <conio.h>
 #include "../components/input.h"
 #include "../components/button.h"
+#include "../utils/cursor.h"
 
 
 void event();

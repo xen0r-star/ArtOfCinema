@@ -7,9 +7,14 @@
 #include "../components/input.h"
 #include "../components/button.h"
 
+#include "../core/user.h"
+#include "../utils/email.h"
+#include "../types/user.h"
+
 #include "../main.h"
 
 
 void showLoginPage();
+void resetUser();
 
 #endif

@@ -8,5 +8,6 @@
 
 
 void drawFooter();
+void drawVersionFooter();
 
 #endif
