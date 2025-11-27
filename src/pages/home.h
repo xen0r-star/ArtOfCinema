@@ -9,7 +9,8 @@
 
 #include "../main.h"
 
-
+void printHELLO5();
+void switchLanguage();
 void showHomePage();
 
 #endif

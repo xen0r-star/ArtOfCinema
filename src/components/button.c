@@ -5,7 +5,7 @@ static Button buttons[MAX_BUTTONS];
 static int button_count = 0;
 
 
-void createButton(int x, int y, int width, Color color, char *label, void (*onClick)(void)) {
+void createButton(int x, int y, int width, Color color, const char* label, void (*onClick)(void)) {
     if (button_count >= MAX_BUTTONS) return;
     buttons[button_count++] = (Button){x, y, width, color, label, onClick};
 

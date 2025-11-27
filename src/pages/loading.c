@@ -86,7 +86,7 @@ void showLoadingScreen() {
         // Texte de chargement
         setColor(COLOR_BRIGHT_GREEN);
         cursor((columns - 5) / 2, rows / 2);
-        printf("Loading");
+        printf("%s", _T("loading"));
 
         int nbDots = (i / 10) % 4;
         for (int dot = 0; dot < nbDots; dot++)       printf(".");
@@ -107,7 +107,7 @@ void showLoadingScreen() {
     // Message de bienvenue
     cursor((columns - 7) / 2, rows / 2);
     setColor(COLOR_BRIGHT_CYAN);
-    printf("WELCOME!");
+    printf("%s!", _T("welcome"));
 
     Sleep(1500);
 

@@ -10,12 +10,12 @@ typedef struct Button {
     int x, y;
     int width;
     Color color;
-    char *label;
+    const char* label;
     void (*onClick)(void);
 } Button;
 
 
-void createButton(int x, int y, int width, Color color, char *label, void (*onClick)(void));
+void createButton(int x, int y, int width, Color color, const char* label, void (*onClick)(void));
 
 int deleteButton(Button *button);
 void deleteAllButtons();
