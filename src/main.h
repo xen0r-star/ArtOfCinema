@@ -7,12 +7,16 @@
 
 #include "./utils/screen.h"
 #include "./utils/align.h"
+
 #include "./components/logo.h"
 #include "./components/text.h"
 #include "./components/input.h"
 #include "./components/button.h"
 #include "./components/footer.h"
+
 #include "./events/event.h"
+
+#include "./i18n/translation.h"
 
 #include "./pages/loading.h"
 #include "./pages/login.h"

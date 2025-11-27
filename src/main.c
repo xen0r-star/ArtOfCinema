@@ -11,6 +11,8 @@ int main() {
 
     int columns, rows, previousColumns = 0, previousRows = 0;
     
+    initTranslation();
+
     while(1) {
         // Recuperer la taille de l'écran
         sizeScreen(&columns, &rows);

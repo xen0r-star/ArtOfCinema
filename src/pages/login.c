@@ -82,14 +82,15 @@ void showLoginPage() {
     drawLogo((columns / 2) - (LOGO_WIDTH / 2), 4);
     drawFooter();
 
-    createText(5, 10, "Votre Compte ARTOFCINEMA", COLOR_GREEN, CENTER);
+    createText(5, 10, _T("homemsg1"), COLOR_GREEN, CENTER);
 
 
     if (strcmp(user.email, "") == 0) {
-        createText(5 , 11, "Entrez votre email pour vous connecter ou creer un compte", COLOR_WHITE, CENTER);
+        createText(5 , 11, _T("homemsg2"), COLOR_WHITE, CENTER);
         
-        createInput((columns - INPUT_WIDTH) / 2, 15, "Email", "exemple@artofcinema.be");
-        createButton((columns - 21) / 2, rows - 7, 18, COLOR_GREEN, "CONTINUER", validEmail);
+        createInput((columns - INPUT_WIDTH) / 2, 15, _T("mail"), _T("mailexample"));
+        createButton((columns - 21) / 2, rows - 7, 18, COLOR_GREEN, _T("homecontinuebtn"), validEmail);
+        createButton(columns - 11, rows - 4, 8, COLOR_BLUE, _T("language"), switchLanguage);
 
     } else if (!user.logged) {
         createText(5 , 13, user.email, COLOR_BRIGHT_BLACK, CENTER); 
