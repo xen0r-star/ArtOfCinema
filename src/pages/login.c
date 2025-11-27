@@ -15,6 +15,19 @@ void resetUser() {
     };
 }
 
+void switchLanguage(){
+    const char* language = getLanguage();
+    if((strcmp(language, "fr") == 0)){
+        setLanguage("en");
+        setCurrentPage(PAGE_LOADING);
+        return;
+    }
+    if((strcmp(language, "en") == 0)){
+        setLanguage("fr");
+        setCurrentPage(PAGE_LOADING);
+        return;
+    }
+}
 
 void validEmail() {
     const char *emailUser = getInput(0)->value;
