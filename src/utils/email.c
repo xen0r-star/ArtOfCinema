@@ -1,17 +1,11 @@
 #include "email.h"
 
-int isValidEmail(const char *email) {
-    // regex_t regex;
 
-    // const char *pattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+bool isValidEmail(const char *email) {
+    const char *at = strchr(email, '@');    // Look for the '@'
 
-    // if (regcomp(&regex, pattern, REG_EXTENDED|REG_NOSUB) != 0) {
-    //     return 0;
-    // }
+    if (!at || at == email) return false;   // '@' absent or at the beginning
+    if (!strchr(at, '.'))   return false;   // '.' absent after '@'
 
-    // int result = regexec(&regex, email, 0, NULL, 0);
-    // regfree(&regex);
-
-    // return result == 0;
-    return 1;
+    return true;
 }
