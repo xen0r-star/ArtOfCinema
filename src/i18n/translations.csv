@@ -1,9 +1,18 @@
 key,fr,en
 welcome,Bienvenue,Welcome
 loading,Chargement,Loading
-homemsg1,Votre Compte ARTOFCINEMA,Your ARTOFCINEMA Account
-homemsg2,Entrez votre email pour vous connecter ou creer un compte.,Enter your email to log in or create an account.
-homecontinuebtn,CONTINUER,CONTINUE
-mail,E-Mail,Mail
-mailexample,exemple@artofcinema.be,example@artofcinema.uk
-language,EN,FR
+login.visual.text,Votre Compte ARTOFCINEMA,Your ARTOFCINEMA Account
+login.ipt.mail,Entrez votre email pour vous connecter ou creer un compte.,Enter your email to log in or create an account.
+login.mail,E-Mail,Mail
+login.mail.expl,exemple@artofcinema.be,example@artofcinema.uk
+login.btn.lge,EN,FR
+login.acc.conn,Connecter-vous a votre compte,Log in to your account
+login.btn.nxt,CONTINUER,CONTINUE
+login.crt.acc,Creer votre compte,Create your account
+login.crt.acc.ipt.label,Mot de passe,Password
+login.crt.acc.ipt.placeholder,Votre mot de passe,Your password
+login.crt.acc.ipt.cnfrmpswd,Confirmer le mot de passe,Confirm the password
+login.btn.conn,CONNEXION,CONNECTION
+login.btn.crt.acc.next,SUIVANT,NEXT
+login.acc.conn.visual.txt.err,Identiant de connexion non valide,Invalid connection identifier
+login.acc.conn.visual.txt.err.bck,RETOUR,RETURN

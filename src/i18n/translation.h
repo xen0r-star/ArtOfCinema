@@ -3,7 +3,6 @@
 #define TABLE_SIZE 1024  // Taille de table de traductions (Taille maximale)
 
 
-#include "../pages/home.h"
 #include "../main.h"
 
 

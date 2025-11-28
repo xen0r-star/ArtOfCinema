@@ -26,7 +26,7 @@ echo.
 @REM echo Compilation de : !SOURCES!
 echo Step 3 - Compilation of the files in progress...
 
-gcc !SOURCES! -o app.exe
+gcc !SOURCES! -o src\app.exe
 
 :: Step 4 - Vérification
 if %errorlevel% neq 0 (
@@ -40,6 +40,7 @@ echo Step 4 - No errors of compilation
 :: Step 5 - Lancement du programme
 echo Step 5 - Lancement du programme...
 echo -------------------------
+cd src
 app.exe
 echo.
 pause

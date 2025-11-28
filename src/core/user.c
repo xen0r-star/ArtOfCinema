@@ -21,17 +21,18 @@ Status emailExiste(const char* email) {
 Role checkLogin(const char* email, const char* password) {
     FILE *fdat = fopen(DATA_FILE, "r");
     if (fdat == NULL) return ROLE_ERROR;
-
+    
     char fileEmail[38];
     char filePassword[38];
     while(fscanf(fdat, "%37s %37s", fileEmail, filePassword) != EOF) {
         if (strcmp(fileEmail, email) == 0 && strcmp(filePassword, password) == 0) {
-            char role[9];
-            fscanf(fdat, "%s", role);
+            char role[9], tpmN[38], tpmP[38];
+            fscanf(fdat,"%37s %37s %8s", tpmN, tpmP, role);
             fclose(fdat);
-
             if (strcmp(role, "CLIENT") == 0) return ROLE_CLIENT;
             if (strcmp(role, "DIRECTOR") == 0) return ROLE_DIRECTOR;
+        } else {
+            fscanf(fdat, "%*[^\n]");
         }
     }
 

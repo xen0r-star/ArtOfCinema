@@ -49,7 +49,7 @@ void initTranslation(){ // Initialisation des tables stocker les traductions
     memset(languages[1].table, 0, sizeof(languages[1].table));
     
     //  Chargement du fichier CSV
-    loadCSVFile("src/i18n/translations.csv");
+    loadCSVFile("i18n/translations.csv");
 }
 
 void loadCSVFile(const char* fileName){ // Chargement du fichier CSV contenant toutes les traductions
