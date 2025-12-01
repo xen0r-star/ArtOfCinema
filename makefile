@@ -11,9 +11,12 @@ OBJS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
 DAT_SRCS = $(wildcard $(SRC_DIR)/*.dat) $(wildcard $(SRC_DIR)/*/*.dat) $(wildcard $(SRC_DIR)/*/*/*.dat)
 DAT_DESTS = $(patsubst $(SRC_DIR)/%.dat, $(BUILD_DIR)/%.dat, $(DAT_SRCS))
 
+CSV_SRCS = $(wildcard $(SRC_DIR)/*.csv) $(wildcard $(SRC_DIR)/*/*.csv) $(wildcard $(SRC_DIR)/*/*/*.csv)
+CSV_DESTS = $(patsubst $(SRC_DIR)/%.csv, $(BUILD_DIR)/%.csv, $(CSV_SRCS))
+
 TARGET = $(BUILD_DIR)/ArtOfCinema.exe
 
-all: $(TARGET) $(DAT_DESTS)
+all: $(TARGET) $(DAT_DESTS) $(CSV_DESTS)
 
 $(TARGET): $(OBJS)
 	@echo Linking...
@@ -26,6 +29,11 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/%.dat: $(SRC_DIR)/%.dat
+	@powershell -Command "New-Item -ItemType Directory -Force -Path $(subst /,\,$(dir $@)) | Out-Null"
+	@echo Copying $<
+	@powershell -Command "Copy-Item -Path '$<' -Destination '$@' -Force"
+
+$(BUILD_DIR)/%.csv: $(SRC_DIR)/%.csv
 	@powershell -Command "New-Item -ItemType Directory -Force -Path $(subst /,\,$(dir $@)) | Out-Null"
 	@echo Copying $<
 	@powershell -Command "Copy-Item -Path '$<' -Destination '$@' -Force"
