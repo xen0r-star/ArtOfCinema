@@ -15,7 +15,7 @@ void resetUser() {
     };
 }
 
-void switchLanguage(){
+static void switchLanguage(){
     const char* language = getLanguage();
     if((strcmp(language, "fr") == 0)){
         setLanguage("en");
@@ -29,7 +29,7 @@ void switchLanguage(){
     }
 }
 
-void validEmail() {
+static void validEmail() {
     const char *emailUser = getInput(0)->value;
 
     if (isValidEmail(emailUser)) {
@@ -42,7 +42,7 @@ void validEmail() {
 }
 
 
-void signIn() {
+static void signIn() {
     const char *password = getInput(0)->value;
 
     user.role = checkLogin(user.email, password);
@@ -51,7 +51,7 @@ void signIn() {
 }
 
 
-void nextStepSignUp() {
+static void nextStepSignUp() {
     const char *password = getInput(0)->value;
     const char *confirmPassword = getInput(1)->value;
 
@@ -67,7 +67,7 @@ void nextStepSignUp() {
     }
 }
 
-void signUp() {
+static void signUp() {
     const char *name = getInput(0)->value;
     const char *surname = getInput(1)->value;
 

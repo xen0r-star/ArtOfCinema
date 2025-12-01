@@ -1,9 +1,14 @@
 #ifndef TRANSLATION_H
 #define TRANSLATION_H
-#define TABLE_SIZE 1024  // Taille de table de traductions (Taille maximale)
 
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "../main.h"
+
+#define TABLE_SIZE 1024  // Taille de table de traductions (Taille maximale)
 
 
 typedef struct Translation{
@@ -18,11 +23,7 @@ typedef struct{
 } TranslationTable;
 
 
-unsigned long hash(const char* str);
-void resetTranslation(TranslationTable* table);
-void addTranslation(TranslationTable* translationTblPrev, const char* key, const char* value);
 void initTranslation();
-void loadCSVFile(const char* fileName);
 void setLanguage(const char* langue);
 const char* getLanguage();
 const char* _T(const char* key);

@@ -13,8 +13,6 @@ int main() {
     
     initTranslation();
 
-    initTranslation();
-
     while(1) {
         // Recuperer la taille de l'écran
         sizeScreen(&columns, &rows);
