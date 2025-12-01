@@ -115,8 +115,8 @@ void showLoginPage() {
             
         } else {
             createText(5 , 11, _T("login.crt.acc"), COLOR_WHITE, CENTER);
-            createInput((columns - INPUT_WIDTH) / 2, 15, _T("login.crt.acc.btn.label"), _T("login.crt.acc.btn.placeholder"));
-            createInput((columns - INPUT_WIDTH) / 2, 18, _T("login.crt.acc.ipt.cnfrmpswd"), _T("login.crt.acc.btn.placeholder"));
+            createInput((columns - INPUT_WIDTH) / 2, 15, _T("login.crt.acc.ipt.label"), _T("login.crt.acc.ipt.placeholder"));
+            createInput((columns - INPUT_WIDTH) / 2, 18, _T("login.crt.acc.ipt.cnfrmpswd"), _T("login.crt.acc.ipt.placeholder"));
             createButton((columns - 21) / 2, rows - 7, 21, COLOR_GREEN, _T("login.btn.crt.acc.next"), nextStepSignUp);
         }
 
