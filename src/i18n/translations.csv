@@ -12,13 +12,12 @@ login.crt.acc,Creer votre compte,Create your account
 login.crt.acc.ipt.label,Mot de passe,Password
 login.crt.acc.ipt.placeholder,Votre mot de passe,Your password
 login.crt.acc.ipt.cnfrmpswd,Confirmer le mot de passe,Confirm the password
+login.crt.acc.ipt.labname,Nom,Name
+login.crt.acc.ipt.phname,Votre nom,Your name
+login.crt.acc.ipt.labfname,Prenom,First name
+login.crt.acc.ipt.phfname,Votre prenom,Your first name
+login.crt.acc.btn,S'inscrire,Sign up
 login.btn.conn,CONNEXION,CONNECTION
 login.btn.crt.acc.next,SUIVANT,NEXT
 login.acc.conn.visual.txt.err,Identiant de connexion non valide,Invalid connection identifier
 login.acc.conn.visual.txt.err.bck,RETOUR,RETURN
-login.role.none.txt.title,Créez votre compte,Create your account
-login.crt.acc.ipt.label,Nom,Name
-login.crt.acc.ipt.placeholder,Votre nom,Your name
-login.crt.acc.ipt.cnfrmpswd,Prenom,First name
-login.crt.acc.ipt.placeholder,Votre prénom,Your first name
-login.btn.crt.acc.next,S'inscrire,Sign up

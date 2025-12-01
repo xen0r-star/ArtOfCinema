@@ -39,18 +39,6 @@ static void addTranslation(TranslationTable* translationTblPrev, const char* key
     translationTblPrev->table[hashID] = newTranslation; // permet que l'ancien tableau deviennent la nouvelle tête de liste. Exemple : translationTblPrev[] → [newTranslation] → [A] → [B] → [NULL]
 }
 
-
-void initTranslation() { // Initialisation des tables stocker les traductions
-    // Initialisation
-    languages[0].lang = "fr";   // Déclaration tableau traduction langue française
-    memset(languages[0].table, 0, sizeof(languages[0].table));  // permet de remplir la table[0] de 0/NULL. Exemple : languages[0] = {0} / languages[0] = {NULL}
-    languages[1].lang = "en";   // Déclaration tableau traduction langue anglaise
-    memset(languages[1].table, 0, sizeof(languages[1].table));
-    
-    //  Chargement du fichier CSV
-    loadCSVFile("i18n/translations.csv");
-}
-
 static void loadCSVFile(const char* fileName) { // Chargement du fichier CSV contenant toutes les traductions
     FILE *f = fopen(fileName, "r");
     if(!f) return;
@@ -76,6 +64,16 @@ static void loadCSVFile(const char* fileName) { // Chargement du fichier CSV con
     fclose(f);
 }
 
+void initTranslation() { // Initialisation des tables stocker les traductions
+    // Initialisation
+    languages[0].lang = "fr";   // Déclaration tableau traduction langue française
+    memset(languages[0].table, 0, sizeof(languages[0].table));  // permet de remplir la table[0] de 0/NULL. Exemple : languages[0] = {0} / languages[0] = {NULL}
+    languages[1].lang = "en";   // Déclaration tableau traduction langue anglaise
+    memset(languages[1].table, 0, sizeof(languages[1].table));
+    
+    //  Chargement du fichier CSV
+    loadCSVFile("i18n/translations.csv");
+}
 
 void setLanguage(const char* langue) {
     if(!langue) return;

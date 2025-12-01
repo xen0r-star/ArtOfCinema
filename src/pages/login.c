@@ -60,7 +60,6 @@ static void nextStepSignUp() {
             saveUserCredentials(user.email, password);
             user.logged = 1;
             setCurrentPage(PAGE_LOGIN);
-
         } else {
             createText(5 , 12, "Le mots de passe ne correspondent pas", COLOR_RED, CENTER);
         }
@@ -138,10 +137,10 @@ void showLoginPage() {
                 break;
 
             case ROLE_NONE:
-                createText(5 , 11, _T("login.role.none.txt.title"), COLOR_WHITE, CENTER);
-                createInput((columns - INPUT_WIDTH) / 2, 15, _T("login.crt.acc.ipt.label"), _T("login.crt.acc.ipt.placeholder"));
-                createInput((columns - INPUT_WIDTH) / 2, 18, _T("login.crt.acc.ipt.cnfrmpswd"), _T("login.crt.acc.ipt.placeholder"));
-                createButton((columns - 21) / 2, rows - 7, 21, COLOR_GREEN, _T("login.btn.crt.acc.next"), signUp);
+                createText(5 , 11, _T("login.crt.acc"), COLOR_WHITE, CENTER);
+                createInput((columns - INPUT_WIDTH) / 2, 15, _T("login.crt.acc.ipt.labname"), _T("login.crt.acc.ipt.phname"));
+                createInput((columns - INPUT_WIDTH) / 2, 18, _T("login.crt.acc.ipt.labfname"), _T("login.crt.acc.ipt.phfname"));
+                createButton((columns - 21) / 2, rows - 7, 21, COLOR_GREEN, _T("login.crt.acc.btn"), signUp);
                 break;
         }
     }
