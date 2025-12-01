@@ -1,5 +1,6 @@
 #include "translation.h"
 
+
 TranslationTable languages[2];  // languages[N] : N soit le nombres de langues disponible dans le programme
 const char* language = "fr";    // Langues par défaut : français
 
@@ -15,6 +16,7 @@ static unsigned long hash(const char* str) {    // Transformation de key en hash
 }
 
 // Libération de toute la mémoire dynamique des traductions. Exemple : languages[][] = NULL
+static void resetTranslation(TranslationTable* table) __attribute__((unused));
 static void resetTranslation(TranslationTable* table) {
     for(int i = 0; i < TABLE_SIZE; i++) {
         Translation* entry = table->table[i];
@@ -77,6 +79,7 @@ void initTranslation() { // Initialisation des tables stocker les traductions
 
 void setLanguage(const char* langue) {
     if(!langue) return;
+
     for(int i = 0; i < 2; i++) {
         if(strcmp(languages[i].lang, langue) == 0) {
             language = languages[i].lang;
@@ -86,9 +89,7 @@ void setLanguage(const char* langue) {
 }
 
 const char* getLanguage() {
-    if (language) {
-        return language;
-    }
+    return language;
 }
 
 
@@ -111,5 +112,6 @@ const char* _T(const char* key) {    // Lookup dans les tables de traductions vi
             return entry->value;    // Retourne la valeur de la key souhaité
         entry = entry->next;    // Passage au prochain index
     }
-    return "Erreur de traduction/Error of translate";    // Si non trouvé, on retourne une erreur de traduction
+
+    return "Error of translate";    // Si non trouvé, on retourne une erreur de traduction
 }

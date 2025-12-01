@@ -69,3 +69,7 @@ void setCurrentPage(AppPage newPage) {
     page = newPage;
     previousPage = -1;
 }
+
+void refreshPage() {
+    previousPage = -1;
+}

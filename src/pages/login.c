@@ -15,19 +15,6 @@ void resetUser() {
     };
 }
 
-static void switchLanguage(){
-    const char* language = getLanguage();
-    if((strcmp(language, "fr") == 0)){
-        setLanguage("en");
-        setCurrentPage(PAGE_LOADING);
-        return;
-    }
-    if((strcmp(language, "en") == 0)){
-        setLanguage("fr");
-        setCurrentPage(PAGE_LOADING);
-        return;
-    }
-}
 
 static void validEmail() {
     const char *emailUser = getInput(0)->value;
@@ -93,6 +80,7 @@ void showLoginPage() {
 
     drawLogo((columns / 2) - (LOGO_WIDTH / 2), 4);
     drawFooter();
+    buttonLanguage();
 
     createText(5, 10, _T("login.visual.text"), COLOR_GREEN, CENTER);
 
@@ -102,7 +90,6 @@ void showLoginPage() {
         
         createInput((columns - INPUT_WIDTH) / 2, 15, _T("login.mail"), _T("login.mail.expl"));
         createButton((columns - 21) / 2, rows - 7, 18, COLOR_GREEN, _T("login.btn.nxt"), validEmail);
-        createButton(columns - 11, rows - 4, 8, COLOR_BLUE, _T("login.btn.lge"), switchLanguage);
 
     } else if (!user.logged) {
         createText(5 , 13, user.email, COLOR_BRIGHT_BLACK, CENTER); 

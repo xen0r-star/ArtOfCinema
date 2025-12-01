@@ -6,6 +6,7 @@
 #include "../../components/text.h"
 #include "../../components/button.h"
 #include "../../components/logout.h"
+#include "../../components/language.h"
 
 #include "../../main.h"
 

@@ -21,8 +21,6 @@
 #include "./pages/loading.h"
 #include "./pages/login.h"
 #include "./pages/director/director.h"
-// #include "./pages/director/directorfilm.h"
-// #include "./pages/director/directorshop.h"
 #include "./pages/client/client.h"
 
 
@@ -33,8 +31,6 @@ typedef enum {
     PAGE_LOADING,
     PAGE_LOGIN,
     PAGE_DIRECTOR,
-    PAGE_DIRECTOR_FILM,
-    PAGE_DIRECTOR_SHOP,
     PAGE_CLIENT,
 
     PAGE_EXIT
@@ -43,5 +39,6 @@ typedef enum {
 
 AppPage getCurrentPage();
 void setCurrentPage(AppPage newPage);
+void refreshPage();
 
 #endif
