@@ -1,52 +1,59 @@
 #include "translation.h"
 
 
-TranslationTable languages[2];  // languages[N] : N soit le nombres de langues disponible dans le programme
-const char* language = "fr";    // Langues par défaut : français
+TranslationTable translation[2];
+const char* selectLanguage = "fr";
 
-// Algorithme de hash djb2
-static unsigned long hash(const char* str) {    // Transformation de key en hash pour stockage rapide table O(1)
+static unsigned long hash(const char* str) {
+    /* Transform la clé en hash (nombre) pour optimiser la recherche dans la table de traduction
+    *  Algorithme de hash djb2
+    */
     unsigned long hash = 5381;
-    int c;  // Va permettre de stocker tout les caractères de la key 
+    int c;
 
-    while((c = *str++)) // Parcourt de toute la key jusqu'au caractères d'échappement « \0 » | *str caractère actuel | str++ avance au prochain caractère
-        hash = ((hash << 5) + hash) + c;    // Transformation de chaque caractère en hash : hash * 33 + c | Pourquoi cela ? Pour que même si deux clés ont un caractère de différences le hash sera très différent pour éviter les collisions dans la table (33 : car crée un très bon mélange de bit et une facilité de calcul)
+    /*
+    *  Parcourt de toute la cle jusqu'au caractères d'échappement « \0 »
+    *  Transformation de chaque caractère en hash : hash * 33 + c
+    *  Pourquoi cela ? Pour que même si deux clés ont un caractère de différences le hash sera très différent 
+    *  pour éviter les collisions dans la table (33 : car crée un très bon mélange de bit et une facilité de calcul)
+    */
+    while((c = *str++))
+        hash = ((hash << 5) + hash) + c;
         
-    return hash % TABLE_SIZE;   // Connaître dans quel index stocker la key grâce au hash
+    return hash % TABLE_SIZE;
 }
 
-// Libération de toute la mémoire dynamique des traductions. Exemple : languages[][] = NULL
 static void resetTranslation(TranslationTable* table) __attribute__((unused));
 static void resetTranslation(TranslationTable* table) {
     for(int i = 0; i < TABLE_SIZE; i++) {
         Translation* entry = table->table[i];
-        while(entry) {   // Parcourt jusqu'à « NULL »
+        while(entry) {
             Translation* tmp = entry;
             entry = entry->next;
-            free(tmp->key); // Libération allocation dynamique mémoire pour key
+            free(tmp->key);
             free(tmp->value);
             free(tmp);
         }
     }
 }
 
-static void addTranslation(TranslationTable* translationTblPrev, const char* key, const char* value) {  // Ajout d'une traduction quelconques
+static void addTranslation(TranslationTable* translationTblPrev, const char* key, const char* value) {
     if(!key || !value) return;
 
-    unsigned long hashID = hash(key);   // Récupération d'un hash (plus facile pour le stockage). Exemple : laoding -> 125
-    Translation* newTranslation = malloc(sizeof(Translation));  // Allocation d'un nouvel espace en mémoire (Réservation) et création de la table de traduction
-    newTranslation->key = strdup(key);  // Allocation + copie de key dans la table de la nouvelle traduction (Copie). Exemple : copie de 'x' dans newTranslation
+    unsigned long hashID = hash(key);
+    Translation* newTranslation = malloc(sizeof(Translation));
+    newTranslation->key = strdup(key);
     newTranslation->value = strdup(value);
-    newTranslation->next = translationTblPrev->table[hashID];   // Ajout à la nouvelle traduction de la table de traduction précédente | Exemple : translationTblPrev[] → [A] → [B] → [NULL] ⇒ [newTranslation] → [A] → [B] → [NULL]
-    translationTblPrev->table[hashID] = newTranslation; // permet que l'ancien tableau deviennent la nouvelle tête de liste. Exemple : translationTblPrev[] → [newTranslation] → [A] → [B] → [NULL]
+    newTranslation->next = translationTblPrev->table[hashID];
+    translationTblPrev->table[hashID] = newTranslation;
 }
 
-static void loadCSVFile(const char* fileName) { // Chargement du fichier CSV contenant toutes les traductions
+static void loadCSVFile(const char* fileName) {
     FILE *f = fopen(fileName, "r");
     if(!f) return;
 
     char line[1024];
-    fgets(line, sizeof(line), f);   // Ignore le header. Exemple : welcome, loading
+    fgets(line, sizeof(line), f);   // Ignore le header
 
     while(fgets(line, sizeof(line), f)) {
         char *key = strtok(line, ",");
@@ -59,59 +66,58 @@ static void loadCSVFile(const char* fileName) { // Chargement du fichier CSV con
         key[strcspn(key, "\r\n")] = 0;
         key[strcspn(key, "\r\n")] = 0;
 
-        addTranslation(&languages[0], key, fr);
-        addTranslation(&languages[1], key, en);
+        addTranslation(&translation[0], key, fr);
+        addTranslation(&translation[1], key, en);
     }
 
     fclose(f);
 }
 
-void initTranslation() { // Initialisation des tables stocker les traductions
-    // Initialisation
-    languages[0].lang = "fr";   // Déclaration tableau traduction langue française
-    memset(languages[0].table, 0, sizeof(languages[0].table));  // permet de remplir la table[0] de 0/NULL. Exemple : languages[0] = {0} / languages[0] = {NULL}
-    languages[1].lang = "en";   // Déclaration tableau traduction langue anglaise
-    memset(languages[1].table, 0, sizeof(languages[1].table));
+void initTranslation() {
+    translation[0].lang = "fr";
+    memset(translation[0].table, 0, sizeof(translation[0].table));
+    translation[1].lang = "en";
+    memset(translation[1].table, 0, sizeof(translation[1].table));
     
-    //  Chargement du fichier CSV
     loadCSVFile("i18n/translations.csv");
 }
+
 
 void setLanguage(const char* langue) {
     if(!langue) return;
 
     for(int i = 0; i < 2; i++) {
-        if(strcmp(languages[i].lang, langue) == 0) {
-            language = languages[i].lang;
+        if(strcmp(translation[i].lang, langue) == 0) {
+            selectLanguage = translation[i].lang;
             return;
         }
     }
 }
 
 const char* getLanguage() {
-    return language;
+    return selectLanguage;
 }
 
 
-const char* _T(const char* key) {    // Lookup dans les tables de traductions via une key. Exemple : languages["LANGUE"]["CLE"] → TEXTE
-    TranslationTable* table = NULL; // Initialisation du tableau et parcourt pour trouver la bonne langue dans le tableau. Exemple : languages["LANGUE"]
+const char* _T(const char* key) {
+    TranslationTable* table = NULL;
     for(int i = 0; i < 2; i++) {
-        if(strcmp(languages[i].lang, language) == 0) {
-            table = &languages[i];
+        if(strcmp(translation[i].lang, selectLanguage) == 0) {
+            table = &translation[i];
             break;
         }
     }
     
-    if(!table) return key;  // Si aucune table alors est retourner la key donné en argument
+    if(!table) return key;
 
-    unsigned long hashID = hash(key);   // Calcul l'index de la clé (0 juque TABLE_SIZE - 1)
-    Translation* entry = table->table[hashID];  // Récupération de la liste à l'index key
+    unsigned long hashID = hash(key);
+    Translation* entry = table->table[hashID];
 
-    while(entry) {   // Parcourt de la liste pour trouver la bonne traduction
-        if(strcmp(entry->key, key) == 0)    // Si l'index key actuel correspond à celui de la key demandé
-            return entry->value;    // Retourne la valeur de la key souhaité
-        entry = entry->next;    // Passage au prochain index
+    while(entry) {
+        if(strcmp(entry->key, key) == 0)
+            return entry->value;
+        entry = entry->next;
     }
 
-    return "Error of translate";    // Si non trouvé, on retourne une erreur de traduction
+    return "Error of translate";
 }
