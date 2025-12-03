@@ -24,7 +24,7 @@ static void validEmail() {
         setCurrentPage(PAGE_LOGIN);
 
     } else {
-        createText(5 , 13, "Email invalide" , COLOR_RED, CENTER);
+        createText(5 , 13, _T("login.inv.mail"), COLOR_RED, CENTER);
     }
 }
 
@@ -48,7 +48,7 @@ static void nextStepSignUp() {
             user.logged = 1;
             setCurrentPage(PAGE_LOGIN);
         } else {
-            createText(5 , 12, "Le mots de passe ne correspondent pas", COLOR_RED, CENTER);
+            createText(5 , 12, _T("login.crt.acc.ipt.inv.pswd"), COLOR_RED, CENTER);
         }
     }
 }

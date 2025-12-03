@@ -10,5 +10,5 @@ void showDirectorPage() {
     buttonLanguage();
 
 
-    createText(5, 10, "COMPTE DIRECTEUR" , COLOR_GREEN, CENTER);
+    createText(5, 10, _T("director.visual.txt") , COLOR_GREEN, CENTER);
 }

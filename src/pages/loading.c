@@ -85,7 +85,7 @@ void showLoadingScreen() {
         // Texte de chargement
         setColor(COLOR_BRIGHT_GREEN);
         cursor((columns - 5) / 2, rows / 2);
-        printf("%s", _T("loading"));
+        printf("%s", _T("loading")); // ⚠️ WARNING : Problème d'alignement (pas centrer correctement)
 
         int nbDots = (i / 10) % 4;
         for (int dot = 0; dot < nbDots; dot++)       printf(".");
