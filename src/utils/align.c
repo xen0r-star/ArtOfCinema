@@ -11,7 +11,7 @@ int HorizontalAlignment(const HorizontalAlign align, const int columns, const in
             break;
             
         case ALIGN_RIGHT:
-            return columns + 1 - size;
+            return columns - size;
             break;
 
         default:
@@ -30,7 +30,7 @@ int VerticalAlignment(const VerticalAlign align, const int rows, const int size)
             break;
             
         case ALIGN_BOTTOM:
-            return rows + 1 - size;
+            return rows - size;
             break;
 
         default:

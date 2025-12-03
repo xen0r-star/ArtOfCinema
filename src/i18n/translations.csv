@@ -24,3 +24,5 @@ login.btn.crt.acc.next,SUIVANT,NEXT
 login.acc.conn.visual.txt.err,Identiant de connexion non valide,Invalid connection identifier
 login.acc.conn.visual.txt.err.bck,RETOUR,RETURN
 logout.btn.dec,DECONNEXION,DISCONNECT
+client.visual.txt,Bienvenue dans votre espace client Art of Cinema,Welcome to your Art of Cinema client area
+director.visual.txt,Bienvenue dans votre espace directeur Art of Cinema,Welcome to your Art of Cinema director area
