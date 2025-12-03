@@ -22,7 +22,6 @@
 #include "./pages/login.h"
 #include "./pages/director/director.h"
 #include "./pages/client/client.h"
-#include "./pages/settings.h"
 
 
 #define APP_VERSION "v1.0.0"
