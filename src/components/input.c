@@ -8,6 +8,13 @@ static int input_count = 0;
 void createInput(int x, int y, const char *label, const char *placeholder) {
     if (input_count >= MAX_INPUTS) return;
 
+    int columns, rows;
+    sizeScreen(&columns, &rows);
+
+    if (x > ALIGN_LIMIT) x = HorizontalAlignment(x, columns, INPUT_WIDTH);
+    if (y > ALIGN_LIMIT) y = VerticalAlignment(y, rows, 3);
+
+
     // Enregistre l'input
     Input *input = &inputs[input_count++];
 

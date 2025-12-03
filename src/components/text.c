@@ -1,11 +1,13 @@
 #include "text.h"
 
 
-void createText(int x, int y, const char *label, Color color, const Align align) {
+void createText(int x, int y, const char *label, Color color) {
     int columns, rows;
     sizeScreen(&columns, &rows);
     
-    x = AlignmentOBJ(align, columns, label);
+    if (x > ALIGN_LIMIT) x = HorizontalAlignment(x, columns, strlen(label));
+    if (y > ALIGN_LIMIT) y = VerticalAlignment(y, rows, 1);
+
     cursor(x, y);
     
     setColor(color);

@@ -4,6 +4,7 @@
 #include <conio.h>
 #include "../utils/screen.h"
 #include "../utils/cursor.h"
+#include "../utils/align.h"
 
 
 #define INPUT_WIDTH 41

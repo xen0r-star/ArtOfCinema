@@ -10,5 +10,5 @@ void showDirectorPage() {
     buttonLanguage();
 
 
-    createText(5, 10, "COMPTE DIRECTEUR" , COLOR_GREEN, CENTER);
+    createText(ALIGN_CENTER, 10, "COMPTE DIRECTEUR" , COLOR_GREEN);
 }

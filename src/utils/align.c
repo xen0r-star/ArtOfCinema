@@ -1,22 +1,39 @@
 #include "align.h"
 
-int AlignmentOBJ(const Align align, const int columns, const char *test) {
+int HorizontalAlignment(const HorizontalAlign align, const int columns, const int size) {
     switch(align){
-        case LEFT:
-            return 1;
+        case ALIGN_LEFT:
+            return 0;
             break;
 
-        case CENTER:
-            return (columns - strlen(test)) / 2;
+        case ALIGN_CENTER:
+            return (columns - size) / 2;
             break;
             
-        case RIGHT:
-            return columns + 1 - strlen(test);
+        case ALIGN_RIGHT:
+            return columns + 1 - size;
             break;
 
-        case DEF:
         default:
-            return 10;
+            return align;
+    }
+}
+
+int VerticalAlignment(const VerticalAlign align, const int rows, const int size) {
+    switch(align){
+        case ALIGN_TOP:
+            return 0;
+            break;
+
+        case ALIGN_MIDDLE:
+            return (rows - size) / 2;
+            break;
             
+        case ALIGN_BOTTOM:
+            return rows + 1 - size;
+            break;
+
+        default:
+            return align;
     }
 }

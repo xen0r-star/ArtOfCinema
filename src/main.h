@@ -24,7 +24,7 @@
 #include "./pages/client/client.h"
 
 
-#define APP_VERSION "v1.0.0"
+#define APP_VERSION "v0.0.2"
 
 
 typedef enum {

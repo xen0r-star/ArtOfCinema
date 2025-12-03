@@ -20,5 +20,5 @@ void buttonLanguage() {
     int columns, rows;
     sizeScreen(&columns, &rows);
 
-    createButton(columns - 8, 1, 8, COLOR_CYAN, _T("login.btn.lge"), switchLanguage);
+    createButton(ALIGN_RIGHT, ALIGN_TOP, 8, COLOR_CYAN, _T("login.btn.lge"), switchLanguage);
 }

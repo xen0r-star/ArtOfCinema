@@ -10,5 +10,5 @@ void showClientPage() {
     buttonLogout();
     buttonLanguage();
 
-    createText(5, 10, "COMPTE CLIENT" , COLOR_GREEN, CENTER);
+    createText(ALIGN_CENTER, 10, "COMPTE CLIENT" , COLOR_GREEN);
 }
