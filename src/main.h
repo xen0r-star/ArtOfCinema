@@ -22,6 +22,7 @@
 #include "./pages/login.h"
 #include "./pages/director/director.h"
 #include "./pages/client/client.h"
+#include "./pages/settings.h"
 
 
 #define APP_VERSION "v0.0.2"
@@ -32,6 +33,7 @@ typedef enum {
     PAGE_LOGIN,
     PAGE_DIRECTOR,
     PAGE_CLIENT,
+    PAGE_SETTINGS,
     PAGE_EXIT
 } AppPage;
 

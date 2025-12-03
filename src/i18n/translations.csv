@@ -26,3 +26,10 @@ login.acc.conn.visual.txt.err.bck,RETOUR,RETURN
 logout.btn.dec,DECONNEXION,DISCONNECT
 client.visual.txt,Bienvenue dans votre espace client Art of Cinema,Welcome to your Art of Cinema client area
 director.visual.txt,Bienvenue dans votre espace directeur Art of Cinema,Welcome to your Art of Cinema director area
+settings.visual.txt,Vos parametres ARTOFCINEMA,Your ARTOFCINEMA settings
+setting.btn.label,PARAMETRES,SETTINGS
+setting.btn.close,FERMER,CLOSE
+setting.menu.label,PARAMETRES ARTOFCINEMA,ARTOFCINEMA SETTINGS
+setting.menu.o1,Global,A FAIRE
+setting.menu.o2,Langues,A FAIRE
+setting.menu.o3,Affichage,A FAIRE

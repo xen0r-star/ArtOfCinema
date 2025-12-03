@@ -44,6 +44,10 @@ int main() {
                     showClientPage();
                     break;
 
+                case PAGE_SETTINGS:
+                    showSettingsPage();
+                    break;
+
                 case PAGE_EXIT: 
                     return 0;
             }
