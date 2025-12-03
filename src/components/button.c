@@ -7,7 +7,15 @@ static int button_count = 0;
 
 void createButton(int x, int y, int width, Color color, const char* label, void (*onClick)(void)) {
     if (button_count >= MAX_BUTTONS) return;
+
+    int columns, rows;
+    sizeScreen(&columns, &rows);
+
+    if (x > ALIGN_LIMIT) x = HorizontalAlignment(x, columns, width);
+    if (y > ALIGN_LIMIT) y = VerticalAlignment(y, rows, 3);
+
     buttons[button_count++] = (Button){x, y, width, color, label, onClick};
+
 
     setColor(color);
     cursor(x, y);

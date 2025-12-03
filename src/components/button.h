@@ -2,6 +2,7 @@
 #define BUTTON_H
 
 #include "../utils/screen.h"
+#include "../utils/align.h"
 
 
 #define MAX_BUTTONS 10

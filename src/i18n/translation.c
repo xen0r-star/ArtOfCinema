@@ -23,7 +23,7 @@ static unsigned long hash(const char* str) {
     return hash % TABLE_SIZE;
 }
 
-// static void resetTranslation(TranslationTable* table) __attribute__((unused)); ⚠️ WARNING
+static void resetTranslation(TranslationTable* table) __attribute__((unused));
 static void resetTranslation(TranslationTable* table) {
     for(int i = 0; i < TABLE_SIZE; i++) {
         Translation* entry = table->table[i];

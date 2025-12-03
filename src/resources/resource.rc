@@ -1,0 +1,32 @@
+#include <windows.h>
+
+101 ICON "./artofcinema.ico"
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION 0,0,2,0
+PRODUCTVERSION 0,0,2,0
+FILEFLAGSMASK 0x3fL
+FILEFLAGS 0x0L
+FILEOS 0x40004L
+FILETYPE 0x1L
+FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080C04E4"
+        BEGIN
+            VALUE "CompanyName",      "Art Of Cinema"
+            VALUE "FileDescription",  "Reservez vos billets et vos consommations pour Art of Cinema"
+            VALUE "FileVersion",      "v0.0.2"
+            VALUE "InternalName",     "ArtOfCinema.exe"
+            VALUE "LegalCopyright",   "Copyright (C) 2025 - Xen0r-star x TomusLeVrai. All rights reserved."
+            VALUE "OriginalFilename", "ArtOfCinema.exe"
+            VALUE "ProductName",      "Art Of Cinema"
+            VALUE "ProductVersion",   "v0.0.2"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x080C, 1252
+    END
+END

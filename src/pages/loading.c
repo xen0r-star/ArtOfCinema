@@ -83,9 +83,7 @@ void showLoadingScreen() {
     // Animation de chargement
     for (int i = 2; i <= 100; i += 2) {
         // Texte de chargement
-        setColor(COLOR_BRIGHT_GREEN);
-        cursor((columns - 5) / 2, rows / 2);
-        printf("%s", _T("loading")); // ⚠️ WARNING : Problème d'alignement (pas centrer correctement)
+        createText(ALIGN_CENTER, rows / 2, _T("loading"), COLOR_BRIGHT_GREEN);
 
         int nbDots = (i / 10) % 4;
         for (int dot = 0; dot < nbDots; dot++)       printf(".");
@@ -104,9 +102,7 @@ void showLoadingScreen() {
     drawFooter();
 
     // Message de bienvenue
-    cursor((columns - 7) / 2, rows / 2);
-    setColor(COLOR_BRIGHT_CYAN);
-    printf("%s!", _T("welcome"));
+    createText(ALIGN_CENTER, rows / 2, _T("welcome"), COLOR_BRIGHT_CYAN);
 
     Sleep(1500);
 

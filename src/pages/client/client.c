@@ -10,5 +10,5 @@ void showClientPage() {
     buttonLogout();
     buttonLanguage();
 
-    createText(5, 10, _T("client.visual.txt") , COLOR_GREEN, CENTER);
+    createText(ALIGN_CENTER, 10, _T("client.visual.txt"), COLOR_GREEN);
 }
