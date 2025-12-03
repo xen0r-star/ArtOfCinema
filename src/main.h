@@ -32,7 +32,6 @@ typedef enum {
     PAGE_LOGIN,
     PAGE_DIRECTOR,
     PAGE_CLIENT,
-
     PAGE_EXIT
 } AppPage;
 

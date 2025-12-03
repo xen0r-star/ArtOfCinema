@@ -83,7 +83,6 @@ void showLoadingScreen() {
     // Animation de chargement
     for (int i = 2; i <= 100; i += 2) {
         // Texte de chargement
-        setColor(COLOR_BRIGHT_GREEN);
         createText(ALIGN_CENTER, rows / 2, _T("loading"), COLOR_BRIGHT_GREEN);
 
         int nbDots = (i / 10) % 4;
@@ -103,8 +102,7 @@ void showLoadingScreen() {
     drawFooter();
 
     // Message de bienvenue
-    setColor(COLOR_BRIGHT_CYAN);
-    createText(ALIGN_CENTER, rows / 2, _T("welcome"), COLOR_CYAN);
+    createText(ALIGN_CENTER, rows / 2, _T("welcome"), COLOR_BRIGHT_CYAN);
 
     Sleep(1500);
 
