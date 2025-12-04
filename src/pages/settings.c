@@ -4,7 +4,7 @@
 static void test1(){
     cursor(10,10);
     printf("TEST1");
-    Sleep(2000);
+    // Sleep(2000);
     cursor(10,10);
     printf("LAST1");
 }
@@ -12,7 +12,7 @@ static void test1(){
 static void test2(){
     cursor(10,10);
     printf("TEST2");
-    Sleep(2000);
+    // Sleep(2000);
     cursor(10,10);
     printf("LAST2");
 }
@@ -20,7 +20,7 @@ static void test2(){
 static void test3(){
     cursor(10,10);
     printf("TEST3");
-    Sleep(2000);
+    // Sleep(2000);
     cursor(10,10);
     printf("LAST3");
 }
@@ -43,33 +43,33 @@ static void createMenu(int x, int y, Color color, int width){
     printf("\272");
     // Création des 3 onglets (boutons)
     createButton(x, y + 2, 12, _T("setting.menu.o1"), COLOR_WHITE, STYLE_DEFAULT, test1);
-    createButton(x + 11, y + 2, 13, _T("setting.menu.o2"), COLOR_WHITE, STYLE_DEFAULT, test2);
-    createButton(x + 23, y + 2, 15, _T("setting.menu.o3"), COLOR_WHITE, STYLE_DEFAULT, test3);
+    createButton(x + 12, y + 2, 12, _T("setting.menu.o2"), COLOR_WHITE, STYLE_DEFAULT, test2);
+    createButton(x + 24, y + 2, 14, _T("setting.menu.o3"), COLOR_WHITE, STYLE_DEFAULT, test3);
     // Modifications des caratères nécessaires
-    cursor(x, y + 2);     // Y + 2
-    printf("\314");     // ╠
-    cursor(x + 11, y + 2);
-    printf("\313");     // ╦
-    cursor(x + 23, y + 2);
-    printf("\313");
-    cursor(x + width - 1, y + 2);
-    printf("\271");     // ╣
-    cursor(x, y + 4);     // Y + 4
-    printf("\314");
-    cursor(x + 11, y + 4);
-    printf("\312");     // ╩
-    cursor(x + 23, y + 4);
-    printf("\312");
-    cursor(x + width - 1, y + 4);
-    printf("\271");     
-    cursor(x, y + 5);
-    printf("\310");     // ╚
-    for (int j = 0; j < width - 2; j++) printf("\315");
-    printf("\274");     // ╝
+    // cursor(x, y + 2);     // Y + 2
+    // printf("\314");     // ╠
+    // cursor(x + 12, y + 2);
+    // printf("\313");     // ╦
+    // cursor(x + 23, y + 2);
+    // printf("\313");
+    // cursor(x + width - 1, y + 2);
+    // printf("\271");     // ╣
+    // cursor(x, y + 4);     // Y + 4
+    // printf("\314");
+    // cursor(x + 12, y + 4);
+    // printf("\312");     // ╩
+    // cursor(x + 23, y + 4);
+    // printf("\312");
+    // cursor(x + width - 1, y + 4);
+    // printf("\271");     
+    // cursor(x, y + 5);
+    // printf("\310");     // ╚
+    // for (int j = 0; j < width - 2; j++) printf("\315");
+    // printf("\274");     // ╝
 }
 
 static void initMenu(int columns,int rows, int width){
-    createMenu((columns-width)/2, rows/2, COLOR_WHITE, width);
+    createMenu((columns-width)/2, (rows/2)-3, COLOR_WHITE, width);
 }
 
 void showSettingsPage() {
