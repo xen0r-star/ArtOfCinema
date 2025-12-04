@@ -5,7 +5,7 @@ static Button buttons[MAX_BUTTONS];
 static int button_count = 0;
 
 
-void createButton(int x, int y, int width, Color color, const char* label, void (*onClick)(void)) {
+void createButton(int x, int y, int width, const char* label, Color color, Style style, void (*onClick)(void)) {
     if (button_count >= MAX_BUTTONS) return;
 
     int columns, rows;
@@ -14,29 +14,32 @@ void createButton(int x, int y, int width, Color color, const char* label, void 
     if (x > ALIGN_LIMIT) x = HorizontalAlignment(x, columns, width);
     if (y > ALIGN_LIMIT) y = VerticalAlignment(y, rows, 3);
 
-    buttons[button_count++] = (Button){x, y, width, color, label, onClick};
+    buttons[button_count++] = (Button){x, y, width, color, style, label, onClick};
 
 
-    setColor(color);
-    cursor(x, y);
-    printf("\311");
-    for (int j = 0; j < width - 2; j++) printf("\315");
-    printf("\273");
-
-    cursor(x, y + 1);
-    printf("\272");
-    cursor(x + (width - (int)strlen(label)) / 2, y + 1);
+    if (style == STYLE_DEFAULT) {
+        setColor(color);
+        cursor(x, y);
+        printf("\311");
+        for (int j = 0; j < width - 2; j++) printf("\315");
+        printf("\273");
     
+        cursor(x, y + 1);
+        printf("\272");
+
+        setColor(color);
+        cursor(x + width - 1, y + 1);
+        printf("\272");
+    
+        cursor(x, y + 2);
+        printf("\310");
+        for (int j = 0; j < width - 2; j++) printf("\315");
+        printf("\274");
+    }
+
+    cursor(x + (width - (int)strlen(label)) / 2, y + 1);
     setColor(COLOR_WHITE);
     printf("%s", label);
-    setColor(color);
-    cursor(x + width - 1, y + 1);
-    printf("\272");
-
-    cursor(x, y + 2);
-    printf("\310");
-    for (int j = 0; j < width - 2; j++) printf("\315");
-    printf("\274");
 }
 
 

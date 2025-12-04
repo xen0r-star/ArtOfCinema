@@ -42,9 +42,9 @@ static void createMenu(int x, int y, Color color, int width){
     cursor(x + width - 1, y + 1);
     printf("\272");
     // Création des 3 onglets (boutons)
-    createButton(x, y + 2, 12, COLOR_WHITE, _T("setting.menu.o1"), test1);
-    createButton(x + 11, y + 2, 13, COLOR_WHITE, _T("setting.menu.o2"), test2);
-    createButton(x + 23, y + 2, 15, COLOR_WHITE, _T("setting.menu.o3"), test3);
+    createButton(x, y + 2, 12, _T("setting.menu.o1"), COLOR_WHITE, STYLE_DEFAULT, test1);
+    createButton(x + 11, y + 2, 13, _T("setting.menu.o2"), COLOR_WHITE, STYLE_DEFAULT, test2);
+    createButton(x + 23, y + 2, 15, _T("setting.menu.o3"), COLOR_WHITE, STYLE_DEFAULT, test3);
     // Modifications des caratères nécessaires
     cursor(x, y + 2);     // Y + 2
     printf("\314");     // ╠
