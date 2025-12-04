@@ -15,12 +15,12 @@ void buttonSetting() {
     int columns, rows;
     sizeScreen(&columns, &rows);
     
-    createButton(columns - 20, rows - 3, 20, COLOR_WHITE, _T("setting.btn.label"), goToSettings);
+    createButton(columns - 20, rows - 3, 20, _T("setting.btn.label"), COLOR_WHITE, STYLE_DEFAULT, goToSettings);
 }
 
 void buttonClose() {
     int columns, rows;
     sizeScreen(&columns, &rows);
     
-    createButton(columns - 20, rows - 3, 20, COLOR_WHITE, _T("setting.btn.close"), backToLogin);
+    createButton(columns - 20, rows - 3, 20, _T("setting.btn.close"), COLOR_WHITE, STYLE_DEFAULT, backToLogin);
 }

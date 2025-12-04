@@ -21,7 +21,7 @@ void event() {
             // Click button
             for (int i = 0; i < getButtonCount(); i++) {
                 Button *button = getButton(i);
-                if (x >= button->x && x < button->x + button->width-1 &&
+                if (x >= button->x && x < button->x + button->width - 1 &&
                     y >= button->y && y < button->y + 3) {
 
                     cursorVisibility(0);
