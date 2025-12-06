@@ -28,7 +28,7 @@ void createInput(int x, int y, const char *label, const char *placeholder) {
 
 
     // Dessine l'input
-    setColor(COLOR_WHITE);
+    setColor(SECONDARY_COLOR);
     cursor(x, y);
     printf("\311\315 ");
     printf("%s ", label);
@@ -38,9 +38,9 @@ void createInput(int x, int y, const char *label, const char *placeholder) {
     cursor(x, y + 1);
     printf("\272");
     cursor(x + 2, y + 1);
-    setColor(COLOR_BRIGHT_BLACK);
+    setColor(TEXTSECONDARY_COLOR);
     printf("%s", placeholder);
-    setColor(COLOR_WHITE);
+    setColor(SECONDARY_COLOR);
     cursor(x + INPUT_WIDTH - 1, y + 1);
     printf("\272");
 
@@ -59,12 +59,12 @@ void drawInputValue(Input *input) {
     // Affiche le contenu ou le placeholder
     cursor(input->x + 2, input->y + 1);
     if (strlen(input->value) == 0) {
-        setColor(COLOR_BRIGHT_BLACK);
+        setColor(TEXTSECONDARY_COLOR);
         printf("%s", input->placeholder);
         len += strlen(input->placeholder);
         
     } else {
-        setColor(COLOR_WHITE);
+        setColor(SECONDARY_COLOR);
         printf("%s", input->value);
         len += strlen(input->value);
     }

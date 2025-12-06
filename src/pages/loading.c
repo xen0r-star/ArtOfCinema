@@ -11,14 +11,14 @@ static void drawLoadingBar(int progressValue) {
 
     // Partie remplie
     cursor(startX, y);
-    if (progressWidth <= 25)        setBackground(BACKGROUND_COLOR_RED);
-    else if (progressWidth <= 50)   setBackground(BACKGROUND_COLOR_YELLOW);
-    else                            setBackground(BACKGROUND_COLOR_GREEN);
+    if (progressWidth <= 25)        setBackground((ColorRGB){255, 0, 0});
+    else if (progressWidth <= 50)   setBackground((ColorRGB){255, 255, 0});
+    else                            setBackground((ColorRGB){0, 255, 0});
     for (int i = 0; i < progressWidth; i++) printf(" ");
 
 
     // Partie vide
-    setBackground(BACKGROUND_COLOR_WHITE);
+    setBackground((ColorRGB){255, 255, 255});
     cursor(startX + progressWidth, y);
     for (int i = progressWidth; i < SIZE_LOADING_BAR; i++) printf(" ");
 
@@ -35,15 +35,15 @@ static void drawLoadingBar(int progressValue) {
         cursor(charPos, y);
 
         if (charPos < startX + progressWidth) {
-            if (progressWidth <= 25)        setBackground(BACKGROUND_COLOR_RED);
-            else if (progressWidth <= 50)   setBackground(BACKGROUND_COLOR_YELLOW);
-            else                            setBackground(BACKGROUND_COLOR_GREEN);
+            if (progressWidth <= 25)        setBackground((ColorRGB){255, 0, 0});
+            else if (progressWidth <= 50)   setBackground((ColorRGB){255, 255, 0});
+            else                            setBackground((ColorRGB){0, 255, 0});
 
         } else {
-            setBackground(BACKGROUND_COLOR_WHITE);
+            setBackground((ColorRGB){255, 255, 255});
         }
 
-        setColor(COLOR_BLACK);
+        setColor((ColorRGB){0, 0, 0});
         printf("%c", buffer[i]);
     }
 
@@ -83,7 +83,7 @@ void showLoadingScreen() {
     // Animation de chargement
     for (int i = 2; i <= 100; i += 2) {
         // Texte de chargement
-        createText(ALIGN_CENTER, rows / 2, _T("loading"), COLOR_BRIGHT_GREEN);
+        createText(ALIGN_CENTER, rows / 2, _T("loading"), SUCCESS_COLOR);
 
         int nbDots = (i / 10) % 4;
         for (int dot = 0; dot < nbDots; dot++)       printf(".");
@@ -102,7 +102,7 @@ void showLoadingScreen() {
     drawFooter();
 
     // Message de bienvenue
-    createText(ALIGN_CENTER, rows / 2, _T("welcome"), COLOR_BRIGHT_CYAN);
+    createText(ALIGN_CENTER, rows / 2, _T("welcome"), PRIMARY_COLOR);
 
     Sleep(1500);
 

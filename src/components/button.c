@@ -5,7 +5,7 @@ static Button buttons[MAX_BUTTONS];
 static int button_count = 0;
 
 
-void createButton(int x, int y, int width, Color color, const char* label, void (*onClick)(void)) {
+void createButton(int x, int y, int width, ColorRGB color, const char* label, void (*onClick)(void)) {
     if (button_count >= MAX_BUTTONS) return;
 
     int columns, rows;
@@ -27,7 +27,7 @@ void createButton(int x, int y, int width, Color color, const char* label, void 
     printf("\272");
     cursor(x + (width - (int)strlen(label)) / 2, y + 1);
     
-    setColor(COLOR_WHITE);
+    setColor(SECONDARY_COLOR);
     printf("%s", label);
     setColor(color);
     cursor(x + width - 1, y + 1);

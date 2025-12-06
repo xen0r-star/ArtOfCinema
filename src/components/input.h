@@ -5,6 +5,7 @@
 #include "../utils/screen.h"
 #include "../utils/cursor.h"
 #include "../utils/align.h"
+#include "../theme/theme.h"
 
 
 #define INPUT_WIDTH 41

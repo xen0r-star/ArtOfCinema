@@ -3,6 +3,9 @@
 
 #include "../utils/screen.h"
 #include "../utils/align.h"
+#include "../utils/cursor.h"
+#include "../utils/color.h"
+#include "../theme/theme.h"
 
 
 #define MAX_BUTTONS 10
@@ -10,13 +13,13 @@
 typedef struct Button {
     int x, y;
     int width;
-    Color color;
+    ColorRGB color;
     const char* label;
     void (*onClick)(void);
 } Button;
 
 
-void createButton(int x, int y, int width, Color color, const char* label, void (*onClick)(void));
+void createButton(int x, int y, int width, ColorRGB color, const char* label, void (*onClick)(void));
 
 int deleteButton(Button *button);
 void deleteAllButtons();

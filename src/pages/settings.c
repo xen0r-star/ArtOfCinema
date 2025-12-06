@@ -25,9 +25,9 @@ static void test3(){
     printf("LAST3");
 }
 
-static void createMenu(int x, int y, Color color, int width){
+static void createMenu(int x, int y, ColorRGB color, int width){
     // Alignement ...
-    setColor(COLOR_WHITE);
+    setColor(SECONDARY_COLOR);
     cursor(x, y);
                 
     printf("\311");     // X
@@ -36,15 +36,15 @@ static void createMenu(int x, int y, Color color, int width){
     cursor(x, y+1);
     printf("\272");     // ║
     setColor(color);
-    createText(x + (width - (int)strlen(_T("setting.menu.label"))) / 2, y + 1, _T("setting.menu.label"), COLOR_BRIGHT_GREEN);
-    setColor(COLOR_WHITE);
+    createText(x + (width - (int)strlen(_T("setting.menu.label"))) / 2, y + 1, _T("setting.menu.label"), (ColorRGB){78, 78, 78});
+    setColor(SECONDARY_COLOR);
 
     cursor(x + width - 1, y + 1);
     printf("\272");
     // Création des 3 onglets (boutons)
-    createButton(x, y + 2, 12, COLOR_WHITE, _T("setting.menu.o1"), test1);
-    createButton(x + 11, y + 2, 13, COLOR_WHITE, _T("setting.menu.o2"), test2);
-    createButton(x + 23, y + 2, 15, COLOR_WHITE, _T("setting.menu.o3"), test3);
+    createButton(x, y + 2, 12, SECONDARY_COLOR, _T("setting.menu.o1"), test1);
+    createButton(x + 11, y + 2, 13, SECONDARY_COLOR, _T("setting.menu.o2"), test2);
+    createButton(x + 23, y + 2, 15, SECONDARY_COLOR, _T("setting.menu.o3"), test3);
     // Modifications des caratères nécessaires
     cursor(x, y + 2);     // Y + 2
     printf("\314");     // ╠
@@ -69,7 +69,7 @@ static void createMenu(int x, int y, Color color, int width){
 }
 
 static void initMenu(int columns,int rows, int width){
-    createMenu((columns-width)/2, rows/2, COLOR_WHITE, width);
+    createMenu((columns-width)/2, rows/2, (ColorRGB){255, 255, 255}, width);
 }
 
 void showSettingsPage() {
@@ -81,7 +81,7 @@ void showSettingsPage() {
     buttonLanguage();
     buttonClose();
 
-    createText(ALIGN_CENTER, 10, _T("settings.visual.txt"), COLOR_GREEN);
+    createText(ALIGN_CENTER, 10, _T("settings.visual.txt"), (ColorRGB){0, 255, 0});
     // Calcul taille de la fenêtre paramètres (+ 12 espaces & +4 caractères)
     int width = (int)strlen(_T("setting.menu.o1")) +
                 (int)strlen(_T("setting.menu.o2")) + 

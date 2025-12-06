@@ -1,7 +1,7 @@
 #include "text.h"
 
 
-void createText(int x, int y, const char *label, Color color) {
+void createText(int x, int y, const char *label, ColorRGB color) {
     int columns, rows;
     sizeScreen(&columns, &rows);
     

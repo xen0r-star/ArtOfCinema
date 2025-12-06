@@ -7,7 +7,7 @@ static AppPage previousPage = -1;
 
 int main() {
     SetConsoleTitle("Art Of Cinema - Terminal Edition");
-    hideCursor();
+    cursorVisibility(0);
 
     int columns, rows, previousColumns = 0, previousRows = 0;
     

@@ -8,6 +8,7 @@
 #include "../components/input.h"
 #include "../components/button.h"
 #include "../components/language.h"
+#include "../utils/color.h"
 
 #include "../types/user.h"
 

@@ -10,5 +10,5 @@ void showDirectorPage() {
     buttonLanguage();
 
 
-    createText(ALIGN_CENTER, 10, _T("director.visual.txt"), COLOR_GREEN);
+    createText(ALIGN_CENTER, 10, _T("director.visual.txt"), PRIMARY_COLOR);
 }
