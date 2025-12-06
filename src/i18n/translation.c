@@ -48,29 +48,58 @@ static void addTranslation(TranslationTable* translationTblPrev, const char* key
     translationTblPrev->table[hashID] = newTranslation;
 }
 
-static void loadCSVFile(const char* fileName) {
-    FILE *f = fopen(fileName, "r");
-    if(!f) return;
+static void loadTranslation() {
+    // Récupérer la ressource
+    DWORD size;
+    char* data = loadResource(IDR_CSV1, &size);
+    if (!data) return;
 
-    char line[1024];
-    fgets(line, sizeof(line), f);   // Ignore le header
 
-    while(fgets(line, sizeof(line), f)) {
-        char *key = strtok(line, ",");
-        char *fr = strtok(NULL, ",");
-        char *en = strtok(NULL, "\r\n");
+    char* cursor = data;
+    char* lineStart = data;
+    
+    // Ignorer le header
+    while (*cursor && *cursor != '\n') cursor++;
+    if (*cursor == '\n') cursor++; // Passer le \n
 
-        if(!key || !fr || !en) continue;
+    // Lire chaque ligne
+    while (*cursor) {
+        lineStart = cursor;
+        
+        // Trouver la fin de la ligne
+        while (*cursor && *cursor != '\n') cursor++;
+        
+        // Temporairement terminer la ligne par \0 pour la traiter
+        char savedChar = *cursor;
+        *cursor = '\0';
+        
+        // Traitement de la ligne (lineStart)
+        // Attention : lineStart peut contenir \r à la fin
+        size_t len = strlen(lineStart);
+        if (len > 0 && lineStart[len-1] == '\r') lineStart[len-1] = '\0';
 
-        key[strcspn(key, "\r\n")] = 0;
-        key[strcspn(key, "\r\n")] = 0;
-        key[strcspn(key, "\r\n")] = 0;
+        if (*lineStart) { // Si ligne non vide
+            // On duplique la ligne pour pouvoir utiliser strtok dessus sans casser la boucle principale
+            char* lineCopy = strdup(lineStart);
+            if (lineCopy) {
+                char *key = strtok(lineCopy, ",");
+                char *fr  = strtok(NULL, ",");
+                char *en  = strtok(NULL, ",");
 
-        addTranslation(&translation[0], key, fr);
-        addTranslation(&translation[1], key, en);
+                if (key && fr && en) {
+                    addTranslation(&translation[0], key, fr);
+                    addTranslation(&translation[1], key, en);
+                }
+                free(lineCopy);
+            }
+        }
+
+        // Restaurer et avancer
+        *cursor = savedChar;
+        if (*cursor == '\n') cursor++;
     }
 
-    fclose(f);
+    free(data);
 }
 
 void initTranslation() {
@@ -79,7 +108,7 @@ void initTranslation() {
     translation[1].lang = "en";
     memset(translation[1].table, 0, sizeof(translation[1].table));
     
-    loadCSVFile("i18n/translations.csv");
+    loadTranslation();
 }
 
 

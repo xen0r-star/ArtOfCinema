@@ -39,7 +39,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 $(BUILD_DIR)/resource.res: $(SRC_DIR)/resources/resource.rc
 	@powershell -Command "New-Item -ItemType Directory -Force -Path $(subst /,\,$(dir $@)) | Out-Null"
 	@echo Compiling resources $<
-	windres -O coff $< -o $@
+	windres -I $(SRC_DIR)/resources -O coff $< -o $@
 
 
 $(BUILD_DIR)/%.dat: $(SRC_DIR)/%.dat
