@@ -23,13 +23,16 @@ jobs:
         run: make
 
       - name: 🧽 Clean up build files
-        run: make clean
+        run: make clean-build
+
+      - name: 🗜️ Create Zip archive
+        run: Compress-Archive -Path build/* -DestinationPath ArtOfCinema-Windows-${{ github.ref_name }}.zip
 
       - name: 📦 Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: build-output
-          path: ./build/*
+          name: ArtOfCinema-zip
+          path: ArtOfCinema-Windows-${{ github.ref_name }}.zip
 
   release:
     needs: build
@@ -39,12 +42,12 @@ jobs:
       - name: 📥 Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: build-output
-          path: ./release/
+          name: ArtOfCinema-zip
+          path: .
 
       - name: 🎉 Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: ./release/*
+          files: ArtOfCinema-Windows-${{ github.ref_name }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
