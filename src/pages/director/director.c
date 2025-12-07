@@ -37,6 +37,9 @@ static void showStockManage(){
 
     static int caca = 50;
     createDataButton((columns-14)/2+10, 15, 15, "TEST", COLOR_GREEN, STYLE_DEFAULT, showInfo, &caca);
+    
+    createButton(columns - 20, rows - 3, 20, _T("return"), COLOR_WHITE, STYLE_DEFAULT, showDirectorShopPage);
+
 }
 
 static void showReservF(){
