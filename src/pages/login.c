@@ -90,7 +90,7 @@ void showLoginPage() {
         createText(ALIGN_CENTER, 11, _T("login.ipt.mail"), COLOR_WHITE);
         
         createInput(ALIGN_CENTER, 15, _T("login.mail"), _T("login.mail.expl"));
-        createButton(ALIGN_CENTER, rows - 7, 18, COLOR_GREEN, _T("login.btn.nxt"), validEmail);
+        createButton(ALIGN_CENTER, rows - 7, 18, _T("login.btn.nxt"), COLOR_GREEN, STYLE_DEFAULT, validEmail);
 
     } else if (!user.logged) {
         createText(ALIGN_CENTER, 13, user.email, COLOR_BRIGHT_BLACK); 
@@ -98,13 +98,13 @@ void showLoginPage() {
         if (emailExiste(user.email) == STATUS_FOUND) {
             createText(ALIGN_CENTER, 11, _T("login.acc.conn"), COLOR_WHITE);
             createInput(ALIGN_CENTER, 15, _T("login.crt.acc.ipt.label"), _T("login.crt.acc.ipt.placeholder"));
-            createButton(ALIGN_CENTER, rows - 7, 18, COLOR_GREEN, _T("login.btn.conn"), signIn);
+            createButton(ALIGN_CENTER, rows - 7, 18, _T("login.btn.conn"), COLOR_GREEN, STYLE_DEFAULT, signIn);
             
         } else {
             createText(ALIGN_CENTER, 11, _T("login.crt.acc"), COLOR_WHITE);
             createInput(ALIGN_CENTER, 15, _T("login.crt.acc.ipt.label"), _T("login.crt.acc.ipt.placeholder"));
             createInput(ALIGN_CENTER, 18, _T("login.crt.acc.ipt.cnfrmpswd"), _T("login.crt.acc.ipt.placeholder"));
-            createButton(ALIGN_CENTER, rows - 7, 21, COLOR_GREEN, _T("login.btn.crt.acc.next"), nextStepSignUp);
+            createButton(ALIGN_CENTER, rows - 7, 21, _T("login.btn.crt.acc.next"), COLOR_GREEN, STYLE_DEFAULT, nextStepSignUp);
         }
 
     } else if (user.logged) {
@@ -121,14 +121,14 @@ void showLoginPage() {
                 createText(ALIGN_CENTER, 11, _T("login.acc.conn.visual.txt.err"), COLOR_RED);
                 createText(ALIGN_CENTER, 15, user.email, COLOR_BRIGHT_BLACK);
                 createText(ALIGN_CENTER, 18, "**************", COLOR_BRIGHT_BLACK);
-                createButton(ALIGN_CENTER, rows - 7, 21, COLOR_WHITE, _T("login.acc.conn.visual.txt.err.bck"), backToLogin);
+                createButton(ALIGN_CENTER, rows - 7, 21, _T("login.acc.conn.visual.txt.err.bck"), COLOR_WHITE, STYLE_DEFAULT, backToLogin);
                 break;
 
             case ROLE_NONE:
                 createText(ALIGN_CENTER, 11, _T("login.crt.acc"), COLOR_WHITE);
                 createInput(ALIGN_CENTER, 15, _T("login.crt.acc.ipt.labname"), _T("login.crt.acc.ipt.phname"));
                 createInput(ALIGN_CENTER, 18, _T("login.crt.acc.ipt.labfname"), _T("login.crt.acc.ipt.phfname"));
-                createButton(ALIGN_CENTER, rows - 7, 21, COLOR_GREEN, _T("login.crt.acc.btn"), signUp);
+                createButton(ALIGN_CENTER, rows - 7, 21, _T("login.crt.acc.btn"), COLOR_GREEN, STYLE_DEFAULT, signUp);
                 break;
         }
     }

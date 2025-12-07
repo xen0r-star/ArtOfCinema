@@ -25,4 +25,9 @@ login.acc.conn.visual.txt.err,Identiant de connexion non valide,Invalid connecti
 login.acc.conn.visual.txt.err.bck,RETOUR,RETURN
 logout.btn.dec,DECONNEXION,DISCONNECT
 client.visual.txt,Bienvenue dans votre espace client Art of Cinema,Welcome to your Art of Cinema client area
+client.btn.view.movies,FILMS,MOVIES
+client.btn.view.movies,FILMS,MOVIES
+client.btn.view.food,ALIMENTATION,FOOD
+client.btn.view.reserve,RESERVER,RESERVE
+client.btn.view.quote,DEVIS,QUOTE
 director.visual.txt,Bienvenue dans votre espace directeur Art of Cinema,Welcome to your Art of Cinema director area

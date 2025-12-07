@@ -6,7 +6,7 @@ typedef struct Movie {
     int id;
     char *name;
     int duration;
-    char *types;
+    char **types;
     int type_count;
 
     int note;
@@ -32,5 +32,10 @@ typedef struct Projection {
     char *datetime;
     int available_seats;
 } Projection;
+
+typedef struct ProjectionNode {
+    Projection projection;
+    struct ProjectionNode *next;
+} ProjectionNode;
 
 #endif
