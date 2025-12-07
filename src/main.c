@@ -4,6 +4,14 @@
 static AppPage page = PAGE_DIRECTOR;
 static AppPage previousPage = -1;
 
+void resetPage(){
+    deleteAllInputs();
+    deleteAllButtons();
+    deleteAllDataButtons();
+    deleteAllMenus();
+    clearScreen();
+}
+
 
 int main() {
     SetConsoleTitle("Art Of Cinema - Terminal Edition");
@@ -21,9 +29,7 @@ int main() {
         if (columns != previousColumns || rows != previousRows || page != previousPage) {
             previousPage = page;
 
-            deleteAllInputs();
-            deleteAllButtons();
-            clearScreen();
+            resetPage();
 
             cursorVisibility(0);
 
@@ -38,6 +44,14 @@ int main() {
 
                 case PAGE_DIRECTOR:
                     showDirectorPage();
+                    break;
+
+                case PAGE_DIRECTOR_FILM:
+                    showDirectorFilmPage();
+                    break;
+
+                case PAGE_DIRECTOR_SHOP:
+                    showDirectorShopPage();
                     break;
 
                 case PAGE_CLIENT:

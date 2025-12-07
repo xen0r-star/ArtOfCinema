@@ -40,6 +40,8 @@ echo Step 4 - No errors of compilation
 
 :: Step 5 - Lancement du programme
 echo Step 5 - Lancement du programme...
+:: Attente du lancement (affichage erreur)
+TIMEOUT /T 3 /NOBREAK
 echo -------------------------
 cd src
 ArtOfCinema.exe

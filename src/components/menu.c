@@ -40,28 +40,44 @@ void createMenu(int x, int y, int width, Color color, Style style, const char* t
         if (button3 != NULL) {
             createButton(button3->x, button3->y, button3->width, button3->label, button3->color, button3->style, button3->onClick);
         }
-        // Modifications des caratères nécessaires
-        cursor(x, y + 2);     // Y + 2
-        printf("\314");     // ╠
-        cursor(x + 12, y + 2);
-        printf("\313");     // ╦
-        cursor(x + 24, y + 2);
-        printf("\313");
-        cursor(x + width - 1, y + 2);
-        printf("\271");     // ╣
-        cursor(x, y + 4);     // Y + 4
-        printf("\314");
-        cursor(x + 12, y + 4);
-        printf("\312");     // ╩
-        cursor(x + 24, y + 4);
-        printf("\312");
-        cursor(x + width - 1, y + 4);
-        printf("\271");     
-        cursor(x, y + 5);
+        if(button1 && button2 && button3){  
+            // Modifications des caratères nécessaires
+            cursor(x, y + 2);     // Y + 2
+            printf("\314");     // ╠
+            cursor(x + 12, y + 2);
+            printf("\313");     // ╦
+            cursor(x + 24, y + 2);
+            printf("\313");
+            cursor(x + width - 1, y + 2);
+            printf("\271");     // ╣
+            cursor(x, y + 4);     // Y + 4
+            printf("\314");
+            cursor(x + 12, y + 4);
+            printf("\312");     // ╩
+            cursor(x + 24, y + 4);
+            printf("\312");
+            cursor(x + width - 1, y + 4);
+            printf("\271");     
+            
+        }else{
+            for (int i = 2; i < rows - y - 4; i++){
+                cursor(x, y + i); 
+                printf("\272"); 
+                cursor(x + width - 1, y + i); 
+                printf("\272"); 
+            }
+            cursor(x, y+2);
+            printf("\314");
+            cursor(x + width - 1 , y + 2);
+            printf("\271");
+
+            cursor(x + 1, y + 2);
+            for (int j = 0; j < width - 2; j++) printf("\315");
+        }
+        cursor(x, rows - 4);
         printf("\310");     // ╚
         for (int j = 0; j < width - 2; j++) printf("\315");
         printf("\274");     // ╝
-        
     }
 }
 

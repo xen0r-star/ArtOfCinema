@@ -31,7 +31,6 @@ void clearScreen() {
     SetConsoleCursorPosition(h, coord);
 }
 
-
 void cursor(int x, int y) {
     HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD pos = { (SHORT)x - 1, (SHORT)y };

@@ -35,7 +35,7 @@ typedef struct Menu {
 void createMenu(int x, int y, int width, Color color, Style style, const char* title, Button *button1, Button *button2, Button *button3);
 
 int deleteMenu(Menu *menu);
-void deleteAllMenu();
+void deleteAllMenus();
 
 Menu *getMenu(int index);
 int getMenuCount();
