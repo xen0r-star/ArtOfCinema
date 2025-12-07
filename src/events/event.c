@@ -30,6 +30,18 @@ void event() {
                 }
             }
 
+            // Click dataButton
+            for (int i = 0; i < getDataButtonCount(); i++) {
+                DataButton *button = getDataButton(i);
+                if (x >= button->x && x < button->x + button->width - 1 &&
+                    y >= button->y && y < button->y + 3) {
+
+                    cursorVisibility(0);
+                    if (button->onClick) button->onClick(button->data);
+                    return;
+                }
+            }
+
             // Click input
             for (int i = 0; i < getInputCount(); i++) {
                 Input *input = getInput(i);
