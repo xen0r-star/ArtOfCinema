@@ -5,7 +5,7 @@ static Menu menus[MAX_MENUS];
 static int menu_count = 0;
 
 
-void createMenu(int x, int y, int width, Color color, Style style, const char* title, Button button1, Button button2, Button button3) {
+void createMenu(int x, int y, int width, Color color, Style style, const char* title, Button *button1, Button *button2, Button *button3) {
     if (menu_count >= MAX_MENUS) return;
 
     int columns, rows;
@@ -31,9 +31,15 @@ void createMenu(int x, int y, int width, Color color, Style style, const char* t
         cursor(x + width - 1, y + 1);
         printf("\272");
         // Création des 3 onglets (boutons)
-        createButton(button1.x, button1.y, button1.width, button1.label, button1.color, button1.style,  button1.onClick);
-        createButton(button2.x, button2.y, button2.width, button2.label, button2.color, button2.style, button2.onClick);
-        createButton(button3.x, button3.y, button3.width, button3.label, button3.color, button3.style, button3.onClick);
+        if (button1 != NULL) {
+            createButton(button1->x, button1->y, button1->width, button1->label, button1->color, button1->style,  button1->onClick);
+        }
+        if (button2 != NULL) {
+            createButton(button2->x, button2->y, button2->width, button2->label, button2->color, button2->style, button2->onClick);
+        }
+        if (button3 != NULL) {
+            createButton(button3->x, button3->y, button3->width, button3->label, button3->color, button3->style, button3->onClick);
+        }
         // Modifications des caratères nécessaires
         cursor(x, y + 2);     // Y + 2
         printf("\314");     // ╠
@@ -57,10 +63,6 @@ void createMenu(int x, int y, int width, Color color, Style style, const char* t
         printf("\274");     // ╝
         
     }
-
-    // cursor(x + (width - (int)strlen(title)) / 2, y + 1);
-    // setColor(COLOR_WHITE);
-    // printf("%s", title);
 }
 
 

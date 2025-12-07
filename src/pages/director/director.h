@@ -11,6 +11,8 @@
 #include "../../main.h"
 
 
+#define MAX_PRODUCTS 10
+
 void showDirectorPage();
 
 #endif

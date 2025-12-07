@@ -26,13 +26,13 @@ typedef struct Menu {
     Color color;
     Style style;
     const char* title;
-    Button button1;     // Peut-être NULL
-    Button button2;     // Peut-être NULL
-    Button button3;     // Peut-être NULL
+    Button *button1;     // Peut-être NULL
+    Button *button2;     // Peut-être NULL
+    Button *button3;     // Peut-être NULL
 } Menu;
 
 
-void createMenu(int x, int y, int width, Color color, Style style, const char* title, Button button1, Button button2, Button button3);
+void createMenu(int x, int y, int width, Color color, Style style, const char* title, Button *button1, Button *button2, Button *button3);
 
 int deleteMenu(Menu *menu);
 void deleteAllMenu();

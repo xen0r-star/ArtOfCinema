@@ -39,6 +39,7 @@ director.s.lbl|Administration Magasin ARTOFCINEMA|A FAIRE
 director.s.desc|Bonjour ADMINISTRATEUR, bienvenue dans l'interface vous permettant de gerer le magasin ARTOFCINEMA !|A FAIRE
 director.s.btn1|STOCK|A FAIRE
 director.s.btn2|RESERVATION|A FAIRE
+director.s.tbl|Produits dans le stock|A FAIRE
 settings.visual.txt|Vos parametres ARTOFCINEMA|Your ARTOFCINEMA settings
 setting.btn.label|PARAMETRES|SETTINGS
 setting.btn.close|FERMER|CLOSE

@@ -33,7 +33,7 @@ static void initMenu(int columns,int rows, int width){
     Button btn2 = {x + 12, y + 2, 12, COLOR_WHITE, STYLE_BORDERLESS, _T("setting.menu.o2"), test2};
     Button btn3 = {x + 24, y + 2, 14, COLOR_WHITE, STYLE_BORDERLESS, _T("setting.menu.o3"), test3};
 
-    createMenu(x, y, width, COLOR_BRIGHT_GREEN, STYLE_DEFAULT, "setting.menu.label", btn1, btn2, btn3);
+    createMenu(x, y, width, COLOR_BRIGHT_GREEN, STYLE_DEFAULT, "setting.menu.label", &btn1, &btn2, &btn3);
 }
 
 void showSettingsPage() {
