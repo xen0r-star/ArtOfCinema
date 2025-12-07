@@ -9,5 +9,7 @@
 
 int loadMovies();
 MovieNode* getMovieList();
+Movie* getMovieById(int id);
+
 
 #endif

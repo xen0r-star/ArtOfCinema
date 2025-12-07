@@ -12,6 +12,8 @@ int main() {
     int columns, rows, previousColumns = 0, previousRows = 0;
     
     initTranslation();
+    loadMovies();
+    loadProjections();
 
     while(1) {
         // Recuperer la taille de l'écran
@@ -23,6 +25,7 @@ int main() {
 
             deleteAllInputs();
             deleteAllButtons();
+            deleteAllDataButtons();
             clearScreen();
 
             cursorVisibility(0);
@@ -42,6 +45,14 @@ int main() {
 
                 case PAGE_CLIENT:
                     showClientPage();
+                    break;
+
+                case PAGE_CLIENT_MOVIE:
+                    showClientMoviePage();
+                    break;
+
+                case PAGE_CLIENT_RESERVE:
+                    showClientReservePage();
                     break;
 
                 case PAGE_EXIT: 

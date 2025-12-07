@@ -25,17 +25,4 @@ typedef struct MovieNode {
     struct MovieNode *next;
 } MovieNode;
 
-
-typedef struct Projection {
-    int id;
-    int movie_id;
-    char *datetime;
-    int available_seats;
-} Projection;
-
-typedef struct ProjectionNode {
-    Projection projection;
-    struct ProjectionNode *next;
-} ProjectionNode;
-
 #endif

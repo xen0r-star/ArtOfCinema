@@ -17,23 +17,20 @@
 #include "./events/event.h"
 
 #include "./i18n/translation.h"
+#include "./core/movie.h"
+#include "./core/projection.h"
+
+#include "./types/page.h"
 
 #include "./pages/loading.h"
 #include "./pages/login.h"
 #include "./pages/director/director.h"
 #include "./pages/client/client.h"
+#include "./pages/client/clientMovie.h"
+#include "./pages/client/clientReserve.h"
 
 
 #define APP_VERSION "v0.0.2"
-
-
-typedef enum {
-    PAGE_LOADING,
-    PAGE_LOGIN,
-    PAGE_DIRECTOR,
-    PAGE_CLIENT,
-    PAGE_EXIT
-} AppPage;
 
 
 AppPage getCurrentPage();
