@@ -7,6 +7,7 @@
 #include "../components/text.h"
 #include "../components/input.h"
 #include "../components/button.h"
+#include "../components/menu.h"
 #include "../components/language.h"
 
 #include "../types/user.h"

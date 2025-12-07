@@ -91,7 +91,7 @@ void showLoginPage() {
         createText(ALIGN_CENTER, 11, _T("login.ipt.mail"), COLOR_WHITE);
         
         createInput(ALIGN_CENTER, 15, _T("login.mail"), _T("login.mail.expl"));
-        createButton(ALIGN_CENTER, rows - 7, 18, _T("login.btn.nxt"), COLOR_GREEN, STYLE_BORDERLESS, validEmail);
+        createButton(ALIGN_CENTER, rows - 7, 18, _T("login.btn.nxt"), COLOR_GREEN, STYLE_DEFAULT, validEmail);
 
     } else if (!user.logged) {
         createText(ALIGN_CENTER, 13, user.email, COLOR_BRIGHT_BLACK); 
@@ -122,7 +122,7 @@ void showLoginPage() {
                 createText(ALIGN_CENTER, 11, _T("login.acc.conn.visual.txt.err"), COLOR_RED);
                 createText(ALIGN_CENTER, 15, user.email, COLOR_BRIGHT_BLACK);
                 createText(ALIGN_CENTER, 18, "**************", COLOR_BRIGHT_BLACK);
-                createButton(ALIGN_CENTER, rows - 7, 21, _T("login.acc.conn.visual.txt.err.bck"), COLOR_WHITE, STYLE_DEFAULT, backToLogin);
+                createButton(ALIGN_CENTER, rows - 7, 21, _T("return"), COLOR_WHITE, STYLE_DEFAULT, backToLogin);
                 break;
 
             case ROLE_NONE:

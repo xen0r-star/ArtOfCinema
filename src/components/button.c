@@ -10,12 +10,14 @@ void createButton(int x, int y, int width, const char* label, Color color, Style
 
     int columns, rows;
     sizeScreen(&columns, &rows);
-
-    if (x > ALIGN_LIMIT) x = HorizontalAlignment(x, columns, width);
-    if (y > ALIGN_LIMIT) y = VerticalAlignment(y, rows, 3);
-
-    buttons[button_count++] = (Button){x, y, width, color, style, label, onClick};
-
+    if (x && y) {
+        if (x > ALIGN_LIMIT) x = HorizontalAlignment(x, columns, width);
+        if (y > ALIGN_LIMIT) y = VerticalAlignment(y, rows, 3);
+        buttons[button_count++] = (Button){x, y, width, color, style, label, onClick};
+    } else {
+        buttons[button_count++] = (Button){x, y, width, color, style, label, onClick};
+        return;
+    }
 
     if (style == STYLE_DEFAULT) {
         setColor(color);

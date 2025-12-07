@@ -56,8 +56,8 @@ static void loadCSVFile(const char* fileName) {
     fgets(line, sizeof(line), f);   // Ignore le header
 
     while(fgets(line, sizeof(line), f)) {
-        char *key = strtok(line, ",");
-        char *fr = strtok(NULL, ",");
+        char *key = strtok(line, "|");
+        char *fr = strtok(NULL, "|");
         char *en = strtok(NULL, "\r\n");
 
         if(!key || !fr || !en) continue;

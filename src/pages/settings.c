@@ -25,51 +25,15 @@ static void test3(){
     printf("LAST3");
 }
 
-static void createMenu(int x, int y, Color color, int width){
-    // Alignement ...
-    setColor(COLOR_WHITE);
-    cursor(x, y);
-                
-    printf("\311");     // X
-    for (int j = 0; j < width - 2; j++) printf("\315");
-    printf("\273");     // ╗
-    cursor(x, y+1);
-    printf("\272");     // ║
-    setColor(color);
-    createText(x + (width - (int)strlen(_T("setting.menu.label"))) / 2, y + 1, _T("setting.menu.label"), COLOR_BRIGHT_GREEN);
-    setColor(COLOR_WHITE);
-
-    cursor(x + width - 1, y + 1);
-    printf("\272");
-    // Création des 3 onglets (boutons)
-    createButton(x, y + 2, 12, _T("setting.menu.o1"), COLOR_WHITE, STYLE_DEFAULT, test1);
-    createButton(x + 12, y + 2, 12, _T("setting.menu.o2"), COLOR_WHITE, STYLE_DEFAULT, test2);
-    createButton(x + 24, y + 2, 14, _T("setting.menu.o3"), COLOR_WHITE, STYLE_DEFAULT, test3);
-    // Modifications des caratères nécessaires
-    // cursor(x, y + 2);     // Y + 2
-    // printf("\314");     // ╠
-    // cursor(x + 12, y + 2);
-    // printf("\313");     // ╦
-    // cursor(x + 23, y + 2);
-    // printf("\313");
-    // cursor(x + width - 1, y + 2);
-    // printf("\271");     // ╣
-    // cursor(x, y + 4);     // Y + 4
-    // printf("\314");
-    // cursor(x + 12, y + 4);
-    // printf("\312");     // ╩
-    // cursor(x + 23, y + 4);
-    // printf("\312");
-    // cursor(x + width - 1, y + 4);
-    // printf("\271");     
-    // cursor(x, y + 5);
-    // printf("\310");     // ╚
-    // for (int j = 0; j < width - 2; j++) printf("\315");
-    // printf("\274");     // ╝
-}
-
 static void initMenu(int columns,int rows, int width){
-    createMenu((columns-width)/2, (rows/2)-3, COLOR_WHITE, width);
+    int x = (columns-width)/2;
+    int y = (rows/2)-3;
+
+    Button btn1 = {x, y + 2, 12, COLOR_WHITE, STYLE_BORDERLESS, _T("setting.menu.o1"), test1};
+    Button btn2 = {x + 12, y + 2, 12, COLOR_WHITE, STYLE_BORDERLESS, _T("setting.menu.o2"), test2};
+    Button btn3 = {x + 24, y + 2, 14, COLOR_WHITE, STYLE_BORDERLESS, _T("setting.menu.o3"), test3};
+
+    createMenu(x, y, width, COLOR_BRIGHT_GREEN, STYLE_DEFAULT, "setting.menu.label", btn1, btn2, btn3);
 }
 
 void showSettingsPage() {
