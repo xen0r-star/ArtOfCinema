@@ -83,12 +83,12 @@ MovieNode* getMovieList() {
 }
 
 Movie* getMovieById(int id) {
-    MovieNode *node = movieList;
-    while (node) {
-        if (node->movie.id == id) {
-            return &node->movie;
+    MovieNode *current = movieList;
+    while (current != NULL) {
+        if (current->movie.id == id) {
+            return &current->movie;
         }
-        node = node->next;
+        current = current->next;
     }
     return NULL;
 }
