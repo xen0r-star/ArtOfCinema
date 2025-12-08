@@ -25,12 +25,17 @@ login.acc.conn.visual.txt.err|Identiant de connexion non valide|Invalid connecti
 return|RETOUR|RETURN
 logout.btn.dec|DECONNEXION|DISCONNECT
 client.visual.txt|Bienvenue dans votre espace client Art of Cinema|Welcome to your Art of Cinema client area
+client.btn.view.movies,FILMS,MOVIES
+client.btn.view.movies,FILMS,MOVIES
+client.btn.view.food,ALIMENTATION,FOOD
+client.btn.view.reserve,RESERVER,RESERVE
+client.btn.view.quote,DEVIS,QUOTE
 director.visual.lbl|Administration ARTOFCINEMA|Administration ARTOFCINEMA
-director.visual.desc|Bonjour ADMINISTRATEUR, bienvenue sur votre compte Administrateur !|Bonjour ADMINISTRATEUR, bienvenue sur votre compte Administrateur !
+director.visual.desc|Bonjour ADMINISTRATEUR, bienvenue sur votre compte Administrateur !|A FAIRE
 director.btn1|FILM|FILM
 director.btn2|MAGASIN|SHOP
 director.f.lbl|Administration Film ARTOFCINEMA|A FAIRE
-director.f.desc|Bonjour ADMINISTRATEUR, bienvenue dans l'interface vous permettant de gerer les films !|A FAIRE
+director.f.desc|Bienvenue dans votre espace directeur Art of Cinema,Welcome to your Art of Cinema director area
 director.f.btn1|AJOUTER FILM|A FAIRE
 director.f.btn2|MODIFIER FILM|A FAIRE
 director.f.btn3|SUPPRIMER FILM|A FAIRE
