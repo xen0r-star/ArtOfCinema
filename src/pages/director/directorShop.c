@@ -1,6 +1,5 @@
 #include "directorShop.h"
 
-static boolean init = FALSE;
 static int pageIndex = 0;
 
 /* ⚠️ WARNING : A RETIRER SI AUTRES METHODE FONCTIONNE (DEMANDER A TOMUS)
@@ -41,10 +40,6 @@ static void nextPage(){
 }
 
 static void initItem(int columns, int rows){
-    if(!init){
-        loadProducts();
-        init = TRUE;
-    }
     int listStartY = 15;
     int itemHeight = 3;
     int maxItems = (rows - 3 - listStartY) / itemHeight;

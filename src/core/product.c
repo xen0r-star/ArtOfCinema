@@ -1,20 +1,24 @@
 #include "product.h"
 #include <stdio.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
 static ProductNode *productList = NULL;
 
+static bool initProduct = false;
 
 int loadProducts() {
+    if(initProduct) return 0;
+    initProduct = true;
+    
     FILE *file = fopen("data/products.csv", "r");
     if (file == NULL) return -1;
-
+    
     char buffer[1024];
     fscanf(file, "%[^\n]\n", buffer); // Skip header
 
-    
     Product product = {0};
     char name[50];
     ProductNode *tail = NULL;
