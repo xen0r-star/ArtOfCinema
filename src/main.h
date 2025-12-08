@@ -17,15 +17,24 @@
 #include "./events/event.h"
 
 #include "./i18n/translation.h"
+#include "./core/movie.h"
+#include "./core/projection.h"
+#include "./core/product.h"
+
+#include "./types/page.h"
 
 #include "./pages/loading.h"
 #include "./pages/login.h"
+#include "./pages/settings.h"
+
 #include "./pages/director/director.h"
 #include "./pages/director/directorFilm.h"
 #include "./pages/director/directorShop.h"
 
 #include "./pages/client/client.h"
-#include "./pages/settings.h"
+#include "./pages/client/clientMovie.h"
+#include "./pages/client/clientReserve.h"
+#include "./pages/client/clientFood.h"
 
 
 #define APP_VERSION "v0.0.2"

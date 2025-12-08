@@ -10,5 +10,6 @@
 int loadProducts();
 ProductNode* getProductList();
 Product* getProductById(int id);
+int searchProductByName(const char *productName, const char *search);
 
 #endif

@@ -20,6 +20,9 @@ int main() {
     int columns, rows, previousColumns = 0, previousRows = 0;
     
     initTranslation();
+    loadMovies();
+    loadProjections();
+    loadProducts();
 
     while(1) {
         // Recuperer la taille de l'écran
@@ -58,8 +61,16 @@ int main() {
                     showClientPage();
                     break;
 
-                case PAGE_SETTINGS:
-                    showSettingsPage();
+                case PAGE_CLIENT_MOVIE:
+                    showClientMoviePage();
+                    break;
+
+                case PAGE_CLIENT_RESERVE:
+                    showClientReservePage();
+                    break;
+
+                case PAGE_CLIENT_FOOD:
+                    showClientFoodPage();
                     break;
 
                 case PAGE_EXIT: 
