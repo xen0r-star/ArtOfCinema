@@ -76,9 +76,9 @@ static void loadTranslation() {
         if (*lineStart) {
             char* lineCopy = strdup(lineStart);
             if (lineCopy) {
-                char *key = strtok(lineCopy, ",");
-                char *fr  = strtok(NULL, ",");
-                char *en  = strtok(NULL, ",");
+                char *key = strtok(lineCopy, "|");
+                char *fr  = strtok(NULL, "|");
+                char *en  = strtok(NULL, "|");
 
                 if (key && fr && en) {
                     addTranslation(&translation[0], key, fr);
