@@ -15,11 +15,6 @@
 #define MAX_MENUS 5
 
 
-typedef enum Style {
-    STYLE_DEFAULT,
-    STYLE_BORDERLESS
-} Style;
-
 typedef struct Menu {
     int x, y;
     int width;

@@ -9,15 +9,24 @@ static int pageIndex = 0;
 * }
 */
 
-/* TEST */
 
-static void showInfo(void *data){
-    // resetPage();
-    // cursor(2,2);
-    int value = *((int*)data);
-    printf("Le bouton contient : %d\n", value);
+static void addQteProd(void *qte){
+    int value = *((int*)qte);
+    if(value <= 999) return;
+    value++;
+    setCurrentPage(PAGE_DIRECTOR_SHOP);
 }
-/* TEST */
+
+static void remQteProd(void *qte){
+    int value = *((int*)qte);
+    if(value >= 0) return;
+    value--;
+}
+
+static void advancedProd(void *test){
+    int value = *((int*)test);
+    value = value + 0;
+}
 
 static void prevPage(){
     if (pageIndex > 0){
@@ -66,9 +75,9 @@ static void initItem(int columns, int rows){
             createText(columns*0.20, listStartY + (i * itemHeight), node->product.name, COLOR_WHITE);
             createText(columns*0.45, listStartY + (i * itemHeight), qte, COLOR_WHITE);
             createText(columns*0.55, listStartY + (i * itemHeight), price, COLOR_WHITE);
-            createDataButton(columns*0.75, listStartY + (i * itemHeight) - 1, 5, "+", COLOR_GREEN, STYLE_DEFAULT, showInfo, &i);
-            createDataButton(columns*0.80, listStartY + (i * itemHeight) - 1, 5, "-", COLOR_RED, STYLE_DEFAULT, showInfo, &i);
-            createDataButton(columns*0.85, listStartY + (i * itemHeight) - 1, 5, "...", COLOR_BLUE, STYLE_DEFAULT, showInfo, &i);
+            createDataButton(columns*0.75, listStartY + (i * itemHeight) - 1, 5, "+", COLOR_GREEN, STYLE_DEFAULT, addQteProd, &node->product.qte);
+            createDataButton(columns*0.80, listStartY + (i * itemHeight) - 1, 5, "-", COLOR_RED, STYLE_DEFAULT, remQteProd, &node->product.qte);
+            createDataButton(columns*0.85, listStartY + (i * itemHeight) - 1, 5, "...", COLOR_BLUE, STYLE_DEFAULT, advancedProd, &node->product.qte);
             // DANS "..." AJOUTER POSSIIBILITE DE RESERVER DE LA NOURRITURE
         }
         i++;
