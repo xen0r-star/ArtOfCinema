@@ -1,6 +1,5 @@
-#ifndef DIRECTOR_H
-#define DIRECTOR_H
-
+#ifndef CLIENTFOOD_H
+#define CLIENTFOOD_H
 
 #include "../../components/logo.h"
 #include "../../components/footer.h"
@@ -8,13 +7,8 @@
 #include "../../components/button.h"
 #include "../../components/logout.h"
 #include "../../components/language.h"
+#include "../../components/back.h"
 
-
-#include "../../main.h"
-
-
-void backToDashboard();
-void showDirectorPage();
-
+void showClientFoodPage();
 
 #endif

@@ -2,7 +2,7 @@
 
 
 void event() {
-    if (getInputCount() <= 0 && getButtonCount() <= 0) return;
+    if (getInputCount() <= 0 && getButtonCount() <= 0 && getDataButtonCount() <= 0) return;
 
 
     HANDLE h = GetStdHandle(STD_INPUT_HANDLE);
@@ -21,11 +21,23 @@ void event() {
             // Click button
             for (int i = 0; i < getButtonCount(); i++) {
                 Button *button = getButton(i);
-                if (x >= button->x && x < button->x + button->width &&
+                if (x >= button->x && x < button->x + button->width - 1 &&
                     y >= button->y && y < button->y + 3) {
 
                     cursorVisibility(0);
                     if (button->onClick) button->onClick();
+                    return;
+                }
+            }
+
+            // Click dataButton
+            for (int i = 0; i < getDataButtonCount(); i++) {
+                DataButton *button = getDataButton(i);
+                if (x >= button->x && x < button->x + button->width - 1 &&
+                    y >= button->y && y < button->y + 3) {
+
+                    cursorVisibility(0);
+                    if (button->onClick) button->onClick(button->data);
                     return;
                 }
             }

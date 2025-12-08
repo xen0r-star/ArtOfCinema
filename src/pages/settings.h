@@ -1,22 +1,21 @@
-#ifndef LOGIN_H
-#define LOGIN_H
+#ifndef SETTINGS_H
+#define SETTINGS_H
+
 
 #include "../components/logo.h"
 #include "../components/footer.h"
 #include "../components/text.h"
 #include "../components/input.h"
 #include "../components/button.h"
+#include "../components/menu.h"
 #include "../components/language.h"
-#include "../components/setting.h"
 
-#include "../core/user.h"
-#include "../utils/email.h"
 #include "../types/user.h"
 
 #include "../main.h"
 
 
-void showLoginPage();
-void resetUser();
+void showSettingsPage();
+
 
 #endif

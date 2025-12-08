@@ -64,6 +64,9 @@ debug:
 	@echo "Target: $(TARGET)"
 	@echo "Sources: $(SRCS)"
 	@echo "Objects: $(OBJS)"
+	@echo ".dat: $(DAT_DESTS)"
+	@echo ".csv: $(CSV_DESTS)"
+	@echo ".ico: $(ICO_DESTS)"
 	@echo "CFLAGS: $(CFLAGS)"
 	@echo "Resource Object: $(RES_OBJ)"
 
@@ -77,6 +80,8 @@ help:
 
 clean-build:
 	rm -f $(OBJS) $(RES_OBJ)
-# 	for /f "delims=" %d in ('dir /ad/b/s ^| sort /r') do rd "%d"
+# 	rm -f $(ICO_DESTS) $(CSV_DESTS)
+	rm -f $(ICO_DESTS)
+	/usr/bin/find build -type d -empty -delete
 
 .PHONY: all clean debug help clean-build

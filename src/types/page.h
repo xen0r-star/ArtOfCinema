@@ -1,0 +1,18 @@
+#ifndef TYPE_PAGE_H
+#define TYPE_PAGE_H
+
+typedef enum {
+    PAGE_LOADING,
+    PAGE_LOGIN,
+    PAGE_DIRECTOR,
+    PAGE_DIRECTOR_FILM,
+    PAGE_DIRECTOR_SHOP,
+    PAGE_CLIENT,
+    PAGE_CLIENT_MOVIE,
+    PAGE_CLIENT_RESERVE,
+    PAGE_CLIENT_FOOD,
+    PAGE_SETTINGS,
+    PAGE_EXIT
+} AppPage;
+
+#endif

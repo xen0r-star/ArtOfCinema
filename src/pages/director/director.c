@@ -1,5 +1,18 @@
 #include "director.h"
 
+static void FilmPage(){
+    setCurrentPage(PAGE_DIRECTOR_FILM);
+}
+
+static void ShopPage(){
+    setCurrentPage(PAGE_DIRECTOR_SHOP);
+}
+
+void backToDashboard() {
+    resetPage();
+    showDirectorPage();
+}
+
 void showDirectorPage() {
     int columns, rows;
     sizeScreen(&columns, &rows);
@@ -9,6 +22,9 @@ void showDirectorPage() {
     buttonLogout();
     buttonLanguage();
 
-
-    createText(ALIGN_CENTER, 10, _T("director.visual.txt"), COLOR_GREEN);
+ 
+    createText(ALIGN_CENTER, 10, _T("director.visual.lbl"), COLOR_GREEN);
+    createText(ALIGN_CENTER, 12, _T("director.visual.desc"), COLOR_WHITE);
+    createButton((columns-14)/2-10, 15, 14, _T("director.btn1"), COLOR_GREEN, STYLE_DEFAULT, FilmPage);
+    createButton((columns-14)/2+10, 15, 15, _T("director.btn2"), COLOR_GREEN, STYLE_DEFAULT, ShopPage);
 }

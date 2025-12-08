@@ -1,5 +1,5 @@
-#ifndef DIRECTOR_H
-#define DIRECTOR_H
+#ifndef CLIENTMOVIE_H
+#define CLIENTMOVIE_H
 
 
 #include "../../components/logo.h"
@@ -8,13 +8,8 @@
 #include "../../components/button.h"
 #include "../../components/logout.h"
 #include "../../components/language.h"
+#include "../../components/back.h"
 
-
-#include "../../main.h"
-
-
-void backToDashboard();
-void showDirectorPage();
-
+void showClientMoviePage();
 
 #endif
