@@ -32,25 +32,29 @@ void showClientFoodPage() {
     int columns, rows;
     sizeScreen(&columns, &rows);
 
-    drawLogo((columns / 2) - (LOGO_WIDTH / 2), 4);
+    if (rows > 40) drawLogo((columns / 2) - (LOGO_WIDTH / 2), 4);
+
     drawFooter();
     buttonLogout();
     buttonLanguage();
     buttonBack(PAGE_CLIENT);
 
-    // --- Zone de Recherche ---
-    int startLine = (columns - (INPUT_WIDTH + 16 + 10)) / 2;
-    
-    createInput(startLine, 10, "Recherche un produit", "Nom du produit...");
-    createButton(startLine + INPUT_WIDTH + 2, 10, 16, "Rechercher", COLOR_CYAN, STYLE_DEFAULT, onSearch);
-    createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, 10, 10, "Trier", COLOR_BRIGHT_BLACK, STYLE_DEFAULT, NULL);
 
+    filterName[0] = '\0';
 
-    // --- Pagination & Affichage ---
-    int listStartY = 14;
+    int listStartY = 8;
+    if (rows > 40) listStartY = 14;
+
     int itemHeight = 2;
     int maxItems = (rows - 6 - listStartY) / itemHeight;
     if (maxItems < 1) maxItems = 1;
+
+    
+    int startLine = (columns - (INPUT_WIDTH + 16 + 10)) / 2;
+    createInput(startLine, listStartY - 4, "Recherche un produit", "Nom du produit...");
+    createButton(startLine + INPUT_WIDTH + 2, listStartY - 4, 16, "Rechercher", COLOR_CYAN, STYLE_DEFAULT, onSearch);
+    createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, listStartY - 4, 10, "Trier", COLOR_BRIGHT_BLACK, STYLE_DEFAULT, NULL);
+
 
     ProductNode *node = getProductList();
     
