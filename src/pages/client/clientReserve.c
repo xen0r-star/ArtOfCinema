@@ -233,8 +233,6 @@ void showClientReservePage() {
 
 
     if (reserveProjectionId == -1) {
-        filterTitle[0] = '\0';
-
         int listStartY = 8;
         if (rows > 40) listStartY = 14;
 

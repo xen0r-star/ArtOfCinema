@@ -40,8 +40,6 @@ void showClientFoodPage() {
     buttonBack(PAGE_CLIENT);
 
 
-    filterName[0] = '\0';
-
     int listStartY = 8;
     if (rows > 40) listStartY = 14;
 

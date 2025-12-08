@@ -39,8 +39,6 @@ void showClientMoviePage() {
     buttonBack(PAGE_CLIENT);
 
 
-    filterTitle[0] = '\0';
-
     int listStartY = 8;
     if (rows > 40) listStartY = 14;
 
