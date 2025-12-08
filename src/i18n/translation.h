@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "../resources/resource.h"
+#include "../utils/resource.h"
 
 #include "../main.h"
 

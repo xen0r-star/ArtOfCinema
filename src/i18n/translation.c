@@ -48,29 +48,51 @@ static void addTranslation(TranslationTable* translationTblPrev, const char* key
     translationTblPrev->table[hashID] = newTranslation;
 }
 
-static void loadCSVFile(const char* fileName) {
-    FILE *f = fopen(fileName, "r");
-    if(!f) return;
+static void loadTranslation() {
+    // Récupérer la ressource
+    DWORD size;
+    char* data = loadResource(IDR_CSV1, &size);
+    if (!data) return;
 
-    char line[1024];
-    fgets(line, sizeof(line), f);   // Ignore le header
 
-    while(fgets(line, sizeof(line), f)) {
-        char *key = strtok(line, "|");
-        char *fr = strtok(NULL, "|");
-        char *en = strtok(NULL, "\r\n");
+    char* cursor = data;
+    char* lineStart = data;
+    
+    // Ignorer le header
+    while (*cursor && *cursor != '\n') cursor++;
+    if (*cursor == '\n') cursor++;
 
-        if(!key || !fr || !en) continue;
+    while (*cursor) {
+        lineStart = cursor;
+        
+        while (*cursor && *cursor != '\n') cursor++;
+        
+        char savedChar = *cursor;
+        *cursor = '\0';
+        
+        size_t len = strlen(lineStart);
+        if (len > 0 && lineStart[len-1] == '\r') lineStart[len-1] = '\0';
 
-        key[strcspn(key, "\r\n")] = 0;
-        key[strcspn(key, "\r\n")] = 0;
-        key[strcspn(key, "\r\n")] = 0;
+        if (*lineStart) {
+            char* lineCopy = strdup(lineStart);
+            if (lineCopy) {
+                char *key = strtok(lineCopy, ",");
+                char *fr  = strtok(NULL, ",");
+                char *en  = strtok(NULL, ",");
 
-        addTranslation(&translation[0], key, fr);
-        addTranslation(&translation[1], key, en);
+                if (key && fr && en) {
+                    addTranslation(&translation[0], key, fr);
+                    addTranslation(&translation[1], key, en);
+                }
+                free(lineCopy);
+            }
+        }
+
+        *cursor = savedChar;
+        if (*cursor == '\n') cursor++;
     }
 
-    fclose(f);
+    free(data);
 }
 
 void initTranslation() {
@@ -79,7 +101,7 @@ void initTranslation() {
     translation[1].lang = "en";
     memset(translation[1].table, 0, sizeof(translation[1].table));
     
-    loadCSVFile("i18n/translations.csv");
+    loadTranslation();
 }
 
 

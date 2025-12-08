@@ -1,6 +1,7 @@
-#include <windows.h>
+#include "resource.h"
 
-101 ICON "./artofcinema.ico"
+IDI_ICON1 ICON "./artofcinema.ico"
+IDR_CSV1 RCDATA "../i18n/translations.csv"
 
 VS_VERSION_INFO VERSIONINFO
 FILEVERSION 0,0,2,0
