@@ -80,8 +80,7 @@ help:
 
 clean-build:
 	rm -f $(OBJS) $(RES_OBJ)
-# 	rm -f $(ICO_DESTS) $(CSV_DESTS)
-	rm -f $(ICO_DESTS)
+	rm -f $(ICO_DESTS) $(CSV_DESTS)
 	/usr/bin/find build -type d -empty -delete
 
 .PHONY: all clean debug help clean-build
