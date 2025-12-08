@@ -19,6 +19,7 @@
 #include "./i18n/translation.h"
 #include "./core/movie.h"
 #include "./core/projection.h"
+#include "./core/product.h"
 
 #include "./types/page.h"
 
@@ -28,6 +29,7 @@
 #include "./pages/client/client.h"
 #include "./pages/client/clientMovie.h"
 #include "./pages/client/clientReserve.h"
+#include "./pages/client/clientFood.h"
 
 
 #define APP_VERSION "v0.0.2"

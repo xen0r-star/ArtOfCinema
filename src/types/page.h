@@ -8,6 +8,7 @@ typedef enum {
     PAGE_CLIENT,
     PAGE_CLIENT_MOVIE,
     PAGE_CLIENT_RESERVE,
+    PAGE_CLIENT_FOOD,
     PAGE_EXIT
 } AppPage;
 

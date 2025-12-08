@@ -1,33 +1,34 @@
-#include "clientMovie.h"
+#include "clientFood.h"
+#include "../../core/product.h"
 
 static int pageIndex = 0;
-static char filterTitle[100] = "";
+static char filterName[100] = "";
 
 static void prevPage() {
     if (pageIndex > 0) {
         pageIndex--;
-        setCurrentPage(PAGE_CLIENT_MOVIE);
+        setCurrentPage(PAGE_CLIENT_FOOD);
     }
 }
 
 static void nextPage() {
     pageIndex++;
-    setCurrentPage(PAGE_CLIENT_MOVIE);
+    setCurrentPage(PAGE_CLIENT_FOOD);
 }
 
 static void onSearch() {
     Input *input = getInput(0);
     if (input) {
-        strcpy(filterTitle, input->value);
+        strcpy(filterName, input->value);
         pageIndex = 0;
-        setCurrentPage(PAGE_CLIENT_MOVIE);
+        setCurrentPage(PAGE_CLIENT_FOOD);
     }
 }
 
 
 
 
-void showClientMoviePage() {
+void showClientFoodPage() {
     int columns, rows;
     sizeScreen(&columns, &rows);
 
@@ -37,19 +38,21 @@ void showClientMoviePage() {
     buttonLanguage();
     buttonBack(PAGE_CLIENT);
 
-
-    int startLine = (columns - (INPUT_WIDTH + 16 + 10 + 4)) / 2;
-    createInput(startLine, 10, "Recherche un film", "Titre du film...");
+    // --- Zone de Recherche ---
+    int startLine = (columns - (INPUT_WIDTH + 16 + 10)) / 2;
+    
+    createInput(startLine, 10, "Recherche un produit", "Nom du produit...");
     createButton(startLine + INPUT_WIDTH + 2, 10, 16, "Rechercher", COLOR_CYAN, STYLE_DEFAULT, onSearch);
     createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, 10, 10, "Trier", COLOR_BRIGHT_BLACK, STYLE_DEFAULT, NULL);
 
 
+    // --- Pagination & Affichage ---
     int listStartY = 14;
     int itemHeight = 2;
     int maxItems = (rows - 6 - listStartY) / itemHeight;
     if (maxItems < 1) maxItems = 1;
 
-    ProjectionNode *node = getProjectionList();
+    ProductNode *node = getProductList();
     
     int matchesCount = 0;
     int displayedCount = 0;
@@ -57,28 +60,39 @@ void showClientMoviePage() {
     int hasMore = 0;
 
     while (node != NULL) {
-        Movie *movie = getMovieById(node->projection.movie_id);
-        
-        if (movie && searchMovieByName(movie->name, filterTitle)) {
+        if (searchProductByName(node->product.name, filterName)) {
             
             if (matchesCount >= skipCount) {
                 if (displayedCount < maxItems) {
-                    char str[16];
-                    snprintf(str, sizeof(str), "%4d places", node->projection.available_seats);
+                    char priceStr[16];
+                    snprintf(priceStr, sizeof(priceStr), "%.2fE", node->product.price);
+
+                    char stockStr[16];
+                    snprintf(stockStr, sizeof(stockStr), "Disponible: %d", node->product.qte);
 
                     createText(startLine, 
                         listStartY + (displayedCount * itemHeight), 
-                        movie->name, COLOR_WHITE
+                        node->product.name, COLOR_WHITE
                     );
+
+                    if (node->product.qte == 0) {
+                        createText(
+                            startLine + INPUT_WIDTH + 3, 
+                            listStartY + (displayedCount * itemHeight), 
+                            stockStr, COLOR_BRIGHT_RED
+                        );
+                    } else {
+                        createText(
+                            startLine + INPUT_WIDTH + 3, 
+                            listStartY + (displayedCount * itemHeight), 
+                            stockStr, COLOR_BRIGHT_GREEN
+                        );
+                    }
+                    
                     createText(
-                        startLine + INPUT_WIDTH + 1, 
+                        startLine + INPUT_WIDTH + 24, 
                         listStartY + (displayedCount * itemHeight), 
-                        node->projection.datetime, COLOR_WHITE
-                    );
-                    createText(
-                        startLine + INPUT_WIDTH + 2 + 16 + 1, 
-                        listStartY + (displayedCount * itemHeight), 
-                        str, COLOR_WHITE
+                        priceStr, COLOR_YELLOW
                     );
                     displayedCount++;
 
@@ -93,6 +107,7 @@ void showClientMoviePage() {
     }
 
 
+    // --- Boutons de Navigation ---
     int startBtnX = (columns - (15 + 2 + 15)) / 2;
 
     if (pageIndex > 0) createButton(startBtnX, rows - 5, 15, "Precedent", COLOR_GREEN, STYLE_DEFAULT, prevPage);
@@ -100,4 +115,5 @@ void showClientMoviePage() {
     
     if (hasMore) createButton(startBtnX + 15 + 2, rows - 5, 15, "Suivant", COLOR_GREEN, STYLE_DEFAULT, nextPage);
     else         createButton(startBtnX + 15 + 2, rows - 5, 15, "Suivant", COLOR_BRIGHT_BLACK, STYLE_DEFAULT, NULL);
+      
 }

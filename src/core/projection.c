@@ -46,3 +46,14 @@ int loadProjections() {
 ProjectionNode* getProjectionList() {
     return projectionList;
 }
+
+Projection* getProjectionById(int id) {
+    ProjectionNode *current = projectionList;
+    while (current != NULL) {
+        if (current->projection.id == id) {
+            return &current->projection;
+        }
+        current = current->next;
+    }
+    return NULL;
+}

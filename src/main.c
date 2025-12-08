@@ -14,6 +14,7 @@ int main() {
     initTranslation();
     loadMovies();
     loadProjections();
+    loadProducts();
 
     while(1) {
         // Recuperer la taille de l'écran
@@ -53,6 +54,10 @@ int main() {
 
                 case PAGE_CLIENT_RESERVE:
                     showClientReservePage();
+                    break;
+
+                case PAGE_CLIENT_FOOD:
+                    showClientFoodPage();
                     break;
 
                 case PAGE_EXIT: 

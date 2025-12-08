@@ -10,6 +10,7 @@
 int loadMovies();
 MovieNode* getMovieList();
 Movie* getMovieById(int id);
+int searchMovieByName(const char *movieName, const char *search);
 
 
 #endif

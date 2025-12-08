@@ -6,7 +6,7 @@ static void moviesPage() {
 }
 
 static void foodPage() {
-    // Placeholder for future functionality
+    setCurrentPage(PAGE_CLIENT_FOOD);
 }
 
 static void reservePage() {

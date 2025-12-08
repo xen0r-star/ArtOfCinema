@@ -7,7 +7,7 @@
 
 
 #define MAX_BUTTONS 10
-#define MAX_DATABUTTONS 10
+#define MAX_DATABUTTONS 20
 
 
 typedef enum Style {
