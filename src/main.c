@@ -1,7 +1,7 @@
 #include "main.h"
 
 
-static AppPage page = PAGE_DIRECTOR;
+static AppPage page = PAGE_LOADING;
 static AppPage previousPage = -1;
 
 void resetPage(){
@@ -71,6 +71,10 @@ int main() {
 
                 case PAGE_CLIENT_FOOD:
                     showClientFoodPage();
+                    break;
+
+                case PAGE_SETTINGS:
+                    showSettingsPage();
                     break;
 
                 case PAGE_EXIT: 
