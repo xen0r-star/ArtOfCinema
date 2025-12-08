@@ -11,14 +11,14 @@ static int pageIndex = 0;
 
 static void addQteProd(void *qte){
     int *value = qte;
-    if ((*value) + 1 >= 999) return;
+    if ((*value) + 1 > 999) return;
     (*value)++;
     setCurrentPage(PAGE_DIRECTOR_SHOP);
 }
 
 static void remQteProd(void *qte){
     int *value = qte;
-    if ((*value) - 1 <= 0) return;
+    if ((*value) - 1 < 0) return;
     (*value)--;
     setCurrentPage(PAGE_DIRECTOR_SHOP);
 }
