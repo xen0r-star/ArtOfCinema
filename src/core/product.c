@@ -16,8 +16,6 @@ int loadProducts() {
     
     Product product = {0};
     char name[50];
-    float prix;
-    int qte;
     ProductNode *tail = NULL;
     while (fscanf(file, "%5d|%49[^|]|%5d|%10f",
             &product.id, name, &product.qte, &product.price) == 4) {
