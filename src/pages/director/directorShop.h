@@ -1,5 +1,5 @@
-#ifndef DIRECTOR_H
-#define DIRECTOR_H
+#ifndef DIRECTORSHOP_H
+#define DIRECTORSHOP_H
 
 
 #include "../../components/logo.h"
@@ -10,11 +10,11 @@
 #include "../../components/language.h"
 
 
+#include "../../core/product.h"
 #include "../../main.h"
 
 
-void backToDashboard();
-void showDirectorPage();
+void showDirectorShopPage();
 
 
 #endif

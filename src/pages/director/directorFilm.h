@@ -1,5 +1,5 @@
-#ifndef DIRECTOR_H
-#define DIRECTOR_H
+#ifndef DIRECTORFILM_H
+#define DIRECTORFILM_H
 
 
 #include "../../components/logo.h"
@@ -13,8 +13,7 @@
 #include "../../main.h"
 
 
-void backToDashboard();
-void showDirectorPage();
+void showDirectorFilmPage();
 
 
 #endif

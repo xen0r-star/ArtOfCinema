@@ -2,7 +2,7 @@
 
 
 void event() {
-    if (getInputCount() <= 0 && getButtonCount() <= 0) return;
+    if (getInputCount() <= 0 && getButtonCount() <= 0 && getDataButtonCount() <= 0) return;
 
 
     HANDLE h = GetStdHandle(STD_INPUT_HANDLE);

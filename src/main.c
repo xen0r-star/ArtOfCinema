@@ -1,8 +1,16 @@
 #include "main.h"
 
 
-static AppPage page = PAGE_LOADING;
+static AppPage page = PAGE_DIRECTOR;
 static AppPage previousPage = -1;
+
+void resetPage(){
+    deleteAllInputs();
+    deleteAllButtons();
+    deleteAllDataButtons();
+    deleteAllMenus();
+    clearScreen();
+}
 
 
 int main() {
@@ -24,10 +32,7 @@ int main() {
         if (columns != previousColumns || rows != previousRows || page != previousPage) {
             previousPage = page;
 
-            deleteAllInputs();
-            deleteAllButtons();
-            deleteAllDataButtons();
-            clearScreen();
+            resetPage();
 
             cursorVisibility(0);
 
@@ -42,6 +47,14 @@ int main() {
 
                 case PAGE_DIRECTOR:
                     showDirectorPage();
+                    break;
+
+                case PAGE_DIRECTOR_FILM:
+                    showDirectorFilmPage();
+                    break;
+
+                case PAGE_DIRECTOR_SHOP:
+                    showDirectorShopPage();
                     break;
 
                 case PAGE_CLIENT:

@@ -82,6 +82,7 @@ void showLoginPage() {
     drawLogo((columns / 2) - (LOGO_WIDTH / 2), 4);
     drawFooter();
     buttonLanguage();
+    buttonSetting();
 
     createText(ALIGN_CENTER, 10, _T("login.visual.text"), COLOR_GREEN);
 
@@ -121,7 +122,7 @@ void showLoginPage() {
                 createText(ALIGN_CENTER, 11, _T("login.acc.conn.visual.txt.err"), COLOR_RED);
                 createText(ALIGN_CENTER, 15, user.email, COLOR_BRIGHT_BLACK);
                 createText(ALIGN_CENTER, 18, "**************", COLOR_BRIGHT_BLACK);
-                createButton(ALIGN_CENTER, rows - 7, 21, _T("login.acc.conn.visual.txt.err.bck"), COLOR_WHITE, STYLE_DEFAULT, backToLogin);
+                createButton(ALIGN_CENTER, rows - 7, 21, _T("return"), COLOR_WHITE, STYLE_DEFAULT, backToLogin);
                 break;
 
             case ROLE_NONE:

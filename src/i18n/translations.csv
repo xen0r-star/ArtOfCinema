@@ -1,33 +1,49 @@
-key,fr,en
-welcome,Bienvenue,Welcome
-loading,Chargement,Loading
-login.visual.text,Votre Compte ARTOFCINEMA,Your ARTOFCINEMA Account
-login.ipt.mail,Entrez votre email pour vous connecter ou creer un compte.,Enter your email to log in or create an account.
-login.mail,E-Mail,Mail
-login.inv.mail,Email invalide,Invalid email
-login.mail.expl,exemple@artofcinema.be,example@artofcinema.uk
-login.btn.lge,EN,FR
-login.acc.conn,Connecter-vous a votre compte,Log in to your account
-login.btn.nxt,CONTINUER,CONTINUE
-login.crt.acc,Creer votre compte,Create your account
-login.crt.acc.ipt.label,Mot de passe,Password
-login.crt.acc.ipt.placeholder,Votre mot de passe,Your password
-login.crt.acc.ipt.cnfrmpswd,Confirmer le mot de passe,Confirm the password
-login.crt.acc.ipt.inv.pswd,Les mots de passe ne correspondent pas,The passwords do not match
-login.crt.acc.ipt.labname,Nom,Name
-login.crt.acc.ipt.phname,Votre nom,Your name
-login.crt.acc.ipt.labfname,Prenom,First name
-login.crt.acc.ipt.phfname,Votre prenom,Your first name
-login.crt.acc.btn,S'inscrire,Sign up
-login.btn.conn,CONNEXION,CONNECTION
-login.btn.crt.acc.next,SUIVANT,NEXT
-login.acc.conn.visual.txt.err,Identiant de connexion non valide,Invalid connection identifier
-login.acc.conn.visual.txt.err.bck,RETOUR,RETURN
-logout.btn.dec,DECONNEXION,DISCONNECT
-client.visual.txt,Bienvenue dans votre espace client Art of Cinema,Welcome to your Art of Cinema client area
-client.btn.view.movies,FILMS,MOVIES
-client.btn.view.movies,FILMS,MOVIES
-client.btn.view.food,ALIMENTATION,FOOD
-client.btn.view.reserve,RESERVER,RESERVE
-client.btn.view.quote,DEVIS,QUOTE
-director.visual.txt,Bienvenue dans votre espace directeur Art of Cinema,Welcome to your Art of Cinema director area
+key|fr|en
+welcome|Bienvenue|Welcome
+loading|Chargement|Loading
+login.visual.text|Votre Compte ARTOFCINEMA|Your ARTOFCINEMA Account
+login.ipt.mail|Entrez votre email pour vous connecter ou creer un compte.|Enter your email to log in or create an account.
+login.mail|E-Mail|Mail
+login.inv.mail|Email invalide|Invalid email
+login.mail.expl|exemple@artofcinema.be|example@artofcinema.uk
+current.lge|EN|FR
+login.acc.conn|Connecter-vous a votre compte|Log in to your account
+login.btn.nxt|CONTINUER|CONTINUE
+login.crt.acc|Creer votre compte|Create your account
+login.crt.acc.ipt.label|Mot de passe|Password
+login.crt.acc.ipt.placeholder|Votre mot de passe|Your password
+login.crt.acc.ipt.cnfrmpswd|Confirmer le mot de passe|Confirm the password
+login.crt.acc.ipt.inv.pswd|Les mots de passe ne correspondent pas|The passwords do not match
+login.crt.acc.ipt.labname|Nom|Name
+login.crt.acc.ipt.phname|Votre nom|Your name
+login.crt.acc.ipt.labfname|Prenom|First name
+login.crt.acc.ipt.phfname|Votre prenom|Your first name
+login.crt.acc.btn|S'inscrire|Sign up
+login.btn.conn|CONNEXION|CONNECTION
+login.btn.crt.acc.next|SUIVANT|NEXT
+login.acc.conn.visual.txt.err|Identiant de connexion non valide|Invalid connection identifier
+return|RETOUR|RETURN
+logout.btn.dec|DECONNEXION|DISCONNECT
+client.visual.txt|Bienvenue dans votre espace client Art of Cinema|Welcome to your Art of Cinema client area
+director.visual.lbl|Administration ARTOFCINEMA|Administration ARTOFCINEMA
+director.visual.desc|Bonjour ADMINISTRATEUR, bienvenue sur votre compte Administrateur !|Bonjour ADMINISTRATEUR, bienvenue sur votre compte Administrateur !
+director.btn1|FILM|FILM
+director.btn2|MAGASIN|SHOP
+director.f.lbl|Administration Film ARTOFCINEMA|A FAIRE
+director.f.desc|Bonjour ADMINISTRATEUR, bienvenue dans l'interface vous permettant de gerer les films !|A FAIRE
+director.f.btn1|AJOUTER FILM|A FAIRE
+director.f.btn2|MODIFIER FILM|A FAIRE
+director.f.btn3|SUPPRIMER FILM|A FAIRE
+director.f.btn4|LISTE FILM|A FAIRE
+director.s.lbl|Administration Magasin ARTOFCINEMA|A FAIRE
+director.s.desc|Bonjour ADMINISTRATEUR, bienvenue dans l'interface vous permettant de gerer le magasin ARTOFCINEMA !|A FAIRE
+director.s.btn1|STOCK|A FAIRE
+director.s.btn2|RESERVATION|A FAIRE
+director.s.tbl|Produits dans le stock|A FAIRE
+settings.visual.txt|Vos parametres ARTOFCINEMA|Your ARTOFCINEMA settings
+setting.btn.label|PARAMETRES|SETTINGS
+setting.btn.close|FERMER|CLOSE
+setting.menu.label|PARAMETRES ARTOFCINEMA|ARTOFCINEMA SETTINGS
+setting.menu.o1|Global|A FAIRE
+setting.menu.o2|Langues|A FAIRE
+setting.menu.o3|Affichage|A FAIRE
