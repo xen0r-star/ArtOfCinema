@@ -60,26 +60,20 @@ static void loadTranslation() {
     
     // Ignorer le header
     while (*cursor && *cursor != '\n') cursor++;
-    if (*cursor == '\n') cursor++; // Passer le \n
+    if (*cursor == '\n') cursor++;
 
-    // Lire chaque ligne
     while (*cursor) {
         lineStart = cursor;
         
-        // Trouver la fin de la ligne
         while (*cursor && *cursor != '\n') cursor++;
         
-        // Temporairement terminer la ligne par \0 pour la traiter
         char savedChar = *cursor;
         *cursor = '\0';
         
-        // Traitement de la ligne (lineStart)
-        // Attention : lineStart peut contenir \r à la fin
         size_t len = strlen(lineStart);
         if (len > 0 && lineStart[len-1] == '\r') lineStart[len-1] = '\0';
 
-        if (*lineStart) { // Si ligne non vide
-            // On duplique la ligne pour pouvoir utiliser strtok dessus sans casser la boucle principale
+        if (*lineStart) {
             char* lineCopy = strdup(lineStart);
             if (lineCopy) {
                 char *key = strtok(lineCopy, ",");
@@ -94,7 +88,6 @@ static void loadTranslation() {
             }
         }
 
-        // Restaurer et avancer
         *cursor = savedChar;
         if (*cursor == '\n') cursor++;
     }
