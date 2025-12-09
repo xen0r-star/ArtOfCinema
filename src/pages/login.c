@@ -4,8 +4,14 @@
 static User user = {
     .logged = 0,
     .role = ROLE_NONE,
-    .email = ""
+    .email = "",
+    .name = "",
+    .surname = ""
 };
+
+User getUser() {
+    return user;
+}
 
 void resetUser() {
     user = (User) {
@@ -32,7 +38,11 @@ static void validEmail() {
 static void signIn() {
     const char *password = getInput(0)->value;
 
-    user.role = checkLogin(user.email, password);
+    InfoUser info = checkLogin(user.email, password);
+    user.role = info.role;
+    strcpy(user.name, info.name);
+    strcpy(user.surname, info.surname);
+    
     user.logged = 1;
     setCurrentPage(PAGE_LOGIN);
 }
@@ -62,6 +72,8 @@ static void signUp() {
         setName(user.email, name);
         setSurname(user.email, surname);
 
+        strcpy(user.name, name);
+        strcpy(user.surname, surname);
         user.role = ROLE_CLIENT;
         setCurrentPage(PAGE_LOGIN);
     }

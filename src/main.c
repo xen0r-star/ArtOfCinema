@@ -1,7 +1,7 @@
 #include "main.h"
 
 
-static AppPage page = PAGE_DIRECTOR;
+static AppPage page = PAGE_LOADING;
 static AppPage previousPage = -1;
 
 void resetPage(){
@@ -23,6 +23,7 @@ int main() {
     loadMovies();
     loadProjections();
     loadProducts();
+    loadReservation();
 
     while(1) {
         // Recuperer la taille de l'écran
@@ -65,12 +66,16 @@ int main() {
                     showClientMoviePage();
                     break;
 
+                case PAGE_CLIENT_FOOD:
+                    showClientFoodPage();
+                    break;
+
                 case PAGE_CLIENT_RESERVE:
                     showClientReservePage();
                     break;
 
-                case PAGE_CLIENT_FOOD:
-                    showClientFoodPage();
+                case PAGE_CLIENT_QUOTE:
+                    showClientQuotePage();
                     break;
 
                 case PAGE_SETTINGS:

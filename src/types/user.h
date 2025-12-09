@@ -12,8 +12,15 @@ typedef struct User {
     int logged;
     Role role;
     char email[38];
-    
+    char name[38];
+    char surname[38];
 } User;
+
+typedef struct InfoUser {
+    Role role;
+    char name[38];
+    char surname[38];
+} InfoUser;
 
 
 #endif

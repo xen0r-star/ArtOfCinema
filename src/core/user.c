@@ -1,7 +1,6 @@
 #include "user.h"
 
 
-
 Status emailExiste(const char* email) {
     FILE *fdat = fopen(DATA_FILE, "r");
     if (fdat == NULL) return STATUS_ERROR;
@@ -18,9 +17,9 @@ Status emailExiste(const char* email) {
     return STATUS_NOT_FOUND;
 }
 
-Role checkLogin(const char* email, const char* password) {
+InfoUser checkLogin(const char* email, const char* password) {
     FILE *fdat = fopen(DATA_FILE, "r");
-    if (fdat == NULL) return ROLE_ERROR;
+    if (fdat == NULL) return (InfoUser){ROLE_ERROR, "", ""};
     
     char fileEmail[38];
     char filePassword[38];
@@ -29,15 +28,24 @@ Role checkLogin(const char* email, const char* password) {
             char role[9], tpmN[38], tpmP[38];
             fscanf(fdat,"%37s %37s %8s", tpmN, tpmP, role);
             fclose(fdat);
-            if (strcmp(role, "CLIENT") == 0) return ROLE_CLIENT;
-            if (strcmp(role, "DIRECTOR") == 0) return ROLE_DIRECTOR;
+
+            InfoUser user;
+            strcpy(user.name, tpmN);
+            strcpy(user.surname, tpmP);
+
+            if (strcmp(role, "CLIENT") == 0) user.role = ROLE_CLIENT;
+            else if (strcmp(role, "DIRECTOR") == 0) user.role = ROLE_DIRECTOR;
+            else user.role = ROLE_NONE;
+
+            return user;
+
         } else {
             fscanf(fdat, "%*[^\n]");
         }
     }
 
     fclose(fdat);
-    return ROLE_ERROR;
+    return (InfoUser){ROLE_ERROR, "", ""};
 }
 
 

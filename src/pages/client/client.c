@@ -14,7 +14,7 @@ static void reservePage() {
 }
 
 static void quotePage() {
-    // Placeholder for future functionality
+    setCurrentPage(PAGE_CLIENT_QUOTE);
 }
 
 

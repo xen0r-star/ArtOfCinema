@@ -10,6 +10,17 @@
 #include "../../components/language.h"
 #include "../../components/back.h"
 
+#include "../../core/reservation.h"
+
+
+typedef enum StepReserve {
+    RESERVE_STEP_TICKETS,
+    RESERVE_STEP_FOOD,
+    RESERVE_STEP_CONFIRM,
+    RESERVE_STEP_DONE
+} StepReserve;
+
+
 void showClientReservePage();
 
 #endif
