@@ -11,8 +11,8 @@ int loadMovies() {
     FILE *file = fopen("data/movies.csv", "r");
     if (file == NULL) return -1;
 
-    char buffer[1024];
-    fscanf(file, "%[^\n]\n", buffer); // Skip header
+    // char buffer[1024]; ⚠️
+    // fscanf(file, "%[^\n]\n", buffer); // Skip header ⚠️
 
     Movie movie = {0};
     char name[100], typesStr[512], desc[512], director[100], age[10], lang[50], castStr[512];

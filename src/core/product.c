@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <windows.h>
 
 static ProductNode *productList = NULL;
 
@@ -16,8 +17,8 @@ int loadProducts() {
     FILE *file = fopen("data/products.csv", "r");
     if (file == NULL) return -1;
     
-    char buffer[1024];
-    fscanf(file, "%[^\n]\n", buffer); // Skip header
+    // char buffer[1024]; ⚠️
+    // fscanf(file, "%[^\n]\n", buffer); // Skip header ⚠️
 
     Product product = {0};
     char name[50];
@@ -50,6 +51,64 @@ int loadProducts() {
     return 0;
 }
 
+int saveProducts(idProductList *list) {
+    FILE *file = fopen("data/products.csv", "r+");
+    if (file == NULL) return -1;
+
+    cursor(2, 2);
+    
+    while(list != NULL){
+        idProduct *tmpProduct = list->idPdt;
+        int idTmp = tmpProduct->id;
+        int qteFinal = tmpProduct->qte;
+
+        int idRead = -1;
+        int line = 1;
+
+        rewind(file);
+        // Sleep(5000);
+        printf("Recherche de l'ID %d...", idTmp);
+        // Sleep(5000);
+        while (fscanf(file, "%5d %*[^\n]\n", &idRead) ==  1) {
+            // Sleep(5000);
+            printf("Comparaison de %05d et %05d", idTmp, idRead);
+            // Sleep(5000);
+            if (idTmp == idRead) {
+                long pos = ftell(file);
+                fseek(file, pos - 12, SEEK_SET);
+                fprintf(file, "%05d", qteFinal);
+                // Sleep(5000);
+                printf("ID %05d trouvé à la ligne %d remplacer par QTE : %d", idTmp, line, qteFinal);                
+                // Sleep(5000);
+                break;
+            }
+            line++;
+        }
+        printf("Sortie de la recherche");
+        // Sleep(5000);
+        idProductList *toDelete = list;
+        /* if (list->next != NULL){
+            Sleep(5000);
+            cursor(2, 2);
+            printf("PAS DE NEXT");
+            Sleep(3000);
+        } else {
+            Sleep(5000);
+            cursor(2, 2);
+            printf("NEXT PRESENT");
+            Sleep(3000);
+        } */
+        list = list->next;
+
+        // if (toDelete->idPdt != NULL)
+            // free(toDelete->idPdt);
+        
+        // free(toDelete);
+    }
+    fclose(file);
+    if (list != NULL) list = NULL;
+    return 0;
+}
 
 ProductNode* getProductList() {
     return productList;

@@ -13,7 +13,7 @@
 #include "../../main.h"
 
 
-void backToDashboard();
+void backToDashboard(void *list);
 void showDirectorPage();
 
 

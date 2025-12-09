@@ -9,8 +9,8 @@ int loadProjections() {
     FILE *file = fopen("data/projections.csv", "r");
     if (file == NULL) return -1;
 
-    char buffer[1024];
-    fscanf(file, "%[^\n]\n", buffer); // Skip header
+    // char buffer[1024]; ⚠️
+    // fscanf(file, "%[^\n]\n", buffer); // Skip header ⚠️
 
     Projection projection = {0};
     char datetime[50];

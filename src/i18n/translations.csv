@@ -1,6 +1,8 @@
 key|fr|en
 welcome|Bienvenue|Welcome
 loading|Chargement|Loading
+return|RETOUR|RETURN
+save|SAUVEGARDER|SAVE
 login.visual.text|Votre Compte ARTOFCINEMA|Your ARTOFCINEMA Account
 login.ipt.mail|Entrez votre email pour vous connecter ou creer un compte.|Enter your email to log in or create an account.
 login.mail|E-Mail|Mail
@@ -22,7 +24,6 @@ login.crt.acc.btn|S'inscrire|Sign up
 login.btn.conn|CONNEXION|CONNECTION
 login.btn.crt.acc.next|SUIVANT|NEXT
 login.acc.conn.visual.txt.err|Identiant de connexion non valide|Invalid connection identifier
-return|RETOUR|RETURN
 logout.btn.dec|DECONNEXION|DISCONNECT
 client.visual.txt|Bienvenue dans votre espace client Art of Cinema|Welcome to your Art of Cinema client area
 client.btn.view.movies|FILMS|MOVIES

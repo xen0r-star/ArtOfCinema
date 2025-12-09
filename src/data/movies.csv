@@ -1,4 +1,3 @@
-id;name;duration;type_count;types;note;description;year;director;ageRating;language;cast_count;cast
 1;Inception;148;3;TYPE_ACTION|TYPE_SCI_FI|TYPE_THRILLER;88;A thief who steals corporate secrets through dream-sharing technology.;2010;Christopher Nolan;PG-13;English;3;Leonardo DiCaprio|Joseph Gordon-Levitt|Ellen Page
 2;The Dark Knight;152;3;TYPE_ACTION|TYPE_DRAMA|TYPE_THRILLER;90;Batman faces the Joker,  a criminal mastermind unleashing chaos on Gotham.;2008;Christopher Nolan;PG-13;English;3;Christian Bale|Heath Ledger|Aaron Eckhart
 3;Interstellar;169;2;TYPE_SCI_FI|TYPE_DRAMA;86;A team travels through a wormhole to find a new home for humanity.;2014;Christopher Nolan;PG-13;English;3;Matthew McConaughey|Anne Hathaway|Jessica Chastain

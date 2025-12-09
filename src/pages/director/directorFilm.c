@@ -1,5 +1,6 @@
 #include "directorFilm.h"
 
+static idMovieList *idList = NULL;
 
 void showDirectorFilmPage(){
     int columns, rows;
@@ -11,5 +12,5 @@ void showDirectorFilmPage(){
     createText(ALIGN_CENTER, 10, _T("director.f.lbl"), COLOR_GREEN);
     createText(ALIGN_CENTER, 12, _T("director.f.desc"), COLOR_WHITE);
 
-    createButton(columns - 20, rows - 3, 20, _T("return"), COLOR_WHITE, STYLE_DEFAULT, backToDashboard);
+    createDataButton(columns - 20, rows - 3, 20, _T("save"), COLOR_WHITE, STYLE_DEFAULT, backToDashboard, &idList);
 }

@@ -2,6 +2,7 @@
 
 static int pageIndex = 0;
 
+
 /* ⚠️ WARNING : A RETIRER SI AUTRES METHODE FONCTIONNE (DEMANDER A TOMUS)
 * static void showMainShop(){
 *     setCurrentPage(PAGE_DIRECTOR_SHOP);
@@ -9,17 +10,50 @@ static int pageIndex = 0;
 */
 
 
-static void addQteProd(void *qte){
-    int *value = qte;
+static idProductList *idList = NULL;
+
+static void addIdList(void *product){
+    Product *pdt = product;
+    int idP = pdt->id;
+    int qteP = pdt->qte;
+    // Create and append Node
+    idProductList *newNode = malloc(sizeof(idProductList));
+    if (newNode) {
+        idProduct *newPdt = malloc(sizeof(idProduct));
+        newPdt->id = idP;
+        newPdt->qte = qteP;
+        newNode->idPdt = newPdt;
+        newNode->next = NULL;
+
+        if (idList == NULL) {
+            idList = newNode;
+        } else {
+            idProductList *temp = idList->next;
+            while(temp != NULL) { // TEMP NEXT DIFFERNET DE NULL
+                // temp = idList->next;    // BOucle infini : FIX EN DESSOUS
+                temp = temp->next; 
+            }
+            temp = newNode;
+        }
+    }
+    
+}
+
+static void addQteProd(void *product){
+    Product *pdt = product;
+    int *value = &pdt->qte;
     if ((*value) + 1 > 999) return;
     (*value)++;
+    addIdList(pdt);
     setCurrentPage(PAGE_DIRECTOR_SHOP);
 }
 
-static void remQteProd(void *qte){
-    int *value = qte;
+static void remQteProd(void *product){
+    Product *pdt = product;
+    int *value = &pdt->qte;
     if ((*value) - 1 < 0) return;
     (*value)--;
+    addIdList(pdt);
     setCurrentPage(PAGE_DIRECTOR_SHOP);
 }
 
@@ -71,9 +105,9 @@ static void initItem(int columns, int rows){
             createText(columns*0.20, listStartY + (i * itemHeight), node->product.name, COLOR_WHITE);
             createText(columns*0.45, listStartY + (i * itemHeight), qte, COLOR_WHITE);
             createText(columns*0.55, listStartY + (i * itemHeight), price, COLOR_WHITE);
-            createDataButton(columns*0.75, listStartY + (i * itemHeight) - 1, 5, "+", COLOR_GREEN, STYLE_DEFAULT, addQteProd, &node->product.qte);
-            createDataButton(columns*0.80, listStartY + (i * itemHeight) - 1, 5, "-", COLOR_RED, STYLE_DEFAULT, remQteProd, &node->product.qte);
-            createDataButton(columns*0.85, listStartY + (i * itemHeight) - 1, 5, "...", COLOR_BLUE, STYLE_DEFAULT, advancedProd, &node->product.qte);
+            createDataButton(columns*0.75, listStartY + (i * itemHeight) - 1, 5, "+", COLOR_GREEN, STYLE_DEFAULT, addQteProd, &node->product);
+            createDataButton(columns*0.80, listStartY + (i * itemHeight) - 1, 5, "-", COLOR_RED, STYLE_DEFAULT, remQteProd, &node->product);
+            createDataButton(columns*0.85, listStartY + (i * itemHeight) - 1, 5, "...", COLOR_BLUE, STYLE_DEFAULT, advancedProd, &node->product);
             // DANS "..." AJOUTER POSSIIBILITE DE RESERVER DE LA NOURRITURE
         }
         i++;
@@ -129,7 +163,7 @@ void showDirectorShopPage(){
     * createButton((columns-14)/2+10, 12, 15, _T("director.s.btn2"), COLOR_GREEN, STYLE_DEFAULT, showReservF);
     *
     */
-    createButton(columns - 20, rows - 3, 20, _T("return"), COLOR_WHITE, STYLE_DEFAULT, backToDashboard);
+    createDataButton(columns - 20, rows - 3, 20, _T("save"), COLOR_WHITE, STYLE_DEFAULT, backToDashboard, idList);
 
     createMenu(ALIGN_CENTER, 11, columns*0.8, COLOR_GREEN, STYLE_DEFAULT, "director.s.tbl", NULL, NULL, NULL);
 

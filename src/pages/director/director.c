@@ -8,9 +8,12 @@ static void ShopPage(){
     setCurrentPage(PAGE_DIRECTOR_SHOP);
 }
 
-void backToDashboard() {
+void backToDashboard(void *list) {
+    idProductList *pdt = (idProductList*)list;
+    saveProducts(pdt);
     resetPage();
     showDirectorPage();
+
 }
 
 void showDirectorPage() {
