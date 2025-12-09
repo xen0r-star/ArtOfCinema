@@ -67,13 +67,13 @@ static void initItem(int columns, int rows){
             snprintf(qte, sizeof(qte), "%5d", node->product.qte);
             snprintf(price, sizeof(price), "%4f", node->product.price);
 
-            createText(columns*0.12, listStartY + (i * itemHeight), id, COLOR_WHITE);
-            createText(columns*0.20, listStartY + (i * itemHeight), node->product.name, COLOR_WHITE);
-            createText(columns*0.45, listStartY + (i * itemHeight), qte, COLOR_WHITE);
-            createText(columns*0.55, listStartY + (i * itemHeight), price, COLOR_WHITE);
-            createDataButton(columns*0.75, listStartY + (i * itemHeight) - 1, 5, "+", COLOR_GREEN, STYLE_DEFAULT, addQteProd, &node->product.qte);
-            createDataButton(columns*0.80, listStartY + (i * itemHeight) - 1, 5, "-", COLOR_RED, STYLE_DEFAULT, remQteProd, &node->product.qte);
-            createDataButton(columns*0.85, listStartY + (i * itemHeight) - 1, 5, "...", COLOR_BLUE, STYLE_DEFAULT, advancedProd, &node->product.qte);
+            createText(columns*0.12, listStartY + (i * itemHeight), id, TEXT_COLOR);
+            createText(columns*0.20, listStartY + (i * itemHeight), node->product.name, TEXT_COLOR);
+            createText(columns*0.45, listStartY + (i * itemHeight), qte, TEXT_COLOR);
+            createText(columns*0.55, listStartY + (i * itemHeight), price, TEXT_COLOR);
+            createDataButton(columns*0.75, listStartY + (i * itemHeight) - 1, 5, "+", (ColorRGB){0,255,0}, STYLE_DEFAULT, addQteProd, &node->product.qte);
+            createDataButton(columns*0.80, listStartY + (i * itemHeight) - 1, 5, "-", (ColorRGB){255,0,0}, STYLE_DEFAULT, remQteProd, &node->product.qte);
+            createDataButton(columns*0.85, listStartY + (i * itemHeight) - 1, 5, "...", (ColorRGB){0,0,255}, STYLE_DEFAULT, advancedProd, &node->product.qte);
             // DANS "..." AJOUTER POSSIIBILITE DE RESERVER DE LA NOURRITURE
         }
         i++;
@@ -82,14 +82,14 @@ static void initItem(int columns, int rows){
 
     int startBtnX = (columns - (32)) / 2;
     if (pageIndex > 0)
-        createButton(startBtnX, rows - 3, 15, "Precedent", COLOR_GREEN, STYLE_DEFAULT, prevPage);
+        createButton(startBtnX, rows - 3, 15, "Precedent", SUCCESS_COLOR, STYLE_DEFAULT, prevPage);
     else
-        createButton(startBtnX, rows - 3, 15, "Precedent", COLOR_BRIGHT_BLACK, STYLE_DEFAULT, NULL);
+        createButton(startBtnX, rows - 3, 15, "Precedent", ERROR_COLOR, STYLE_DEFAULT, NULL);
 
     if (node != NULL)
-        createButton(startBtnX + 17, rows - 3, 15, "Suivant", COLOR_GREEN, STYLE_DEFAULT, nextPage);
+        createButton(startBtnX + 17, rows - 3, 15, "Suivant", SUCCESS_COLOR, STYLE_DEFAULT, nextPage);
     else
-        createButton(startBtnX + 17, rows - 3, 15, "Suivant", COLOR_BRIGHT_BLACK, STYLE_DEFAULT, NULL);
+        createButton(startBtnX + 17, rows - 3, 15, "Suivant", ERROR_COLOR, STYLE_DEFAULT, NULL);
 
 }
 /* ⚠️ WARNING : A RETIRER SI AUTRES METHODE FONCTIONNE (DEMANDER A TOMUS)
@@ -121,17 +121,17 @@ void showDirectorShopPage(){
     drawFooter();
     buttonLanguage();
 
-    createText(ALIGN_CENTER, 7, _T("director.s.lbl"), COLOR_GREEN);
-    createText(ALIGN_CENTER, 9, _T("director.s.desc"), COLOR_WHITE);
+    createText(ALIGN_CENTER, 7, _T("director.s.lbl"), PRIMARY_COLOR);
+    createText(ALIGN_CENTER, 9, _T("director.s.desc"), TEXT_COLOR);
     /* ⚠️ WARNING : A RETIRER SI AUTRES METHODE FONCTIONNE (DEMANDER A TOMUS)
     *
-    * createButton((columns-14)/2-10, 12, 14, _T("director.s.btn1"), COLOR_GREEN, STYLE_DEFAULT, showStockManage);
-    * createButton((columns-14)/2+10, 12, 15, _T("director.s.btn2"), COLOR_GREEN, STYLE_DEFAULT, showReservF);
+    * createButton((columns-14)/2-10, 12, 14, _T("director.s.btn1"), PRIMARY_COLOR, STYLE_DEFAULT, showStockManage);
+    * createButton((columns-14)/2+10, 12, 15, _T("director.s.btn2"), PRIMARY_COLOR, STYLE_DEFAULT, showReservF);
     *
     */
-    createButton(columns - 20, rows - 3, 20, _T("return"), COLOR_WHITE, STYLE_DEFAULT, backToDashboard);
+    createButton(columns - 20, rows - 3, 20, _T("return"), TEXT_COLOR, STYLE_DEFAULT, backToDashboard);
 
-    createMenu(ALIGN_CENTER, 11, columns*0.8, COLOR_GREEN, STYLE_DEFAULT, "director.s.tbl", NULL, NULL, NULL);
+    createMenu(ALIGN_CENTER, 11, columns*0.8, PRIMARY_COLOR, STYLE_DEFAULT, "director.s.tbl", NULL, NULL, NULL);
 
     initItem(columns, rows);        // Initialisation + affichage du stock
 }

@@ -29,11 +29,11 @@ static void initMenu(int columns,int rows, int width){
     int x = (columns-width)/2;
     int y = (rows/2)-3;
 
-    Button btn1 = {x, y + 2, 12, COLOR_WHITE, STYLE_BORDERLESS, _T("setting.menu.o1"), test1};
-    Button btn2 = {x + 12, y + 2, 12, COLOR_WHITE, STYLE_BORDERLESS, _T("setting.menu.o2"), test2};
-    Button btn3 = {x + 24, y + 2, 14, COLOR_WHITE, STYLE_BORDERLESS, _T("setting.menu.o3"), test3};
+    Button btn1 = {x, y + 2, 12, SECONDARY_COLOR, STYLE_BORDERLESS, _T("setting.menu.o1"), test1};
+    Button btn2 = {x + 12, y + 2, 12, SECONDARY_COLOR, STYLE_BORDERLESS, _T("setting.menu.o2"), test2};
+    Button btn3 = {x + 24, y + 2, 14, SECONDARY_COLOR, STYLE_BORDERLESS, _T("setting.menu.o3"), test3};
 
-    createMenu(x, y, width, COLOR_BRIGHT_GREEN, STYLE_DEFAULT, "setting.menu.label", &btn1, &btn2, &btn3);
+    createMenu(x, y, width, (ColorRGB){0, 255, 0}, STYLE_DEFAULT, "setting.menu.label", &btn1, &btn2, &btn3);
 }
 
 void showSettingsPage() {
@@ -45,11 +45,11 @@ void showSettingsPage() {
     buttonLanguage();
     buttonClose();
 
-    createText(ALIGN_CENTER, 10, _T("settings.visual.txt"), COLOR_GREEN);
-    // Calcul taille de la fenêtre paramètres (+ 12 espaces & +4 caractères)
+    createText(ALIGN_CENTER, 10, _T("settings.visual.txt"), (ColorRGB){0, 255, 0});
+
+    
     int width = (int)strlen(_T("setting.menu.o1")) +
                 (int)strlen(_T("setting.menu.o2")) + 
-                (int)strlen(_T("setting.menu.o3")) +
-                16;
+                (int)strlen(_T("setting.menu.o3")) + 16;
     initMenu(columns, rows, width);
 }

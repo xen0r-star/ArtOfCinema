@@ -33,12 +33,12 @@ static void drawButton(const Button *button) {
     if (button->style == STYLE_BORDERLESS)
         setColor(button->color);
     else
-        setColor(COLOR_WHITE);
+        setColor(SECONDARY_COLOR);
 
     printf("%s", button->label);
 }
 
-void createButton(int x, int y, int width, const char* label, Color color, Style style, void (*onClick)(void)) {
+void createButton(int x, int y, int width, const char* label, ColorRGB color, Style style, void (*onClick)(void)) {
     if (button_count >= MAX_BUTTONS) return;
 
     int columns, rows;
@@ -54,7 +54,7 @@ void createButton(int x, int y, int width, const char* label, Color color, Style
     drawButton(&buttons[button_count - 1]);
 }
 
-void createDataButton(int x, int y, int width, const char* label, Color color, Style style, void (*onClick)(void*), void* data) {
+void createDataButton(int x, int y, int width, const char* label, ColorRGB color, Style style, void (*onClick)(void*), void* data) {
     if (dataButton_count >= MAX_DATABUTTONS) return;
 
     int columns, rows;

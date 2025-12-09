@@ -4,6 +4,9 @@
 
 #include "../utils/screen.h"
 #include "../utils/align.h"
+#include "../utils/cursor.h"
+#include "../utils/color.h"
+#include "../theme/theme.h"
 
 
 #define MAX_BUTTONS 10
@@ -18,7 +21,7 @@ typedef enum Style {
 typedef struct Button {
     int x, y;
     int width;
-    Color color;
+    ColorRGB color;
     Style style;
     const char* label;
     void (*onClick)(void);
@@ -27,7 +30,7 @@ typedef struct Button {
 typedef struct DataButton {
     int x, y;
     int width;
-    Color color;
+    ColorRGB color;
     Style style;
     const char* label;
     void (*onClick)(void*);
@@ -35,8 +38,8 @@ typedef struct DataButton {
 } DataButton;
 
 
-void createButton(int x, int y, int width, const char* label, Color color, Style style, void (*onClick)(void));
-void createDataButton(int x, int y, int width, const char* label, Color color, Style style, void (*onClick)(void*), void* data);
+void createButton(int x, int y, int width, const char* label, ColorRGB color, Style style, void (*onClick)(void));
+void createDataButton(int x, int y, int width, const char* label, ColorRGB color, Style style, void (*onClick)(void*), void* data);
 
 
 // Button functions

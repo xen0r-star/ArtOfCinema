@@ -4,15 +4,17 @@
 #include <conio.h>
 #include "../utils/screen.h"
 #include "../utils/align.h"
+#include "../utils/cursor.h"
+#include "../utils/color.h"
 
 
 typedef struct Text {
     int x, y;
     char *label;
-    Color *color;
+    ColorRGB  *color;
 } Text;
 
 
-void createText(int x, int y, const char *label, Color color);
+void createText(int x, int y, const char *label, ColorRGB  color);
 
 #endif

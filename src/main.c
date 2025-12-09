@@ -1,7 +1,7 @@
 #include "main.h"
 
 
-static AppPage page = PAGE_DIRECTOR;
+static AppPage page = PAGE_LOADING;
 static AppPage previousPage = -1;
 
 void resetPage(){
@@ -15,7 +15,7 @@ void resetPage(){
 
 int main() {
     SetConsoleTitle("Art Of Cinema - Terminal Edition");
-    hideCursor();
+    cursorVisibility(0);
 
     int columns, rows, previousColumns = 0, previousRows = 0;
     

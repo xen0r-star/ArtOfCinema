@@ -50,8 +50,8 @@ void showClientFoodPage() {
     
     int startLine = (columns - (INPUT_WIDTH + 16 + 10)) / 2;
     createInput(startLine, listStartY - 4, "Recherche un produit", "Nom du produit...");
-    createButton(startLine + INPUT_WIDTH + 2, listStartY - 4, 16, "Rechercher", COLOR_CYAN, STYLE_DEFAULT, onSearch);
-    createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, listStartY - 4, 10, "Trier", COLOR_BRIGHT_BLACK, STYLE_DEFAULT, NULL);
+    createButton(startLine + INPUT_WIDTH + 2, listStartY - 4, 16, "Rechercher", TERTIARY_COLOR, STYLE_DEFAULT, onSearch);
+    createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, listStartY - 4, 10, "Trier", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
 
 
     ProductNode *node = getProductList();
@@ -74,27 +74,27 @@ void showClientFoodPage() {
 
                     createText(startLine, 
                         listStartY + (displayedCount * itemHeight), 
-                        node->product.name, COLOR_WHITE
+                        node->product.name, TEXT_COLOR
                     );
 
                     if (node->product.qte == 0) {
                         createText(
                             startLine + INPUT_WIDTH + 3, 
                             listStartY + (displayedCount * itemHeight), 
-                            stockStr, COLOR_BRIGHT_RED
+                            stockStr, ERROR_COLOR
                         );
                     } else {
                         createText(
                             startLine + INPUT_WIDTH + 3, 
                             listStartY + (displayedCount * itemHeight), 
-                            stockStr, COLOR_BRIGHT_GREEN
+                            stockStr, SUCCESS_COLOR
                         );
                     }
                     
                     createText(
                         startLine + INPUT_WIDTH + 24, 
                         listStartY + (displayedCount * itemHeight), 
-                        priceStr, COLOR_YELLOW
+                        priceStr, INFO_COLOR
                     );
                     displayedCount++;
 
@@ -112,10 +112,9 @@ void showClientFoodPage() {
     // --- Boutons de Navigation ---
     int startBtnX = (columns - (15 + 2 + 15)) / 2;
 
-    if (pageIndex > 0) createButton(startBtnX, rows - 5, 15, "Precedent", COLOR_GREEN, STYLE_DEFAULT, prevPage);
-    else               createButton(startBtnX, rows - 5, 15, "Precedent", COLOR_BRIGHT_BLACK, STYLE_DEFAULT, NULL);
+    if (pageIndex > 0) createButton(startBtnX, rows - 5, 15, "Precedent", PRIMARY_COLOR, STYLE_DEFAULT, prevPage);
+    else               createButton(startBtnX, rows - 5, 15, "Precedent", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
     
-    if (hasMore) createButton(startBtnX + 15 + 2, rows - 5, 15, "Suivant", COLOR_GREEN, STYLE_DEFAULT, nextPage);
-    else         createButton(startBtnX + 15 + 2, rows - 5, 15, "Suivant", COLOR_BRIGHT_BLACK, STYLE_DEFAULT, NULL);
-      
+    if (hasMore) createButton(startBtnX + 15 + 2, rows - 5, 15, "Suivant", PRIMARY_COLOR, STYLE_DEFAULT, nextPage);
+    else         createButton(startBtnX + 15 + 2, rows - 5, 15, "Suivant", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
 }

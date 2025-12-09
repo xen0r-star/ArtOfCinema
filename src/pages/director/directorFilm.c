@@ -8,8 +8,8 @@ void showDirectorFilmPage(){
     drawLogo((columns / 2) - (LOGO_WIDTH / 2), 4);
     drawFooter();
 
-    createText(ALIGN_CENTER, 10, _T("director.f.lbl"), COLOR_GREEN);
-    createText(ALIGN_CENTER, 12, _T("director.f.desc"), COLOR_WHITE);
+    createText(ALIGN_CENTER, 10, _T("director.f.lbl"), PRIMARY_COLOR);
+    createText(ALIGN_CENTER, 12, _T("director.f.desc"), TEXT_COLOR);
 
-    createButton(columns - 20, rows - 3, 20, _T("return"), COLOR_WHITE, STYLE_DEFAULT, backToDashboard);
+    createButton(columns - 20, rows - 3, 20, _T("return"), TERTIARY_COLOR, STYLE_DEFAULT, backToDashboard);
 }

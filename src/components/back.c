@@ -9,5 +9,5 @@ static void backPageHandler(void* data) {
 void buttonBack(AppPage page) {
     static AppPage targetPage;
     targetPage = page;
-    createDataButton(1, ALIGN_TOP, 6, "Back", COLOR_RED, STYLE_BORDERLESS, backPageHandler, &targetPage);
+    createDataButton(1, ALIGN_TOP, 6, "Back", TERTIARY_COLOR, STYLE_BORDERLESS, backPageHandler, &targetPage);
 }
