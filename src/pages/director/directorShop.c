@@ -16,7 +16,16 @@ static void addIdList(void *product){
     Product *pdt = product;
     int idP = pdt->id;
     int qteP = pdt->qte;
-    // Create and append Node
+
+    idProductList *curr = idList;
+    while (curr != NULL) {
+        if (curr->idPdt->id == idP) {
+            curr->idPdt->qte = qteP;
+            return;
+        }
+        curr = curr->next;
+    }
+
     idProductList *newNode = malloc(sizeof(idProductList));
     if (newNode) {
         idProduct *newPdt = malloc(sizeof(idProduct));
@@ -27,16 +36,15 @@ static void addIdList(void *product){
 
         if (idList == NULL) {
             idList = newNode;
+            
         } else {
-            idProductList *temp = idList->next;
-            while(temp != NULL) { // TEMP NEXT DIFFERNET DE NULL
-                // temp = idList->next;    // BOucle infini : FIX EN DESSOUS
+            idProductList *temp = idList;
+            while(temp->next != NULL) {
                 temp = temp->next; 
             }
-            temp = newNode;
+            temp->next = newNode;
         }
     }
-    
 }
 
 static void addQteProd(void *product){

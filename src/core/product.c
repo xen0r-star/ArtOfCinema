@@ -55,58 +55,45 @@ int saveProducts(idProductList *list) {
     FILE *file = fopen("data/products.csv", "r+");
     if (file == NULL) return -1;
 
-    cursor(2, 2);
+    char buffer[512];
     
     while(list != NULL){
         idProduct *tmpProduct = list->idPdt;
         int idTmp = tmpProduct->id;
         int qteFinal = tmpProduct->qte;
 
-        int idRead = -1;
-        int line = 1;
-
         rewind(file);
-        // Sleep(5000);
-        printf("Recherche de l'ID %d...", idTmp);
-        // Sleep(5000);
-        while (fscanf(file, "%5d %*[^\n]\n", &idRead) ==  1) {
-            // Sleep(5000);
-            printf("Comparaison de %05d et %05d", idTmp, idRead);
-            // Sleep(5000);
-            if (idTmp == idRead) {
-                long pos = ftell(file);
-                fseek(file, pos - 12, SEEK_SET);
-                fprintf(file, "%05d", qteFinal);
-                // Sleep(5000);
-                printf("ID %05d trouvé à la ligne %d remplacer par QTE : %d", idTmp, line, qteFinal);                
-                // Sleep(5000);
-                break;
-            }
-            line++;
-        }
-        printf("Sortie de la recherche");
-        // Sleep(5000);
-        idProductList *toDelete = list;
-        /* if (list->next != NULL){
-            Sleep(5000);
-            cursor(2, 2);
-            printf("PAS DE NEXT");
-            Sleep(3000);
-        } else {
-            Sleep(5000);
-            cursor(2, 2);
-            printf("NEXT PRESENT");
-            Sleep(3000);
-        } */
-        list = list->next;
-
-        // if (toDelete->idPdt != NULL)
-            // free(toDelete->idPdt);
+        long lineStart = 0;
         
-        // free(toDelete);
+        while (1) {
+            lineStart = ftell(file);
+            if (fgets(buffer, sizeof(buffer), file) == NULL) break;
+            
+            int idRead;
+            if (sscanf(buffer, "%d", &idRead) == 1) {
+                if (idTmp == idRead) {
+                    char *firstPipe = strchr(buffer, '|');
+                    if (firstPipe) {
+                        char *secondPipe = strchr(firstPipe + 1, '|');
+                        if (secondPipe) {
+                            long qteOffset = (secondPipe - buffer) + 1;
+                            
+                            fseek(file, lineStart + qteOffset, SEEK_SET);
+                            
+                            fprintf(file, "%05d", qteFinal);
+                            
+                            fflush(file);
+                            
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        
+        list = list->next;
     }
     fclose(file);
-    if (list != NULL) list = NULL;
     return 0;
 }
 
