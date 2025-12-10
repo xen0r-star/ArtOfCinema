@@ -425,28 +425,29 @@ void showClientReservePage() {
                 }
 
                 while (node != NULL) {
-                    if (searchProductByName(node->product.name, filterFoodName)) {
+                    if (searchProductByName(node->product->name, filterFoodName)) {
                         if (matchesCount >= skipCount) {
                             if (displayedCount < maxItems) {
                                 int itemY = y + (displayedCount * itemHeight);
                                 
-                                createText(startLine, itemY, node->product.name, COLOR_WHITE);
+                                createText(startLine, itemY, node->product->name, COLOR_WHITE);
                                 
                                 char priceStr[16];
-                                snprintf(priceStr, sizeof(priceStr), "%.2f E", node->product.price);
-                                createText(startLine + 25, itemY, priceStr, COLOR_YELLOW);
-                                char stockStr[16];
-                                snprintf(stockStr, sizeof(stockStr), "Stock: %d", node->product.qte);
-                                createText(startLine + 35, itemY, stockStr, (node->product.qte > 0 ? COLOR_GREEN : COLOR_RED));
+                                snprintf(priceStr, sizeof(priceStr), "%.2f E", node->product->price);
+                                createText(startLine + 25, y, priceStr, COLOR_YELLOW);
 
-                                int currentQty = getFoodQty(node->product.id);
+                                char stockStr[16];
+                                snprintf(stockStr, sizeof(stockStr), "Stock: %d", node->product->qte);
+                                createText(startLine + 35, itemY, stockStr, (node->product->qte > 0 ? COLOR_GREEN : COLOR_RED));
+
+                                int currentQty = getFoodQty(node->product->id);
                                 char qtyStr[4];
                                 snprintf(qtyStr, sizeof(qtyStr), "%d", currentQty);
                                 
                                 int ctrlX = startLine + 50;
-                                createDataButton(ctrlX, itemY - 1, 3, "-", COLOR_RED, STYLE_DEFAULT, decFoodQty, &node->product.id);
+                                createDataButton(ctrlX, itemY - 1, 3, "-", COLOR_RED, STYLE_DEFAULT, decFoodQty, &node->product->id);
                                 createText(ctrlX + 4, itemY, qtyStr, COLOR_WHITE);
-                                createDataButton(ctrlX + 7, itemY - 1, 3, "+", COLOR_GREEN, STYLE_DEFAULT, incFoodQty, &node->product.id);
+                                createDataButton(ctrlX + 7, itemY - 1, 3, "+", COLOR_GREEN, STYLE_DEFAULT, incFoodQty, &node->product->id);
 
                                 displayedCount++;
 

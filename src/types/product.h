@@ -1,6 +1,11 @@
 #ifndef TYPE_PRODUCT_H
 #define TYPE_PRODUCT_H
 
+#define MAX_IDL 5
+#define MAX_NAMEL 50
+#define MAX_QTEL 5
+#define MAX_PRICEL 10
+
 
 typedef struct Product {
     int id;
@@ -10,20 +15,8 @@ typedef struct Product {
 } Product;
 
 typedef struct ProductNode {
-    Product product;
+    Product *product;
     struct ProductNode *next;
 } ProductNode;
-
-
-typedef struct idProduct {
-    int id;
-    int qte;
-} idProduct;
-
-typedef struct idProductList {
-    idProduct *idPdt;
-    struct idProductList *next;
-} idProductList;
-
 
 #endif

@@ -6,7 +6,8 @@
 #include <ctype.h>
 #include <windows.h>
 
-static ProductNode *productList = NULL;
+static ProductNode *productListMain = NULL;
+static ProductNode *productListTemp = NULL;
 
 static bool initProduct = false;
 
@@ -14,53 +15,52 @@ int loadProducts() {
     if(initProduct) return 0;
     initProduct = true;
     
-    FILE *file = fopen("data/products.csv", "r");
+    FILE *file = fopen("data/products.dat", "r");
     if (file == NULL) return -1;
-    
-    // char buffer[1024]; ⚠️
-    // fscanf(file, "%[^\n]\n", buffer); // Skip header ⚠️
 
-    Product product = {0};
-    char name[50];
+    int tempId, tempQte;
+    float tempPrice;
+    char tempName[50];
+
     ProductNode *tail = NULL;
-    while (fscanf(file, "%5d|%49[^|]|%5d|%10f",
-            &product.id, name, &product.qte, &product.price) == 4) {
+    while (fscanf(file, "%5d|%50[^|]|%5d|%10f",
+           &tempId, tempName, &tempQte, &tempPrice) == 4) {
         
-        product.name = strdup(name);
+        Product *newProduct = calloc(1, sizeof(Product));
+
+        newProduct->id = tempId;
+        newProduct->qte = tempQte;
+        newProduct->price = tempPrice;
+        newProduct->name = strdup(tempName);
 
         // Create and append Node
         ProductNode *newNode = malloc(sizeof(ProductNode));
         if (newNode) {
-            newNode->product = product;
+            newNode->product = newProduct;
             newNode->next = NULL;
 
-            if (productList == NULL) {
-                productList = newNode;
+            if (productListMain == NULL) {
+                productListMain = newNode;
                 tail = newNode;
             } else {
                 tail->next = newNode;
                 tail = newNode;
             }
         }
-
-        // Reset product struct for next iteration
-        memset(&product, 0, sizeof(Product));
     }
 
     fclose(file);
     return 0;
 }
 
-int saveProducts(idProductList *list) {
-    FILE *file = fopen("data/products.csv", "r+");
+int saveProducts(ProductNode *list) {
+    FILE *file = fopen("data/products.dat", "r+");
     if (file == NULL) return -1;
 
     char buffer[512];
     
     while(list != NULL){
-        idProduct *tmpProduct = list->idPdt;
-        int idTmp = tmpProduct->id;
-        int qteFinal = tmpProduct->qte;
+        Product *tmpProduct = list->product;
 
         rewind(file);
         long lineStart = 0;
@@ -71,7 +71,7 @@ int saveProducts(idProductList *list) {
             
             int idRead;
             if (sscanf(buffer, "%d", &idRead) == 1) {
-                if (idTmp == idRead) {
+                if (tmpProduct->id == idRead) {
                     char *firstPipe = strchr(buffer, '|');
                     if (firstPipe) {
                         char *secondPipe = strchr(firstPipe + 1, '|');
@@ -80,7 +80,7 @@ int saveProducts(idProductList *list) {
                             
                             fseek(file, lineStart + qteOffset, SEEK_SET);
                             
-                            fprintf(file, "%05d", qteFinal);
+                            fprintf(file, "%05d", tmpProduct->qte);
                             
                             fflush(file);
                             
@@ -93,19 +93,60 @@ int saveProducts(idProductList *list) {
         
         list = list->next;
     }
+    productListMain = productListTemp;
+    fclose(file);
+    return 0;
+}
+
+int saveAllProducts(ProductNode *list) {
+    FILE *file = fopen("data/products.dat", "r+");
+    if (file == NULL) return -1;
+
+    char buffer[512];
+    
+    while(list != NULL){
+        Product *tmpProduct = list->product;
+        
+        rewind(file);
+        long lineStart = 0;
+        
+        while (fgets(buffer, sizeof(buffer), file) != NULL) {
+            lineStart = ftell(file) - strlen(buffer);
+            int idRead;
+
+            if (sscanf(buffer, "%d", &idRead) == 1) {
+                if (tmpProduct->id == idRead) {
+                    char *firstPipe = strchr(buffer, '|');
+                    if (firstPipe) {
+                        long startWriteOffset = (firstPipe - buffer) +1;
+                        fseek(file, lineStart + startWriteOffset, SEEK_SET);
+                            
+                        fprintf(file, "%-30s|%05d|%8.2f\n", tmpProduct->name, tmpProduct->qte, tmpProduct->price);
+                        fflush(file);
+                        break;
+                    }
+                }
+            }
+        }
+        
+        list = list->next;
+    }
     fclose(file);
     return 0;
 }
 
 ProductNode* getProductList() {
-    return productList;
+    productListTemp = productListMain;
+    
+    return productListTemp;
 }
 
 Product* getProductById(int id) {
-    ProductNode *current = productList;
+    productListTemp = productListMain;
+    ProductNode *current = productListTemp;
     while (current != NULL) {
-        if (current->product.id == id) {
-            return &current->product;
+        if (current->product->id == id) {
+            return current->product;
         }
         current = current->next;
     }

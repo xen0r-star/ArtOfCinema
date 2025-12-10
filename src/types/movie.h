@@ -21,18 +21,8 @@ typedef struct Movie {
 } Movie;
 
 typedef struct MovieNode {
-    Movie movie;
+    Movie *movie;
     struct MovieNode *next;
 } MovieNode;
-
-
-typedef struct idMovie {
-    int id;
-} idMovie;
-
-typedef struct idMovieList {
-    idMovie *idPdt;
-    struct idMovieList *next;
-} idMovieList;
 
 #endif

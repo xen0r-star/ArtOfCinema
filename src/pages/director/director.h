@@ -13,7 +13,8 @@
 #include "../../main.h"
 
 
-void backToDashboard(void *list);
+void saveProduct(void *list);
+void saveMovie(void *list);
 void showDirectorPage();
 
 

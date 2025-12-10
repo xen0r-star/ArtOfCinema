@@ -6,10 +6,10 @@
 static ProjectionNode *projectionList = NULL;
 
 int loadProjections() {
-    FILE *file = fopen("data/projections.csv", "r");
+    FILE *file = fopen("data/projections.dat", "r");
     if (file == NULL) return -1;
 
-
+    
     Projection projection = {0};
     char datetime[50];
     ProjectionNode *tail = NULL;
