@@ -49,8 +49,8 @@ void showClientMoviePage() {
     
     int startLine = (columns - (INPUT_WIDTH + 16 + 10 + 4)) / 2;
     createInput(startLine, listStartY - 4, "Recherche un film", "Titre du film...");
-    createButton(startLine + INPUT_WIDTH + 2, listStartY - 4, 16, "Rechercher", TERTIARY_COLOR, STYLE_DEFAULT, onSearch);
-    createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, listStartY - 4, 10, "Trier", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+    createButton(startLine + INPUT_WIDTH + 2, listStartY - 4, 16, "Rechercher", PRIMARY_COLOR, STYLE_DEFAULT, onSearch);
+    createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, listStartY - 4, 10, "Trier", TERTIARY_COLOR, STYLE_DEFAULT, NULL);
 
 
     ProjectionNode *node = getProjectionList();
@@ -67,9 +67,7 @@ void showClientMoviePage() {
             
             if (matchesCount >= skipCount) {
                 if (displayedCount < maxItems) {
-                    char str[16];
-                    snprintf(str, sizeof(str), "%4d places", node->projection.available_seats);
-
+                    
                     createText(startLine, 
                         listStartY + (displayedCount * itemHeight), 
                         movie->name, TEXT_COLOR
@@ -77,13 +75,25 @@ void showClientMoviePage() {
                     createText(
                         startLine + INPUT_WIDTH + 1, 
                         listStartY + (displayedCount * itemHeight), 
-                        node->projection.datetime, TEXT_COLOR
+                        node->projection.datetime, TERTIARY_COLOR
                     );
-                    createText(
-                        startLine + INPUT_WIDTH + 2 + 16 + 1, 
-                        listStartY + (displayedCount * itemHeight), 
-                        str, INFO_COLOR
-                    );
+                    
+                    char str[16];
+                    if (node->projection.available_seats == 0) {
+                        strcpy(str, "Complet");
+                        createText(
+                            startLine + INPUT_WIDTH + 2 + 16 + 1, 
+                            listStartY + (displayedCount * itemHeight), 
+                            str, WARNING_COLOR
+                        );
+                    } else {
+                        snprintf(str, sizeof(str), "%4d places", node->projection.available_seats);
+                        createText(
+                            startLine + INPUT_WIDTH + 2 + 16 + 1, 
+                            listStartY + (displayedCount * itemHeight), 
+                            str, INFO_COLOR
+                        );
+                    }
                     displayedCount++;
 
                 } else {

@@ -96,7 +96,7 @@ void showLoginPage() {
     buttonLanguage();
     buttonSetting();
 
-    createText(ALIGN_CENTER, 10, _T("login.visual.text"), TERTIARY_COLOR);
+    createText(ALIGN_CENTER, 10, _T("login.visual.text"), PRIMARY_COLOR);
 
 
     if (strcmp(user.email, "") == 0) {

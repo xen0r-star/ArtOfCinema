@@ -283,8 +283,8 @@ void showClientReservePage() {
 
         int startLine = (columns - (INPUT_WIDTH + 16 + 10 + 4)) / 2;
         createInput(startLine, listStartY - 4, "Recherche un film", "Titre du film...");
-        createButton(startLine + INPUT_WIDTH + 2, listStartY - 4, 16, "Rechercher", TERTIARY_COLOR, STYLE_DEFAULT, onSearch);
-        createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, listStartY - 4, 10, "Trier", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+        createButton(startLine + INPUT_WIDTH + 2, listStartY - 4, 16, "Rechercher", PRIMARY_COLOR, STYLE_DEFAULT, onSearch);
+        createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, listStartY - 4, 10, "Trier", TERTIARY_COLOR, STYLE_DEFAULT, NULL);
     
     
         ProjectionNode *node = getProjectionList();
@@ -405,8 +405,8 @@ void showClientReservePage() {
 
                 int startLine = (columns - (INPUT_WIDTH + 16 + 10)) / 2;
                 createInput(startLine, y - 4, "Recherche un produit", "Nom du produit...");
-                createButton(startLine + INPUT_WIDTH + 2, y - 4, 16, "Rechercher", TERTIARY_COLOR, STYLE_DEFAULT, onSearchFood);
-                createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, y - 4, 10, "Trier", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+                createButton(startLine + INPUT_WIDTH + 2, y - 4, 16, "Rechercher", PRIMARY_COLOR, STYLE_DEFAULT, onSearchFood);
+                createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, y - 4, 10, "Trier", TERTIARY_COLOR, STYLE_DEFAULT, NULL);
     
 
                 ProductNode *node = getProductList();
