@@ -121,7 +121,7 @@ static void initItem(int columns, int rows){
 
 
             snprintf(id, sizeof(id), "ID : %05d", node->product->id);
-            snprintf(qte, sizeof(qte), "x%-05d", final_qte);
+            snprintf(qte, sizeof(qte), "x%-5d", final_qte);
             snprintf(price, sizeof(price), "%8.2f E", node->product->price);
 
             createText(columns*0.12, listStartY + (i * itemHeight), id, COLOR_WHITE);
@@ -156,8 +156,11 @@ static void showReservF(){
 
 static void skipWaitingSave(void *val) {
     int value = *((int *)val);
-    if (value == 0) setCurrentPage(PAGE_DIRECTOR_SHOP);
-    setCurrentPage(PAGE_DIRECTOR);
+    if (value == 0) {
+        setCurrentPage(PAGE_DIRECTOR_SHOP);
+        return;
+    }
+    setCurrentPage(PAGE_DIRECTOR);      
 }
 
 static void verifyReturnSave() {
