@@ -49,9 +49,9 @@ void showClientFoodPage() {
 
     
     int startLine = (columns - (INPUT_WIDTH + 16 + 10)) / 2;
-    createInput(startLine, listStartY - 4, "Recherche un produit", "Nom du produit...");
-    createButton(startLine + INPUT_WIDTH + 2, listStartY - 4, 16, "Rechercher", PRIMARY_COLOR, STYLE_DEFAULT, onSearch);
-    createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, listStartY - 4, 10, "Trier", TERTIARY_COLOR, STYLE_DEFAULT, NULL);
+    createInput(startLine, listStartY - 4, _T("client.sch.pdt"), _T("client.sch.plh"));
+    createButton(startLine + INPUT_WIDTH + 2, listStartY - 4, 16, _T("search"), PRIMARY_COLOR, STYLE_DEFAULT, onSearch);
+    createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, listStartY - 4, 10, _T("sort"), TERTIARY_COLOR, STYLE_DEFAULT, NULL);
 
 
     ProductNode *node = getProductList();
@@ -70,7 +70,7 @@ void showClientFoodPage() {
                     snprintf(priceStr, sizeof(priceStr), "%.2fE", node->product->price);
 
                     char stockStr[16];
-                    snprintf(stockStr, sizeof(stockStr), "Disponible: %d", node->product->qte);
+                    snprintf(stockStr, sizeof(stockStr), _T("available"), node->product->qte);
 
                     createText(startLine, 
                         listStartY + (displayedCount * itemHeight), 
@@ -112,9 +112,10 @@ void showClientFoodPage() {
     // --- Boutons de Navigation ---
     int startBtnX = (columns - (15 + 2 + 15)) / 2;
 
-    if (pageIndex > 0) createButton(startBtnX, rows - 5, 15, "Precedent", PRIMARY_COLOR, STYLE_DEFAULT, prevPage);
-    else               createButton(startBtnX, rows - 5, 15, "Precedent", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+    if (pageIndex > 0) createButton(startBtnX, rows - 5, 15, _T("prev"), PRIMARY_COLOR, STYLE_DEFAULT, prevPage);
+    else               createButton(startBtnX, rows - 5, 15, _T("prev"), TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
     
-    if (hasMore) createButton(startBtnX + 15 + 2, rows - 5, 15, "Suivant", PRIMARY_COLOR, STYLE_DEFAULT, nextPage);
-    else         createButton(startBtnX + 15 + 2, rows - 5, 15, "Suivant", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+    if (hasMore) createButton(startBtnX + 15 + 2, rows - 5, 15, _T("next"), PRIMARY_COLOR, STYLE_DEFAULT, nextPage);
+    else         createButton(startBtnX + 15 + 2, rows - 5, 15, _T("next"), TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+      
 }

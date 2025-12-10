@@ -68,7 +68,7 @@ void showClientQuotePage() {
         int y = 8;
         if (rows > 40) y = 14;
         
-        createText(ALIGN_CENTER, y, "Mes Devis / Reservations", TERTIARY_COLOR);
+        createText(ALIGN_CENTER, y, _T("client.clt.tlt"), TERTIARY_COLOR);
         y += 4;
 
         int itemHeight = 3;
@@ -96,11 +96,11 @@ void showClientQuotePage() {
                         if (movie && proj) {
                             snprintf(label, sizeof(label), "%s - %s (%.2f E)", movie->name, proj->datetime, total);
                         } else {
-                            snprintf(label, sizeof(label), "Reservation #%d (%.2f E)", node->reservation.projectionId, total);
+                            snprintf(label, sizeof(label), _T("booking"), node->reservation.projectionId, total);
                         }
 
-                        createText(startX, y, label, PRIMARY_COLOR);
-                        createDataButton(startX + 60, y - 1, 15, "Voir details", TERTIARY_COLOR, STYLE_DEFAULT, showDetails, &node->reservation);
+                        createText(startX, y, label, TEXT_COLOR);
+                        createDataButton(startX + 60, y - 1, 15, _T("client.clt.mr"), TERTIARY_COLOR, STYLE_DEFAULT, showDetails, &node->reservation);
 
                         y += itemHeight;
                         displayed++;
@@ -116,11 +116,11 @@ void showClientQuotePage() {
 
         // Pagination
         int startBtnX = (columns - (15 + 2 + 15)) / 2;
-        if (pageIndex > 0) createButton(startBtnX, rows - 5, 15, "Precedent", TERTIARY_COLOR, STYLE_DEFAULT, prevPage);
-        else               createButton(startBtnX, rows - 5, 15, "Precedent", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+        if (pageIndex > 0) createButton(startBtnX, rows - 5, 15, _T("prev"), TERTIARY_COLOR, STYLE_DEFAULT, prevPage);
+        else               createButton(startBtnX, rows - 5, 15, _T("prev"), TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
         
-        if (hasMore) createButton(startBtnX + 15 + 2, rows - 5, 15, "Suivant", TERTIARY_COLOR, STYLE_DEFAULT, nextPage);
-        else         createButton(startBtnX + 15 + 2, rows - 5, 15, "Suivant", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+        if (hasMore) createButton(startBtnX + 15 + 2, rows - 5, 15, _T("next"), TERTIARY_COLOR, STYLE_DEFAULT, nextPage);
+        else         createButton(startBtnX + 15 + 2, rows - 5, 15, _T("next"), TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
 
     } else {
         // DETAILS VIEW
@@ -128,7 +128,7 @@ void showClientQuotePage() {
         int y = 4;
         if (rows > 40) y = 14;
 
-        createText(ALIGN_CENTER, y, "DETAIL DU DEVIS", PRIMARY_COLOR);
+        createText(ALIGN_CENTER, y, _T("client.qot.dt"), TERTIARY_COLOR);
         y += 2;
 
         Projection *projection = getProjectionById(selectedReservation->projectionId);
@@ -137,12 +137,12 @@ void showClientQuotePage() {
         // Movie Info
         if (movie) {
             char movieStr[100];
-            snprintf(movieStr, sizeof(movieStr), "Film : %s", movie->name);
-            createText(centerX - 20, y, movieStr, PRIMARY_COLOR);
+            snprintf(movieStr, sizeof(movieStr), _T("movie"), movie->name);
+            createText(centerX - 20, y, movieStr, TERTIARY_COLOR);
             y++;
             char dateStr[100];
-            snprintf(dateStr, sizeof(dateStr), "Date : %s", projection->datetime);
-            createText(centerX - 20, y, dateStr, TEXT_COLOR);
+            snprintf(dateStr, sizeof(dateStr), _T("date"), projection->datetime);
+            createText(centerX - 20, y, dateStr, TERTIARY_COLOR);
             y += 2;
         }
 
@@ -188,7 +188,7 @@ void showClientQuotePage() {
         // Food
         float foodTotal = 0;
         if (selectedReservation->snacks) {
-            createText(centerX - 20, y, "Snacks :", TERTIARY_COLOR);
+            createText(centerX - 20, y, _T("snacks"), TERTIARY_COLOR);
             y++;
             ReservationSnack *snack = selectedReservation->snacks;
             while (snack) {
@@ -208,10 +208,10 @@ void showClientQuotePage() {
 
         // Total
         char totalStr[100];
-        snprintf(totalStr, sizeof(totalStr), "TOTAL : %.2f E", ticketsTotal + foodTotal);
+        snprintf(totalStr, sizeof(totalStr), _T("tot"), ticketsTotal + foodTotal);
         createText(ALIGN_CENTER, y, totalStr, TERTIARY_COLOR);
         y += 3;
 
-        createButton(ALIGN_CENTER, y, 20, "Retour", TERTIARY_COLOR, STYLE_DEFAULT, backToList);
+        createButton(ALIGN_CENTER, y, 20, _T("return"), TERTIARY_COLOR, STYLE_DEFAULT, backToList);
     }
 }

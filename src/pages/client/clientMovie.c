@@ -48,9 +48,9 @@ void showClientMoviePage() {
     
     
     int startLine = (columns - (INPUT_WIDTH + 16 + 10 + 4)) / 2;
-    createInput(startLine, listStartY - 4, "Recherche un film", "Titre du film...");
-    createButton(startLine + INPUT_WIDTH + 2, listStartY - 4, 16, "Rechercher", PRIMARY_COLOR, STYLE_DEFAULT, onSearch);
-    createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, listStartY - 4, 10, "Trier", TERTIARY_COLOR, STYLE_DEFAULT, NULL);
+    createInput(startLine, listStartY - 4, _T("client.sch.flm"), _T("client.sch.plh2"));
+    createButton(startLine + INPUT_WIDTH + 2, listStartY - 4, 16, _T("search"), PRIMARY_COLOR, STYLE_DEFAULT, onSearch);
+    createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, listStartY - 4, 10, _T("sort"), TERTIARY_COLOR, STYLE_DEFAULT, NULL);
 
 
     ProjectionNode *node = getProjectionList();
@@ -80,14 +80,14 @@ void showClientMoviePage() {
                     
                     char str[16];
                     if (node->projection.available_seats == 0) {
-                        strcpy(str, "Complet");
+                        strcpy(str, _T("full"));
                         createText(
                             startLine + INPUT_WIDTH + 2 + 16 + 1, 
                             listStartY + (displayedCount * itemHeight), 
                             str, WARNING_COLOR
                         );
                     } else {
-                        snprintf(str, sizeof(str), "%4d places", node->projection.available_seats);
+                        snprintf(str, sizeof(str), _T("seats"), node->projection.available_seats);
                         createText(
                             startLine + INPUT_WIDTH + 2 + 16 + 1, 
                             listStartY + (displayedCount * itemHeight), 
@@ -110,9 +110,9 @@ void showClientMoviePage() {
 
     int startBtnX = (columns - (15 + 2 + 15)) / 2;
 
-    if (pageIndex > 0) createButton(startBtnX, rows - 5, 15, "Precedent", PRIMARY_COLOR, STYLE_DEFAULT, prevPage);
-    else               createButton(startBtnX, rows - 5, 15, "Precedent", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+    if (pageIndex > 0) createButton(startBtnX, rows - 5, 15, _T("prev"), PRIMARY_COLOR, STYLE_DEFAULT, prevPage);
+    else               createButton(startBtnX, rows - 5, 15, _T("prev"), TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
     
-    if (hasMore) createButton(startBtnX + 15 + 2, rows - 5, 15, "Suivant", PRIMARY_COLOR, STYLE_DEFAULT, nextPage);
-    else         createButton(startBtnX + 15 + 2, rows - 5, 15, "Suivant", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+    if (hasMore) createButton(startBtnX + 15 + 2, rows - 5, 15, _T("next"), PRIMARY_COLOR, STYLE_DEFAULT, nextPage);
+    else         createButton(startBtnX + 15 + 2, rows - 5, 15, _T("next"), TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
 }
