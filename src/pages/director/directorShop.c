@@ -4,73 +4,46 @@ static int pageIndex = 0;
 static ProductNode *WaitingProducts = NULL;
 static int cooldown = 0;
 
-static void addIdList(void *product, int calcul){
+static void addInList(Product *product, int calcul){
     Product *pdt = product;
     int idP = pdt->id;
-    int qteP = pdt->qte;
 
     ProductNode *curr = WaitingProducts;
     while (curr != NULL) {
         if (curr->product->id == idP) {
             if (calcul == 1) {
+                if (curr->product->qte + 1 > 999) {
+                    if (cooldown == 1) return;
+                    cooldown = 1;
+                    createText(ALIGN_CENTER , 12, _T("director.qte.errp"), COLOR_RED);
+                    cooldown = 0;
+                    return;
+                }
                 curr->product->qte++;
             } else {
+                if (curr->product->qte - 1 < 0) {
+                    if (cooldown == 1) return;
+                    cooldown = 1;
+                    createText(ALIGN_CENTER , 12, _T("director.qte.errm"), COLOR_RED);
+                    cooldown = 0;
+                    return;
+                }
                 curr->product->qte--;
             }
-            
+            setCurrentPage(PAGE_DIRECTOR_SHOP);
             return;
         }
         curr = curr->next;
     }
-
-    ProductNode *newNode = malloc(sizeof(ProductNode));
-    if (newNode) {
-        Product *newPdt = malloc(sizeof(Product));
-        newPdt->id = idP;
-        newPdt->qte = qteP+1;
-        newNode->product = newPdt;
-        newNode->next = NULL;
-
-        if (WaitingProducts == NULL) {
-            WaitingProducts = newNode;
-            
-        } else {
-            ProductNode *temp = WaitingProducts;
-            while(temp->next != NULL) {
-                temp = temp->next; 
-            }
-            temp->next = newNode;
-        }
-    }
+    setCurrentPage(PAGE_DIRECTOR_SHOP);
 }
 
 static void addQteProd(void *product){
-    Product *pdt = product;
-    int value = pdt->qte;
-    if (value + 1 > 999) {
-        if (cooldown == 1) return;
-        cooldown = 1;
-        createText(ALIGN_CENTER , 12, _T("director.qte.err"), COLOR_RED);
-        Sleep(1000);
-        cooldown = 0;
-    } else {
-        value++;
-        addIdList(pdt, +1);
-    }
-    setCurrentPage(PAGE_DIRECTOR_SHOP);
+    addInList(product, +1);
 }
 
 static void remQteProd(void *product){
-    Product *pdt = product;
-    int *value = &pdt->qte;
-    if ((*value) - 1 < 0) {
-        createText(ALIGN_CENTER , 12, _T("director.qte.errm"), COLOR_RED);
-        Sleep(3000);
-    } else {
-        (*value)--;
-        addIdList(pdt, -1);
-    }
-    setCurrentPage(PAGE_DIRECTOR_SHOP);
+    addInList(product, -1);
 }
 
 static void advancedProd(void *test){
@@ -111,12 +84,11 @@ static void initItem(int columns, int rows){
         Product *product = getProductById(node->product->id);
         int final_qte;
         if (product) {
-            char id[6], qte[6], price[11];
+            char id[11], qte[8], price[11];
             /* BETA */
             ProductNode *curr = WaitingProducts;
             while (curr != NULL) {
                 if (curr->product->id == node->product->id) {
-                    printf("Trouvé");
                     final_qte = curr->product->qte;
                     break;
                 }
@@ -124,17 +96,36 @@ static void initItem(int columns, int rows){
             }
 
             if (curr == NULL) {
+                ProductNode *newNode = malloc(sizeof(ProductNode));
+                if (newNode) {
+                    Product *newPdt = malloc(sizeof(Product));
+                    newPdt->id = node->product->id;
+                    newPdt->qte = node->product->qte+1;
+                    newNode->product = newPdt;
+                    newNode->next = NULL;
+
+                    if (WaitingProducts == NULL) {
+                        WaitingProducts = newNode;
+                        
+                    } else {
+                        ProductNode *temp = WaitingProducts;
+                        while(temp->next != NULL) {
+                            temp = temp->next; 
+                        }
+                        temp->next = newNode;
+                    }
+                }
                 final_qte = node->product->qte;
             }
             /* BETA */
 
 
-            snprintf(id, sizeof(id), "%5d", node->product->id);
-            snprintf(qte, sizeof(qte), "%5d", final_qte);
-            snprintf(price, sizeof(price), "%4f", node->product->price);
+            snprintf(id, sizeof(id), "ID : %05d", node->product->id);
+            snprintf(qte, sizeof(qte), "x%-05d", final_qte);
+            snprintf(price, sizeof(price), "%8.2f E", node->product->price);
 
             createText(columns*0.12, listStartY + (i * itemHeight), id, COLOR_WHITE);
-            createText(columns*0.20, listStartY + (i * itemHeight), node->product->name, COLOR_WHITE);
+            createText(columns*0.25, listStartY + (i * itemHeight), node->product->name, COLOR_WHITE);
             createText(columns*0.45, listStartY + (i * itemHeight), qte, COLOR_WHITE);
             createText(columns*0.55, listStartY + (i * itemHeight), price, COLOR_WHITE);
             createDataButton(columns*0.75, listStartY + (i * itemHeight) - 1, 5, "+", COLOR_GREEN, STYLE_DEFAULT, addQteProd, node->product);
@@ -163,10 +154,27 @@ static void showReservF(){
 
 }
 
+static void skipWaitingSave(void *val) {
+    int value = *((int *)val);
+    if (value == 0) setCurrentPage(PAGE_DIRECTOR_SHOP);
+    setCurrentPage(PAGE_DIRECTOR);
+}
 
 static void verifyReturnSave() {
+    resetPage();
+    int columns, rows;
+    sizeScreen(&columns, &rows);
+    int VRAI = 1, FAUX = 0;
     if (WaitingProducts != NULL) {
+        drawLogo((columns / 2) - (LOGO_WIDTH / 2), 1);
+        drawFooter();
+        buttonLanguage();
+
+        createText(ALIGN_CENTER, ALIGN_CENTER, "Etes-vous sure de quitter sans sauvegarder ?", COLOR_CYAN);
+        createDataButton(columns*0.4, rows*0.2, 15, "Non", COLOR_RED, STYLE_DEFAULT, skipWaitingSave, &FAUX);
+        createDataButton(columns*0.6, rows*0.2, 15, "Oui", COLOR_GREEN, STYLE_DEFAULT, skipWaitingSave, &VRAI);
         WaitingProducts = NULL;
+        return;
     }
     setCurrentPage(PAGE_DIRECTOR);
 }
@@ -174,6 +182,7 @@ static void verifyReturnSave() {
 static void forceSave() {
     saveProducts(WaitingProducts);
     WaitingProducts = NULL;
+    setCurrentPage(PAGE_DIRECTOR);
 }
 
 void showDirectorShopPage(){

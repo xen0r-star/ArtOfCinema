@@ -57,11 +57,7 @@ int saveProducts(ProductNode *list) {
     if (file == NULL) return -1;
 
     char buffer[512];
-    printf("LIST VERIF");
-    Sleep(1000);
     while(list != NULL){
-        printf("LIST VERIF OK");
-        Sleep(1000);
         Product *tmpProduct = list->product;
 
         rewind(file);
@@ -79,9 +75,9 @@ int saveProducts(ProductNode *list) {
                         char *secondPipe = strchr(firstPipe + 1, '|');
                         if (secondPipe) {
                             long qteOffset = (secondPipe - buffer) + 1;
-                            
+
                             fseek(file, lineStart + qteOffset, SEEK_SET);
-                            /* SAVE DANS productListMain */
+
                             ProductNode *curr = productListMain;
                             while (curr != NULL) {
                                 if (curr->product->id == tmpProduct->id) {
@@ -90,7 +86,6 @@ int saveProducts(ProductNode *list) {
                                 }
                                 curr = curr->next;
                             }
-                            /* SAVE */
                             
                             fprintf(file, "%05d", tmpProduct->qte);
                             

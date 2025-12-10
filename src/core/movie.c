@@ -7,9 +7,13 @@
 #include <windows.h>
 
 static MovieNode *movieListMain = NULL;
-static MovieNode *movieListTemp = NULL;
+
+static bool initMovie = false;
 
 int loadMovies() {
+    if(initMovie) return 0;
+    initMovie = true;
+
     FILE *file = fopen("data/movies.dat", "r");
     if (file == NULL) return -1;
 
