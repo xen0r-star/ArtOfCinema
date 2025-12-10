@@ -74,14 +74,14 @@ void showClientFoodPage() {
 
                     createText(startLine, 
                         listStartY + (displayedCount * itemHeight), 
-                        node->product->name, TEXT_COLOR
+                        node->product->name, TERTIARY_COLOR
                     );
 
                     if (node->product->qte == 0) {
                         createText(
                             startLine + INPUT_WIDTH + 3, 
                             listStartY + (displayedCount * itemHeight), 
-                            stockStr, ERROR_COLOR
+                            stockStr, WARNING_COLOR
                         );
                     } else {
                         createText(
@@ -94,7 +94,7 @@ void showClientFoodPage() {
                     createText(
                         startLine + INPUT_WIDTH + 24, 
                         listStartY + (displayedCount * itemHeight), 
-                        priceStr, INFO_COLOR
+                        priceStr, TEXT_COLOR
                     );
                     displayedCount++;
 

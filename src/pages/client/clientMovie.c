@@ -70,12 +70,12 @@ void showClientMoviePage() {
                     
                     createText(startLine, 
                         listStartY + (displayedCount * itemHeight), 
-                        movie->name, TEXT_COLOR
+                        movie->name, TERTIARY_COLOR
                     );
                     createText(
                         startLine + INPUT_WIDTH + 1, 
                         listStartY + (displayedCount * itemHeight), 
-                        node->projection.datetime, TERTIARY_COLOR
+                        node->projection.datetime, TEXT_COLOR
                     );
                     
                     char str[16];
@@ -91,9 +91,10 @@ void showClientMoviePage() {
                         createText(
                             startLine + INPUT_WIDTH + 2 + 16 + 1, 
                             listStartY + (displayedCount * itemHeight), 
-                            str, INFO_COLOR
+                            str, SUCCESS_COLOR
                         );
                     }
+                    
                     displayedCount++;
 
                 } else {
