@@ -7,7 +7,6 @@
 #include <windows.h>
 
 static ProductNode *productListMain = NULL;
-static ProductNode *productListTemp = NULL;
 
 static bool initProduct = false;
 
@@ -58,8 +57,11 @@ int saveProducts(ProductNode *list) {
     if (file == NULL) return -1;
 
     char buffer[512];
-    
+    printf("LIST VERIF");
+    Sleep(1000);
     while(list != NULL){
+        printf("LIST VERIF OK");
+        Sleep(1000);
         Product *tmpProduct = list->product;
 
         rewind(file);
@@ -79,6 +81,16 @@ int saveProducts(ProductNode *list) {
                             long qteOffset = (secondPipe - buffer) + 1;
                             
                             fseek(file, lineStart + qteOffset, SEEK_SET);
+                            /* SAVE DANS productListMain */
+                            ProductNode *curr = productListMain;
+                            while (curr != NULL) {
+                                if (curr->product->id == tmpProduct->id) {
+                                    curr->product->qte = tmpProduct->qte;
+                                    break;
+                                }
+                                curr = curr->next;
+                            }
+                            /* SAVE */
                             
                             fprintf(file, "%05d", tmpProduct->qte);
                             
@@ -93,7 +105,6 @@ int saveProducts(ProductNode *list) {
         
         list = list->next;
     }
-    productListMain = productListTemp;
     fclose(file);
     return 0;
 }
@@ -135,15 +146,12 @@ int saveAllProducts(ProductNode *list) {
     return 0;
 }
 
-ProductNode* getProductList() {
-    productListTemp = productListMain;
-    
-    return productListTemp;
+ProductNode* getProductList() {    
+    return productListMain;
 }
 
 Product* getProductById(int id) {
-    productListTemp = productListMain;
-    ProductNode *current = productListTemp;
+    ProductNode *current = productListMain;
     while (current != NULL) {
         if (current->product->id == id) {
             return current->product;

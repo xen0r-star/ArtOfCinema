@@ -27,6 +27,7 @@ echo.
 echo Step 3 - Compilation of the files in progress...
 windres src\resources\resource.rc -O coff -o resource.o
 gcc !SOURCES! resource.o -o src\ArtOfCinema.exe -Wall -Wextra -O2
+
 del resource.o
 
 :: Step 4 - Vérification

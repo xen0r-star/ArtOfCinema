@@ -5,7 +5,7 @@ static MovieNode *WaitingMovies = NULL;
 
 static void addIdList(void *movie){
     Movie *mv = movie;
-    int idP = &mv->id;
+    int idP = mv->id;
 
     MovieNode *curr = WaitingMovies;
     while (curr != NULL) {
