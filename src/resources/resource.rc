@@ -1,7 +1,7 @@
 #include "resource.h"
 
 IDI_ICON1 ICON "./artofcinema.ico"
-IDR_CSV1 RCDATA "../i18n/translations.csv"
+IDR_CSV1 RCDATA "../i18n/translations.dat"
 
 VS_VERSION_INFO VERSIONINFO
 FILEVERSION 0,0,2,0

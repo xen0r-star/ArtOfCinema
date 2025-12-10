@@ -6,12 +6,10 @@
 static ProjectionNode *projectionList = NULL;
 
 int loadProjections() {
-    FILE *file = fopen("data/projections.csv", "r");
+    FILE *file = fopen("data/projections.dat", "r");
     if (file == NULL) return -1;
 
-    char buffer[1024];
-    fscanf(file, "%[^\n]\n", buffer); // Skip header
-
+    
     Projection projection = {0};
     char datetime[50];
     ProjectionNode *tail = NULL;
@@ -21,7 +19,6 @@ int loadProjections() {
         
         projection.datetime = strdup(datetime);
 
-        // Create and append Node
         ProjectionNode *newNode = malloc(sizeof(ProjectionNode));
         if (newNode) {
             newNode->projection = projection;
@@ -35,6 +32,7 @@ int loadProjections() {
                 tail = newNode;
             }
         }
+        
         // Reset for next iteration
         memset(&projection, 0, sizeof(Projection));
     }

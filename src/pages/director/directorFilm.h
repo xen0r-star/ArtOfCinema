@@ -9,6 +9,7 @@
 #include "../../components/logout.h"
 #include "../../components/language.h"
 
+#include "../../core/movie.h"
 
 #include "../../main.h"
 

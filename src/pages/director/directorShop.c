@@ -1,25 +1,70 @@
 #include "directorShop.h"
 
 static int pageIndex = 0;
+static ProductNode *WaitingProducts = NULL;
+static int cooldown = 0;
 
-/* ⚠️ WARNING : A RETIRER SI AUTRES METHODE FONCTIONNE (DEMANDER A TOMUS)
-* static void showMainShop(){
-*     setCurrentPage(PAGE_DIRECTOR_SHOP);
-* }
-*/
+static void addIdList(void *product){
+    Product *pdt = product;
+    int idP = pdt->id;
+    int qteP = pdt->qte;
 
+    ProductNode *curr = WaitingProducts;
+    while (curr != NULL) {
+        if (curr->product->id == idP) {
+            curr->product->qte = qteP;
+            return;
+        }
+        curr = curr->next;
+    }
 
-static void addQteProd(void *qte){
-    int *value = qte;
-    if ((*value) + 1 > 999) return;
-    (*value)++;
+    ProductNode *newNode = malloc(sizeof(ProductNode));
+    if (newNode) {
+        Product *newPdt = malloc(sizeof(Product));
+        newPdt->id = idP;
+        newPdt->qte = qteP;
+        newNode->product = newPdt;
+        newNode->next = NULL;
+
+        if (WaitingProducts == NULL) {
+            WaitingProducts = newNode;
+            
+        } else {
+            ProductNode *temp = WaitingProducts;
+            while(temp->next != NULL) {
+                temp = temp->next; 
+            }
+            temp->next = newNode;
+        }
+    }
+}
+
+static void addQteProd(void *product){
+    Product *pdt = product;
+    int *value = &pdt->qte;
+    if ((*value) + 1 > 999) {
+        if (cooldown == 1) return;
+        cooldown = 1;
+        createText(ALIGN_CENTER , 12, _T("director.qte.err"), WARNING_COLOR);
+        Sleep(1000);
+        cooldown = 0;
+    } else {
+        (*value)++;
+        addIdList(pdt);
+    }
     setCurrentPage(PAGE_DIRECTOR_SHOP);
 }
 
-static void remQteProd(void *qte){
-    int *value = qte;
-    if ((*value) - 1 < 0) return;
-    (*value)--;
+static void remQteProd(void *product){
+    Product *pdt = product;
+    int *value = &pdt->qte;
+    if ((*value) - 1 < 0) {
+        createText(ALIGN_CENTER , 12, _T("director.qte.errm"), WARNING_COLOR);
+        Sleep(3000);
+    } else {
+        (*value)--;
+        addIdList(pdt);
+    }
     setCurrentPage(PAGE_DIRECTOR_SHOP);
 }
 
@@ -58,22 +103,22 @@ static void initItem(int columns, int rows){
 
     int i = 0;
     while (i < maxItems && node != NULL){
-        Product *product = getProductById(node->product.id);
+        Product *product = getProductById(node->product->id);
 
         if (product) {
             char id[6], qte[6], price[11];
 
-            snprintf(id, sizeof(id), "%5d", node->product.id);
-            snprintf(qte, sizeof(qte), "%5d", node->product.qte);
-            snprintf(price, sizeof(price), "%4f", node->product.price);
+            snprintf(id, sizeof(id), "%5d", node->product->id);
+            snprintf(qte, sizeof(qte), "%5d", node->product->qte);
+            snprintf(price, sizeof(price), "%4f", node->product->price);
 
             createText(columns*0.12, listStartY + (i * itemHeight), id, TEXT_COLOR);
-            createText(columns*0.20, listStartY + (i * itemHeight), node->product.name, TEXT_COLOR);
+            createText(columns*0.20, listStartY + (i * itemHeight), node->product->name, TEXT_COLOR);
             createText(columns*0.45, listStartY + (i * itemHeight), qte, TEXT_COLOR);
             createText(columns*0.55, listStartY + (i * itemHeight), price, TEXT_COLOR);
-            createDataButton(columns*0.75, listStartY + (i * itemHeight) - 1, 5, "+", (ColorRGB){0,255,0}, STYLE_DEFAULT, addQteProd, &node->product.qte);
-            createDataButton(columns*0.80, listStartY + (i * itemHeight) - 1, 5, "-", (ColorRGB){255,0,0}, STYLE_DEFAULT, remQteProd, &node->product.qte);
-            createDataButton(columns*0.85, listStartY + (i * itemHeight) - 1, 5, "...", (ColorRGB){0,0,255}, STYLE_DEFAULT, advancedProd, &node->product.qte);
+            createDataButton(columns*0.75, listStartY + (i * itemHeight) - 1, 5, "+", SUCCESS_COLOR, STYLE_DEFAULT, addQteProd, node->product);
+            createDataButton(columns*0.80, listStartY + (i * itemHeight) - 1, 5, "-", WARNING_COLOR, STYLE_DEFAULT, remQteProd, node->product);
+            createDataButton(columns*0.85, listStartY + (i * itemHeight) - 1, 5, "...", INFO_COLOR, STYLE_DEFAULT, advancedProd, node->product);
             // DANS "..." AJOUTER POSSIIBILITE DE RESERVER DE LA NOURRITURE
         }
         i++;
@@ -82,32 +127,16 @@ static void initItem(int columns, int rows){
 
     int startBtnX = (columns - (32)) / 2;
     if (pageIndex > 0)
-        createButton(startBtnX, rows - 3, 15, "Precedent", SUCCESS_COLOR, STYLE_DEFAULT, prevPage);
+        createButton(startBtnX, rows - 3, 15, "Precedent", TERTIARY_COLOR, STYLE_DEFAULT, prevPage);
     else
-        createButton(startBtnX, rows - 3, 15, "Precedent", ERROR_COLOR, STYLE_DEFAULT, NULL);
+        createButton(startBtnX, rows - 3, 15, "Precedent", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
 
     if (node != NULL)
-        createButton(startBtnX + 17, rows - 3, 15, "Suivant", SUCCESS_COLOR, STYLE_DEFAULT, nextPage);
+        createButton(startBtnX + 17, rows - 3, 15, "Suivant", TERTIARY_COLOR, STYLE_DEFAULT, nextPage);
     else
-        createButton(startBtnX + 17, rows - 3, 15, "Suivant", ERROR_COLOR, STYLE_DEFAULT, NULL);
+        createButton(startBtnX + 17, rows - 3, 15, "Suivant", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
 
 }
-/* ⚠️ WARNING : A RETIRER SI AUTRES METHODE FONCTIONNE (DEMANDER A TOMUS)
-* static void showStockManage(){
-*     resetPage();
-*     int columns, rows;
-*     sizeScreen(&columns, &rows);
-* 
-*     drawLogo((columns / 2) - (LOGO_WIDTH / 2), 1);
-*     drawFooter();
-*     buttonLanguage();
-* 
-*     createButton(columns - 20, rows - 3, 20, _T("return"), COLOR_WHITE, STYLE_DEFAULT, showMainShop);
-*     createMenu(ALIGN_CENTER, 10, columns*0.8, COLOR_GREEN, STYLE_DEFAULT, "director.s.tbl", NULL, NULL, NULL);
-* 
-*     initItem(columns, rows);        // Initialisation + affichage du stock
-* }
-*/
 
 static void showReservF(){
 
@@ -121,17 +150,13 @@ void showDirectorShopPage(){
     drawFooter();
     buttonLanguage();
 
-    createText(ALIGN_CENTER, 7, _T("director.s.lbl"), PRIMARY_COLOR);
+    createText(ALIGN_CENTER, 7, _T("director.s.lbl"), TERTIARY_COLOR);
     createText(ALIGN_CENTER, 9, _T("director.s.desc"), TEXT_COLOR);
-    /* ⚠️ WARNING : A RETIRER SI AUTRES METHODE FONCTIONNE (DEMANDER A TOMUS)
-    *
-    * createButton((columns-14)/2-10, 12, 14, _T("director.s.btn1"), PRIMARY_COLOR, STYLE_DEFAULT, showStockManage);
-    * createButton((columns-14)/2+10, 12, 15, _T("director.s.btn2"), PRIMARY_COLOR, STYLE_DEFAULT, showReservF);
-    *
-    */
-    createButton(columns - 20, rows - 3, 20, _T("return"), TEXT_COLOR, STYLE_DEFAULT, backToDashboard);
+    createDataButton(columns - 20, rows - 3, 20, _T("save"), TEXT_COLOR, STYLE_DEFAULT, saveProduct, WaitingProducts);
 
-    createMenu(ALIGN_CENTER, 11, columns*0.8, PRIMARY_COLOR, STYLE_DEFAULT, "director.s.tbl", NULL, NULL, NULL);
+    createMenu(ALIGN_CENTER, 11, columns*0.8, TERTIARY_COLOR, STYLE_DEFAULT, "director.s.tbl", NULL, NULL, NULL);
+
+    buttonBack(PAGE_DIRECTOR);
 
     initItem(columns, rows);        // Initialisation + affichage du stock
 }
