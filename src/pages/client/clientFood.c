@@ -62,22 +62,22 @@ void showClientFoodPage() {
     int hasMore = 0;
 
     while (node != NULL) {
-        if (searchProductByName(node->product.name, filterName)) {
+        if (searchProductByName(node->product->name, filterName)) {
             
             if (matchesCount >= skipCount) {
                 if (displayedCount < maxItems) {
                     char priceStr[16];
-                    snprintf(priceStr, sizeof(priceStr), "%.2fE", node->product.price);
+                    snprintf(priceStr, sizeof(priceStr), "%.2fE", node->product->price);
 
                     char stockStr[16];
-                    snprintf(stockStr, sizeof(stockStr), "Disponible: %d", node->product.qte);
+                    snprintf(stockStr, sizeof(stockStr), "Disponible: %d", node->product->qte);
 
                     createText(startLine, 
                         listStartY + (displayedCount * itemHeight), 
-                        node->product.name, TEXT_COLOR
+                        node->product->name, TEXT_COLOR
                     );
 
-                    if (node->product.qte == 0) {
+                    if (node->product->qte == 0) {
                         createText(
                             startLine + INPUT_WIDTH + 3, 
                             listStartY + (displayedCount * itemHeight), 

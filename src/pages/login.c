@@ -4,8 +4,14 @@
 static User user = {
     .logged = 0,
     .role = ROLE_NONE,
-    .email = ""
+    .email = "",
+    .name = "",
+    .surname = ""
 };
+
+User getUser() {
+    return user;
+}
 
 void resetUser() {
     user = (User) {
@@ -32,7 +38,11 @@ static void validEmail() {
 static void signIn() {
     const char *password = getInput(0)->value;
 
-    user.role = checkLogin(user.email, password);
+    InfoUser info = checkLogin(user.email, password);
+    user.role = info.role;
+    strcpy(user.name, info.name);
+    strcpy(user.surname, info.surname);
+    
     user.logged = 1;
     setCurrentPage(PAGE_LOGIN);
 }
@@ -62,6 +72,8 @@ static void signUp() {
         setName(user.email, name);
         setSurname(user.email, surname);
 
+        strcpy(user.name, name);
+        strcpy(user.surname, surname);
         user.role = ROLE_CLIENT;
         setCurrentPage(PAGE_LOGIN);
     }
@@ -84,14 +96,14 @@ void showLoginPage() {
     buttonLanguage();
     buttonSetting();
 
-    createText(ALIGN_CENTER, 10, _T("login.visual.text"), PRIMARY_COLOR);
+    createText(ALIGN_CENTER, 10, _T("login.visual.text"), TERTIARY_COLOR);
 
 
     if (strcmp(user.email, "") == 0) {
         createText(ALIGN_CENTER, 11, _T("login.ipt.mail"), TEXT_COLOR);
         
         createInput(ALIGN_CENTER, 15, _T("login.mail"), _T("login.mail.expl"));
-        createButton(ALIGN_CENTER, rows - 7, 18, _T("login.btn.nxt"), PRIMARY_COLOR, STYLE_DEFAULT, validEmail);
+        createButton(ALIGN_CENTER, rows - 7, 18, _T("login.btn.nxt"), TERTIARY_COLOR, STYLE_DEFAULT, validEmail);
 
     } else if (!user.logged) {
         createText(ALIGN_CENTER, 13, user.email, TEXTSECONDARY_COLOR); 
@@ -99,13 +111,13 @@ void showLoginPage() {
         if (emailExiste(user.email) == STATUS_FOUND) {
             createText(ALIGN_CENTER, 11, _T("login.acc.conn"), TEXT_COLOR);
             createInput(ALIGN_CENTER, 15, _T("login.crt.acc.ipt.label"), _T("login.crt.acc.ipt.placeholder"));
-            createButton(ALIGN_CENTER, rows - 7, 18, _T("login.btn.conn"), PRIMARY_COLOR, STYLE_DEFAULT, signIn);
+            createButton(ALIGN_CENTER, rows - 7, 18, _T("login.btn.conn"), TERTIARY_COLOR, STYLE_DEFAULT, signIn);
             
         } else {
             createText(ALIGN_CENTER, 11, _T("login.crt.acc"), TEXT_COLOR);
             createInput(ALIGN_CENTER, 15, _T("login.crt.acc.ipt.label"), _T("login.crt.acc.ipt.placeholder"));
             createInput(ALIGN_CENTER, 18, _T("login.crt.acc.ipt.cnfrmpswd"), _T("login.crt.acc.ipt.placeholder"));
-            createButton(ALIGN_CENTER, rows - 7, 21, _T("login.btn.crt.acc.next"), PRIMARY_COLOR, STYLE_DEFAULT, nextStepSignUp);
+            createButton(ALIGN_CENTER, rows - 7, 21, _T("login.btn.crt.acc.next"), TERTIARY_COLOR, STYLE_DEFAULT, nextStepSignUp);
         }
 
     } else if (user.logged) {
@@ -122,14 +134,14 @@ void showLoginPage() {
                 createText(ALIGN_CENTER, 11, _T("login.acc.conn.visual.txt.err"), ERROR_COLOR);
                 createText(ALIGN_CENTER, 15, user.email, TEXTSECONDARY_COLOR);
                 createText(ALIGN_CENTER, 18, "**************", TEXTSECONDARY_COLOR);
-                createButton(ALIGN_CENTER, rows - 7, 21, _T("return"), SECONDARY_COLOR, STYLE_DEFAULT, backToLogin);
+                createButton(ALIGN_CENTER, rows - 7, 21, _T("return"), TEXT_COLOR, STYLE_DEFAULT, backToLogin);
                 break;
 
             case ROLE_NONE:
                 createText(ALIGN_CENTER, 11, _T("login.crt.acc"), TEXT_COLOR);
                 createInput(ALIGN_CENTER, 15, _T("login.crt.acc.ipt.labname"), _T("login.crt.acc.ipt.phname"));
                 createInput(ALIGN_CENTER, 18, _T("login.crt.acc.ipt.labfname"), _T("login.crt.acc.ipt.phfname"));
-                createButton(ALIGN_CENTER, rows - 7, 21, _T("login.crt.acc.btn"), PRIMARY_COLOR, STYLE_DEFAULT, signUp);
+                createButton(ALIGN_CENTER, rows - 7, 21, _T("login.crt.acc.btn"), TERTIARY_COLOR, STYLE_DEFAULT, signUp);
                 break;
         }
     }

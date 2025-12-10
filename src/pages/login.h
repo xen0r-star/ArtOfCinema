@@ -18,5 +18,6 @@
 
 void showLoginPage();
 void resetUser();
+User getUser();
 
 #endif

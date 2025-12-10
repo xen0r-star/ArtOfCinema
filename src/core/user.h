@@ -17,7 +17,7 @@ typedef enum Status {
 
 
 Status emailExiste(const char* email);
-Role checkLogin(const char* email, const char* password);
+InfoUser checkLogin(const char* email, const char* password);
 
 void saveUserCredentials(const char* email, const char* password);
 Status setName(const char* email, const char* name);

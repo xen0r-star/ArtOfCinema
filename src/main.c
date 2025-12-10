@@ -65,12 +65,16 @@ int main() {
                     showClientMoviePage();
                     break;
 
+                case PAGE_CLIENT_FOOD:
+                    showClientFoodPage();
+                    break;
+
                 case PAGE_CLIENT_RESERVE:
                     showClientReservePage();
                     break;
 
-                case PAGE_CLIENT_FOOD:
-                    showClientFoodPage();
+                case PAGE_CLIENT_QUOTE:
+                    showClientQuotePage();
                     break;
 
                 case PAGE_SETTINGS:

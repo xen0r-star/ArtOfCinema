@@ -35,6 +35,7 @@
 #include "./pages/client/clientMovie.h"
 #include "./pages/client/clientReserve.h"
 #include "./pages/client/clientFood.h"
+#include "./pages/client/clientQuote.h"
 
 
 #define APP_VERSION "v0.0.2"
