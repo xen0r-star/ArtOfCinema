@@ -1,7 +1,7 @@
 #include "main.h"
 
 
-static AppPage page = PAGE_DIRECTOR_SHOP;
+static AppPage page = PAGE_LOADING;
 static AppPage previousPage = -1;
 
 void resetPage(){
@@ -16,7 +16,7 @@ void resetPage(){
 int main() {
     clearScreen();      // Clear l'écran (Via .bat retire les anciennes commandes)
     SetConsoleTitle("Art Of Cinema - Terminal Edition");
-    hideCursor();
+    cursorVisibility(0);
 
     int columns, rows, previousColumns = 0, previousRows = 0;
     

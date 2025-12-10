@@ -75,9 +75,9 @@ int saveProducts(ProductNode *list) {
                         char *secondPipe = strchr(firstPipe + 1, '|');
                         if (secondPipe) {
                             long qteOffset = (secondPipe - buffer) + 1;
-
+                            
                             fseek(file, lineStart + qteOffset, SEEK_SET);
-
+                            
                             ProductNode *curr = productListMain;
                             while (curr != NULL) {
                                 if (curr->product->id == tmpProduct->id) {

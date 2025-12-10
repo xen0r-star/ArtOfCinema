@@ -30,8 +30,8 @@ void showDirectorPage() {
     buttonLanguage();
 
  
-    createText(ALIGN_CENTER, 10, _T("director.visual.lbl"), COLOR_GREEN);
-    createText(ALIGN_CENTER, 12, _T("director.visual.desc"), COLOR_WHITE);
-    createButton((columns-14)/2-10, 15, 14, _T("director.btn1"), COLOR_GREEN, STYLE_DEFAULT, filmPage);
-    createButton((columns-14)/2+10, 15, 15, _T("director.btn2"), COLOR_GREEN, STYLE_DEFAULT, shopPage);
+    createText(ALIGN_CENTER, 10, _T("director.visual.lbl"), PRIMARY_COLOR);
+    createText(ALIGN_CENTER, 12, _T("director.visual.desc"), TEXT_COLOR);
+    createButton((columns-14)/2-10, 15, 14, _T("director.btn1"), TERTIARY_COLOR, STYLE_DEFAULT, filmPage);
+    createButton((columns-14)/2+10, 15, 15, _T("director.btn2"), TERTIARY_COLOR, STYLE_DEFAULT, shopPage);
 }

@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../types/movie.h"
-#include "../utils/screen.h"
+#include "../utils/cursor.h"
 
 
 int loadMovies();

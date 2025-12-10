@@ -18,7 +18,7 @@
 typedef struct Menu {
     int x, y;
     int width;
-    Color color;
+    ColorRGB color;
     Style style;
     const char* title;
     Button *button1;     // Peut-être NULL
@@ -27,7 +27,7 @@ typedef struct Menu {
 } Menu;
 
 
-void createMenu(int x, int y, int width, Color color, Style style, const char* title, Button *button1, Button *button2, Button *button3);
+void createMenu(int x, int y, int width, ColorRGB color, Style style, const char* title, Button *button1, Button *button2, Button *button3);
 
 int deleteMenu(Menu *menu);
 void deleteAllMenus();

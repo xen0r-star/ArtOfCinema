@@ -11,6 +11,7 @@
 #include "../components/language.h"
 
 #include "../types/user.h"
+#include "../utils/color.h"
 
 #include "../main.h"
 

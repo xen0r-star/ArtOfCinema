@@ -5,7 +5,7 @@ static Menu menus[MAX_MENUS];
 static int menu_count = 0;
 
 
-void createMenu(int x, int y, int width, Color color, Style style, const char* title, Button *button1, Button *button2, Button *button3) {
+void createMenu(int x, int y, int width, ColorRGB color, Style style, const char* title, Button *button1, Button *button2, Button *button3) {
     if (menu_count >= MAX_MENUS) return;
 
     int columns, rows;
@@ -17,16 +17,16 @@ void createMenu(int x, int y, int width, Color color, Style style, const char* t
     menus[menu_count++] = (Menu){x, y, width, color, style, title, button1, button2, button3};
 
     if (style == STYLE_DEFAULT) {
-        setColor(COLOR_WHITE);
+        setColor(SECONDARY_COLOR);
         cursor(x, y);
         printf("\311");     // X
         for (int j = 0; j < width - 2; j++) printf("\315");
         printf("\273");     // ╗
         cursor(x, y+1);
         printf("\272");     // ║
-        setColor(COLOR_WHITE);
-        createText(x + (width - (int)strlen(_T(title))) / 2, y + 1, _T(title), COLOR_BRIGHT_GREEN);
-        setColor(COLOR_WHITE);
+        setColor(SECONDARY_COLOR);
+        createText(x + (width - (int)strlen(_T(title))) / 2, y + 1, _T(title), TERTIARY_COLOR);
+        setColor(SECONDARY_COLOR);
 
         cursor(x + width - 1, y + 1);
         printf("\272");

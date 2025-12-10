@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include "../main.h"
 #include "../utils/screen.h"
+#include "../theme/theme.h"
 
 
 void drawFooter();
