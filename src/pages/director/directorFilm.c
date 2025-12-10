@@ -88,14 +88,14 @@ static void initItem(int columns, int rows){
 
     int startBtnX = (columns - (32)) / 2;
     if (pageIndex > 0)
-        createButton(startBtnX, rows - 3, 15, "Precedent", TERTIARY_COLOR, STYLE_DEFAULT, prevPage);
+        createButton(startBtnX, rows - 3, 15, _T("prev"), TERTIARY_COLOR, STYLE_DEFAULT, prevPage);
     else
-        createButton(startBtnX, rows - 3, 15, "Precedent", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+        createButton(startBtnX, rows - 3, 15, _T("prev"), TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
 
     if (node != NULL)
-        createButton(startBtnX + 17, rows - 3, 15, "Suivant", TERTIARY_COLOR, STYLE_DEFAULT, nextPage);
+        createButton(startBtnX + 17, rows - 3, 15, _T("next"), TERTIARY_COLOR, STYLE_DEFAULT, nextPage);
     else
-        createButton(startBtnX + 17, rows - 3, 15, "Suivant", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+        createButton(startBtnX + 17, rows - 3, 15, _T("next"), TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
 
 }
 
@@ -105,6 +105,7 @@ void showDirectorFilmPage(){
 
     drawLogo((columns / 2) - (LOGO_WIDTH / 2), 1);
     drawFooter();
+    buttonLanguage();
 
     createText(ALIGN_CENTER, 7, _T("director.f.lbl"), SUCCESS_COLOR);
     createText(ALIGN_CENTER, 9, _T("director.f.desc"), TEXT_COLOR);

@@ -1,8 +1,41 @@
 key|fr|en
 welcome|Bienvenue|Welcome
 loading|Chargement|Loading
+yes|OUI|YES
+no|NON|no
 return|RETOUR|BACK
 save|SAUVEGARDER|SAVE
+search|Rechercher|Search
+sort|Trier|Sort
+next|SUIVANT|NEXT
+prev|PRECEDENT|PREVIOUS
+cancel|Annuler|Cancel
+confirm|Confirmer|Confirm
+finish|Terminer|Finish
+cfmres|Confirmation de la reservation|Confirmation of the reservation
+resconfirm|RESERVATION CONFIRMEE|RESERVATION CONFIRMED
+full|Complet|Full
+available|Disponible : %d|Available: %d
+seats|%4d places|%4d places
+seatavl|Places disponibles: %d|Available places: %d
+adult|Adulte|Adulte
+adultprc|- %d x Adulte (%.2f) = %.2f E|- %d x Adult (%.2f) = %.2f E
+kid|Enfant|Kid
+kidprc|- %d x Enfant (%.2f) = %.2f E|- %d x Kid (%.2f) = %.2f E
+student|Etudiant|Student
+studentprc|- %d x Etudiant (%.2f) = %.2f E|- %d x Student (%.2f) = %.2f E
+senior|Senior|Senior
+seniorprc|- %d x Senior (%.2f) = %.2f E|- %d x Senior (%.2f) = %.2f E
+tot|TOTAL : %.2f E|TOTAL : %.2f E
+snacks|Collations :|Snacks :
+movie|Film : %s|Movie : %s
+date|Date : %s|Date : %s
+session|Seance: %s|Session: %s
+booking|Reservation #%d (%.2f E)|Booking #%d (%.2f E)
+stock|Stock: %d|Stock: %d
+filmsnacktot|Film: %.2fE  +  Collations: %.2fE  =  TOTAL: %.2fE|Movie: %.2fE  +  Snack: %.2fE  =  TOTAL: %.2fE
+totpaiement|TOTAL PAYE : %.2f E|TOTAL PAY : %.2f E
+ticket|Tickets :|Tickets :
 login.visual.text|Votre Compte ARTOFCINEMA|Your ARTOFCINEMA Account
 login.ipt.mail|Entrez votre email pour vous connecter ou creer un compte.|Enter your email to log in or create an account.
 login.mail|E-Mail|Mail
@@ -22,37 +55,44 @@ login.crt.acc.ipt.labfname|Prenom|First name
 login.crt.acc.ipt.phfname|Votre prenom|Your first name
 login.crt.acc.btn|S'inscrire|Sign up
 login.btn.conn|CONNEXION|CONNECTION
-login.btn.crt.acc.next|SUIVANT|NEXT
 login.acc.conn.visual.txt.err|Identiant de connexion non valide|Invalid connection identifier
 logout.btn.dec|DECONNEXION|DISCONNECT
-client.visual.txt|Bienvenue dans votre espace client Art of Cinema|Welcome to your Art of Cinema client area
-client.btn.view.movies|FILMS|MOVIES
+client.visual.txt|Bienvenue dans votre espace client Art of Cinema|Welcome to your Art of Cinema client space
 client.btn.view.movies|FILMS|MOVIES
 client.btn.view.food|ALIMENTATION|FOOD
 client.btn.view.reserve|RESERVER|RESERVE
 client.btn.view.quote|DEVIS|QUOTE
+client.sch.pdt|Recherche un produit|Search for a product
+client.sch.plh|Nom du produit...|Product name...
+client.sch.flm|Recherche un film|Search for a movie
+client.sch.plh2|Titre du film...|Title of the film...
+client.clt.tlt|Mes Devis / Reservations|My Quotes / Bookings
+client.clt.mr|Voir details|See details
+client.qot.dt|DETAIL DU DEVIS|DETAIL OF THE QUOTE
 director.visual.lbl|Administration ARTOFCINEMA|Administration ARTOFCINEMA
-director.visual.desc|Bienvenue dans votre espace directeur Art of Cinema|Welcome to your Art of Cinema director area
+director.visual.desc|Bienvenue dans votre espace directeur Art of Cinema|Welcome to your Art of Cinema director space
 director.btn1|FILM|FILM
 director.btn2|MAGASIN|SHOP
-director.f.lbl|Administration Film ARTOFCINEMA|A FAIRE
-director.f.desc|Bienvenue dans votre espace directeur pour les films Art of Cinema|Welcome to your Art of Cinema director area for films
-director.f.btn1|AJOUTER FILM|A FAIRE
-director.f.btn2|MODIFIER FILM|A FAIRE
-director.f.btn3|SUPPRIMER FILM|A FAIRE
-director.f.btn4|LISTE FILM|A FAIRE
-director.f.tbl|Liste de l integralite des films|A FAIRE
-director.s.lbl|Administration Magasin ARTOFCINEMA|A FAIRE
-director.s.desc|Bienvenue dans votre espace directeur pour le magasin Art of Cinema|Welcome to your Art of Cinema director area for shop
-director.s.btn1|STOCK|A FAIRE
-director.qte.errp|La quantite de produit ne peut pas depasser 999 produits !|A FAIRE
-director.qte.errm|La quantite de produit ne peut pas descendre en dessous de 0 produit !|A FAIRE
-director.s.btn2|RESERVATION|A FAIRE
-director.s.tbl|Produits dans le stock|A FAIRE
+director.f.lbl|Administration Film ARTOFCINEMA|Administration Film ARTOFCINEMA
+director.f.desc|Bienvenue dans votre espace directeur pour les films Art of Cinema|Welcome to your Art of Cinema director space for the films Art of Cinema
+director.f.btn1|AJOUTER FILM|ADD FILM
+director.f.btn2|MODIFIER FILM|MODIFY FILM
+director.f.btn3|SUPPRIMER FILM|DELETE FILM
+director.f.btn4|LISTE FILM|FILM LISTE
+director.f.tbl|Liste de l integralite des films|List of the film integrality
+director.s.lbl|Administration Magasin ARTOFCINEMA|Administration Store ARTOFCINEMA
+director.s.desc|Bienvenue dans votre espace directeur pour le magasin Art of Cinema|Welcome to your Art of Cinema director space for the Art of Cinema store
+director.s.btn1|STOCK|STOCK
+director.qte.errp|La quantite de produit ne peut pas depasser 999 produits !|The quantity of product cannot exceed 999 products!
+director.qte.errm|La quantite de produit ne peut pas descendre en dessous de 0 produit !|The quantity of product cannot go bellow 0 product!
+director.s.v|Le stock a ete mis à jour avec succès !|The stock has been updated successfully!
+director.s.btn2|RESERVATION|BOOKING
+director.s.tbl|Produits dans le stock|Products in stock
+director.save|Etes-vous sure de quitter sans sauvegarder ?|Are you sure to exit without saving?
 settings.visual.txt|Vos parametres ARTOFCINEMA|Your ARTOFCINEMA settings
 setting.btn.label|PARAMETRES|SETTINGS
 setting.btn.close|FERMER|CLOSE
 setting.menu.label|PARAMETRES ARTOFCINEMA|ARTOFCINEMA SETTINGS
-setting.menu.o1|Global|A FAIRE
-setting.menu.o2|Langues|A FAIRE
-setting.menu.o3|Affichage|A FAIRE
+setting.menu.o1|Global|Global
+setting.menu.o2|Langues|Languages
+setting.menu.o3|Affichage|Display

@@ -282,9 +282,9 @@ void showClientReservePage() {
 
 
         int startLine = (columns - (INPUT_WIDTH + 16 + 10 + 4)) / 2;
-        createInput(startLine, listStartY - 4, "Recherche un film", "Titre du film...");
-        createButton(startLine + INPUT_WIDTH + 2, listStartY - 4, 16, "Rechercher", PRIMARY_COLOR, STYLE_DEFAULT, onSearch);
-        createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, listStartY - 4, 10, "Trier", TERTIARY_COLOR, STYLE_DEFAULT, NULL);
+        createInput(startLine, listStartY - 4, _T("client.sch.flm"), _T("client.sch.plh2"));
+        createButton(startLine + INPUT_WIDTH + 2, listStartY - 4, 16, _T("search"), PRIMARY_COLOR, STYLE_DEFAULT, onSearch);
+        createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, listStartY - 4, 10, _T("sort"), TERTIARY_COLOR, STYLE_DEFAULT, NULL);
     
     
         ProjectionNode *node = getProjectionList();
@@ -313,14 +313,14 @@ void showClientReservePage() {
 
                         char str[16];
                         if (node->projection.available_seats == 0) {
-                            strcpy(str, "Complet");
+                            strcpy(str, _T("full"));
                             createText(
                                 startLine + INPUT_WIDTH + 8, 
                                 listStartY + (displayedCount * itemHeight), 
                                 str, WARNING_COLOR
                             );
                         } else {
-                            snprintf(str, sizeof(str), "%4d places", node->projection.available_seats);
+                            snprintf(str, sizeof(str),  _T("seats"), node->projection.available_seats);
                             createText(
                                 startLine + INPUT_WIDTH + 8, 
                                 listStartY + (displayedCount * itemHeight), 
@@ -331,7 +331,7 @@ void showClientReservePage() {
                         createDataButton(
                             startLine + INPUT_WIDTH + 21, 
                             listStartY + (displayedCount * itemHeight) - 1, 
-                            10, "Reserver", 
+                            10, _T("client.btn.view.reserve"), 
                             TERTIARY_COLOR, STYLE_BORDERLESS, 
                             reserveMovie, &node->projection.id
                         );
@@ -350,11 +350,11 @@ void showClientReservePage() {
         
         int startBtnX = (columns - (15 + 2 + 15)) / 2;
     
-        if (pageIndex > 0) createButton(startBtnX, rows - 5, 15, "Precedent", TERTIARY_COLOR, STYLE_DEFAULT, prevPage);
-        else               createButton(startBtnX, rows - 5, 15, "Precedent", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+        if (pageIndex > 0) createButton(startBtnX, rows - 5, 15, _T("prev"), TERTIARY_COLOR, STYLE_DEFAULT, prevPage);
+        else               createButton(startBtnX, rows - 5, 15, _T("prev"), TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
         
-        if (hasMore) createButton(startBtnX + 15 + 2, rows - 5, 15, "Suivant", TERTIARY_COLOR, STYLE_DEFAULT, nextPage);
-        else         createButton(startBtnX + 15 + 2, rows - 5, 15, "Suivant", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+        if (hasMore) createButton(startBtnX + 15 + 2, rows - 5, 15, _T("next"), TERTIARY_COLOR, STYLE_DEFAULT, nextPage);
+        else         createButton(startBtnX + 15 + 2, rows - 5, 15, _T("next"), TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
         
     } else {
         Projection *projection = getProjectionById(reserveProjectionId);
@@ -377,31 +377,31 @@ void showClientReservePage() {
                 int endX = columns - (columns * 0.2);
                 
                 char dateStr[64];
-                snprintf(dateStr, sizeof(dateStr), "Seance: %s", projection->datetime);
+                snprintf(dateStr, sizeof(dateStr), _T("session"), projection->datetime);
                 createText(startX, y + 2, dateStr, TERTIARY_COLOR);
 
                 char seatStr[64];
-                snprintf(seatStr, sizeof(seatStr), "Places disponibles: %d", projection->available_seats);
+                snprintf(seatStr, sizeof(seatStr), _T("seatavl"), projection->available_seats);
                 createText(endX - strlen(seatStr), y + 2, seatStr, TERTIARY_COLOR);
 
 
-                drawTicketControl(startX, y + 4, "Adulte", PRICE_ADULT, &qtyAdult, 0);
-                drawTicketControl(endX, y + 4, "Enfant", PRICE_CHILD, &qtyChild, 1);
+                drawTicketControl(startX, y + 4, _T("adult"), PRICE_ADULT, &qtyAdult, 0);
+                drawTicketControl(endX, y + 4, _T("kid"), PRICE_CHILD, &qtyChild, 1);
                 
-                drawTicketControl(startX, y + 7, "Etudiant", PRICE_STUDENT, &qtyStudent, 0);
-                drawTicketControl(endX, y + 7, "Senior", PRICE_SENIOR, &qtySenior, 1);
+                drawTicketControl(startX, y + 7, _T("student"), PRICE_STUDENT, &qtyStudent, 0);
+                drawTicketControl(endX, y + 7, _T("senior"), PRICE_SENIOR, &qtySenior, 1);
 
                 // Total
                 float total = (qtyAdult * PRICE_ADULT) + (qtyChild * PRICE_CHILD) + (qtyStudent * PRICE_STUDENT) + (qtySenior * PRICE_SENIOR);
                 char totalStr[64];
-                snprintf(totalStr, sizeof(totalStr), "TOTAL: %.2f E", total);
+                snprintf(totalStr, sizeof(totalStr), _T("tot"), total);
                 createText(centerX - (strlen(totalStr) / 2), rows - 9, totalStr, TERTIARY_COLOR);
 
 
                 // Actions
-                createButton(centerX - 16, rows - 7, 15, "Annuler", WARNING_COLOR, STYLE_DEFAULT, cancelReservation);
-                if (total > 0) createButton(centerX + 1, rows - 7, 15, "Confirmer", SUCCESS_COLOR, STYLE_DEFAULT, confirmTicket);
-                else           createButton(centerX + 1, rows - 7, 15, "Confirmer", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+                createButton(centerX - 16, rows - 7, 15, _T("cancel"), WARNING_COLOR, STYLE_DEFAULT, cancelReservation);
+                if (total > 0) createButton(centerX + 1, rows - 7, 15, _T("confirm"), SUCCESS_COLOR, STYLE_DEFAULT, confirmTicket);
+                else           createButton(centerX + 1, rows - 7, 15, _T("confirm"), TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
 
             } else if (step == RESERVE_STEP_FOOD) {
                 int y = 8;
@@ -413,9 +413,9 @@ void showClientReservePage() {
 
 
                 int startLine = (columns - (INPUT_WIDTH + 16 + 10)) / 2;
-                createInput(startLine, y - 4, "Recherche un produit", "Nom du produit...");
-                createButton(startLine + INPUT_WIDTH + 2, y - 4, 16, "Rechercher", PRIMARY_COLOR, STYLE_DEFAULT, onSearchFood);
-                createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, y - 4, 10, "Trier", TERTIARY_COLOR, STYLE_DEFAULT, NULL);
+                createInput(startLine, y - 4, _T("client.sch.pdt"), _T("client.sch.plh"));
+                createButton(startLine + INPUT_WIDTH + 2, y - 4, 16, _T("search"), PRIMARY_COLOR, STYLE_DEFAULT, onSearchFood);
+                createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, y - 4, 10, _T("sort"), TERTIARY_COLOR, STYLE_DEFAULT, NULL);
     
 
                 ProductNode *node = getProductList();
@@ -446,7 +446,7 @@ void showClientReservePage() {
                                 createText(startLine + 25, itemY, priceStr, TEXT_COLOR);
 
                                 char stockStr[16];
-                                snprintf(stockStr, sizeof(stockStr), "Stock: %d", node->product->qte);
+                                snprintf(stockStr, sizeof(stockStr), _T("stock"), node->product->qte);
                                 createText(startLine + 35, itemY, stockStr, (node->product->qte > 0 ? SUCCESS_COLOR : WARNING_COLOR));
 
                                 int currentQty = getFoodQty(node->product->id);
@@ -472,58 +472,59 @@ void showClientReservePage() {
 
                 // Pagination
                 int startBtnX = (columns - (15 + 2 + 15)) / 2;
-                if (foodPageIndex > 0) createButton(startBtnX, rows - 9, 15, "Precedent", TERTIARY_COLOR, STYLE_DEFAULT, prevFoodPage);
-                else                   createButton(startBtnX, rows - 9, 15, "Precedent", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+                if (foodPageIndex > 0) createButton(startBtnX, rows - 9, 15, _T("prev"), TERTIARY_COLOR, STYLE_DEFAULT, prevFoodPage);
+                else                   createButton(startBtnX, rows - 9, 15, _T("prev"), TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
                 
-                if (hasMore) createButton(startBtnX + 15 + 2, rows - 9, 15, "Suivant", TERTIARY_COLOR, STYLE_DEFAULT, nextFoodPage);
-                else         createButton(startBtnX + 15 + 2, rows - 9, 15, "Suivant", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+                if (hasMore) createButton(startBtnX + 15 + 2, rows - 9, 15, _T("next"), TERTIARY_COLOR, STYLE_DEFAULT, nextFoodPage);
+                else         createButton(startBtnX + 15 + 2, rows - 9, 15, _T("next"), TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+
                 // Totals
                 float movieTotal = (qtyAdult * PRICE_ADULT) + (qtyChild * PRICE_CHILD) + (qtyStudent * PRICE_STUDENT) + (qtySenior * PRICE_SENIOR);
                 char totalStr[100];
-                snprintf(totalStr, sizeof(totalStr), "Film: %.2fE  +  Snack: %.2fE  =  TOTAL: %.2fE", movieTotal, foodTotal, movieTotal + foodTotal);
+                snprintf(totalStr, sizeof(totalStr), _T("filmsnacktot"), movieTotal, foodTotal, movieTotal + foodTotal);
                 createText(centerX - (strlen(totalStr) / 2), rows - 5, totalStr, TERTIARY_COLOR);
 
                 // Actions
-                createButton(centerX - 16, rows - 3, 15, "Annuler", WARNING_COLOR, STYLE_DEFAULT, cancelReservation);
-                createButton(centerX + 1, rows - 3, 15, "Confirmer", SUCCESS_COLOR, STYLE_DEFAULT, confirmFood);
+                createButton(centerX - 16, rows - 3, 15, _T("cancel"), WARNING_COLOR, STYLE_DEFAULT, cancelReservation);
+                createButton(centerX + 1, rows - 3, 15, _T("confirm"), SUCCESS_COLOR, STYLE_DEFAULT, confirmFood);
             
             } else if (step == RESERVE_STEP_CONFIRM) {
                 int y = 8;
                 if (rows > 40) y = 14;
 
-                createText(ALIGN_CENTER, y, "Confirmation de la reservation", TERTIARY_COLOR);
-                createButton(centerX - 16, y + 2, 15, "Annuler", WARNING_COLOR, STYLE_DEFAULT, cancelReservation);
-                createButton(centerX + 1, y + 2, 15, "Confirmer", SUCCESS_COLOR, STYLE_DEFAULT, confirmReservation);
+                createText(ALIGN_CENTER, y, _T("cfmres"), TERTIARY_COLOR);
+                createButton(centerX - 16, y + 2, 15, _T("cancel"), WARNING_COLOR, STYLE_DEFAULT, cancelReservation);
+                createButton(centerX + 1, y + 2, 15, _T("confirm"), SUCCESS_COLOR, STYLE_DEFAULT, confirmReservation);
 
             } else if (step == RESERVE_STEP_DONE) {
                 int y = 4;
                 if (rows > 40) y = 14;
 
-                createText(ALIGN_CENTER, y, "RESERVATION CONFIRMEE", SUCCESS_COLOR);
+                createText(ALIGN_CENTER, y, _T("resconfirm"), SUCCESS_COLOR);
                 y += 2;
 
                 // Movie Info
                 if (movie) {
                     char movieStr[100];
-                    snprintf(movieStr, sizeof(movieStr), "Film : %s", movie->name);
+                    snprintf(movieStr, sizeof(movieStr), _T("movie"), movie->name);
                     createText(centerX - 20, y, movieStr, PRIMARY_COLOR);
                     y++;
                     char dateStr[100];
-                    snprintf(dateStr, sizeof(dateStr), "Date : %s", projection->datetime);
+                    snprintf(dateStr, sizeof(dateStr), _T("date"), projection->datetime);
                     createText(centerX - 20, y, dateStr, TEXT_COLOR);
                     y += 2;
                 }
 
                 // Tickets
                 float ticketsTotal = 0;
-                createText(centerX - 20, y, "Tickets :", TERTIARY_COLOR);
+                createText(centerX - 20, y, _T("ticket"), TERTIARY_COLOR);
                 y++;
                 
                 if (qtyAdult > 0) {
                     char str[100];
                     float sub = qtyAdult * PRICE_ADULT;
                     ticketsTotal += sub;
-                    snprintf(str, sizeof(str), "- %d x Adulte (%.2f) = %.2f E", qtyAdult, PRICE_ADULT, sub);
+                    snprintf(str, sizeof(str), _T("adultprc"), qtyAdult, PRICE_ADULT, sub);
                     createText(centerX - 18, y, str, TEXT_COLOR);
                     y++;
                 }
@@ -531,7 +532,7 @@ void showClientReservePage() {
                     char str[100];
                     float sub = qtyChild * PRICE_CHILD;
                     ticketsTotal += sub;
-                    snprintf(str, sizeof(str), "- %d x Enfant (%.2f) = %.2f E", qtyChild, PRICE_CHILD, sub);
+                    snprintf(str, sizeof(str), _T("kidprc"), qtyChild, PRICE_CHILD, sub);
                     createText(centerX - 18, y, str, TEXT_COLOR);
                     y++;
                 }
@@ -539,7 +540,7 @@ void showClientReservePage() {
                     char str[100];
                     float sub = qtyStudent * PRICE_STUDENT;
                     ticketsTotal += sub;
-                    snprintf(str, sizeof(str), "- %d x Etudiant (%.2f) = %.2f E", qtyStudent, PRICE_STUDENT, sub);
+                    snprintf(str, sizeof(str), _T("studentprc"), qtyStudent, PRICE_STUDENT, sub);
                     createText(centerX - 18, y, str, TEXT_COLOR);
                     y++;
                 }
@@ -547,7 +548,7 @@ void showClientReservePage() {
                     char str[100];
                     float sub = qtySenior * PRICE_SENIOR;
                     ticketsTotal += sub;
-                    snprintf(str, sizeof(str), "- %d x Senior (%.2f) = %.2f E", qtySenior, PRICE_SENIOR, sub);
+                    snprintf(str, sizeof(str), _T("seniorprc"), qtySenior, PRICE_SENIOR, sub);
                     createText(centerX - 18, y, str, TEXT_COLOR);
                     y++;
                 }
@@ -564,7 +565,7 @@ void showClientReservePage() {
                 }
 
                 if (hasFood) {
-                    createText(centerX - 20, y, "Snacks :", TERTIARY_COLOR);
+                    createText(centerX - 20, y, _T("snacks"), TERTIARY_COLOR);
                     y++;
                     for (int i=0; i<MAX_SELECTED_FOOD; i++) {
                         if (selectedFoods[i].productId != 0) {
@@ -584,11 +585,11 @@ void showClientReservePage() {
 
                 // Total
                 char totalStr[100];
-                snprintf(totalStr, sizeof(totalStr), "TOTAL PAYE : %.2f E", ticketsTotal + foodTotal);
+                snprintf(totalStr, sizeof(totalStr), _T("totpaiement"), ticketsTotal + foodTotal);
                 createText(ALIGN_CENTER, y, totalStr, SUCCESS_COLOR);
                 y += 3;
 
-                createButton(ALIGN_CENTER, y, 20, "Terminer", TERTIARY_COLOR, STYLE_DEFAULT, cancelReservation);
+                createButton(ALIGN_CENTER, y, 20, _T("finish"), TERTIARY_COLOR, STYLE_DEFAULT, cancelReservation);
 
             } else {
                 cancelReservation();

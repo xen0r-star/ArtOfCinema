@@ -135,14 +135,14 @@ static void initItem(int columns, int rows){
 
     int startBtnX = (columns - (32)) / 2;
     if (pageIndex > 0)
-        createButton(startBtnX, rows - 3, 15, "Precedent", TERTIARY_COLOR, STYLE_DEFAULT, prevPage);
+        createButton(startBtnX, rows - 3, 15, _T("prev"), TERTIARY_COLOR, STYLE_DEFAULT, prevPage);
     else
-        createButton(startBtnX, rows - 3, 15, "Precedent", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+        createButton(startBtnX, rows - 3, 15, _T("prev"), TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
 
     if (node != NULL)
-        createButton(startBtnX + 17, rows - 3, 15, "Suivant", TERTIARY_COLOR, STYLE_DEFAULT, nextPage);
+        createButton(startBtnX + 17, rows - 3, 15, _T("next"), TERTIARY_COLOR, STYLE_DEFAULT, nextPage);
     else
-        createButton(startBtnX + 17, rows - 3, 15, "Suivant", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+        createButton(startBtnX + 17, rows - 3, 15, _T("next"), TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
 
 }
 
@@ -169,9 +169,9 @@ static void verifyReturnSave() {
         drawFooter();
         buttonLanguage();
 
-        createText(ALIGN_CENTER, ALIGN_CENTER, "Etes-vous sure de quitter sans sauvegarder ?", TERTIARY_COLOR);
-        createDataButton(columns*0.4, rows*0.2, 15, "Non", WARNING_COLOR, STYLE_DEFAULT, skipWaitingSave, &FAUX);
-        createDataButton(columns*0.6, rows*0.2, 15, "Oui", SUCCESS_COLOR, STYLE_DEFAULT, skipWaitingSave, &VRAI);
+        createText(ALIGN_CENTER, ALIGN_CENTER, _T("director.save"), TERTIARY_COLOR);
+        createDataButton(columns*0.4, rows*0.7, 15, _T("no"), WARNING_COLOR, STYLE_DEFAULT, skipWaitingSave, &FAUX);
+        createDataButton(columns*0.6, rows*0.7, 15, _T("yes"), SUCCESS_COLOR, STYLE_DEFAULT, skipWaitingSave, &VRAI);
         WaitingProducts = NULL;
         return;
     }
@@ -181,6 +181,9 @@ static void verifyReturnSave() {
 static void forceSave() {
     saveProducts(WaitingProducts);
     WaitingProducts = NULL;
+    setCurrentPage(PAGE_DIRECTOR);
+    createText(ALIGN_CENTER , 12, _T("director.s.v"), TERTIARY_COLOR);
+    Sleep(1000);
     setCurrentPage(PAGE_DIRECTOR);
 }
 
@@ -197,9 +200,6 @@ void showDirectorShopPage(){
     createButton(columns - 20, rows - 3, 20, _T("save"), PRIMARY_COLOR, STYLE_DEFAULT, forceSave);
 
     createMenu(ALIGN_CENTER, 11, columns*0.8, PRIMARY_COLOR, STYLE_DEFAULT, "director.s.tbl", NULL, NULL, NULL);
-
-    createButton(1, ALIGN_TOP, 6, _T("return"), WARNING_COLOR, STYLE_BORDERLESS, verifyReturnSave);
-    // buttonBack(PAGE_DIRECTOR);
 
     createButton(1, ALIGN_TOP, 6, _T("return"), WARNING_COLOR, STYLE_BORDERLESS, verifyReturnSave);
     // buttonBack(PAGE_DIRECTOR);

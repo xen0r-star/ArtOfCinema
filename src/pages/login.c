@@ -117,7 +117,7 @@ void showLoginPage() {
             createText(ALIGN_CENTER, 11, _T("login.crt.acc"), TEXT_COLOR);
             createInput(ALIGN_CENTER, 15, _T("login.crt.acc.ipt.label"), _T("login.crt.acc.ipt.placeholder"));
             createInput(ALIGN_CENTER, 18, _T("login.crt.acc.ipt.cnfrmpswd"), _T("login.crt.acc.ipt.placeholder"));
-            createButton(ALIGN_CENTER, rows - 7, 21, _T("login.btn.crt.acc.next"), TERTIARY_COLOR, STYLE_DEFAULT, nextStepSignUp);
+            createButton(ALIGN_CENTER, rows - 7, 21, _T("next"), TERTIARY_COLOR, STYLE_DEFAULT, nextStepSignUp);
         }
 
     } else if (user.logged) {
