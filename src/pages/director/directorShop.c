@@ -201,7 +201,7 @@ void showDirectorShopPage(){
     createButton(1, ALIGN_TOP, 6, _T("return"), WARNING_COLOR, STYLE_BORDERLESS, verifyReturnSave);
     // buttonBack(PAGE_DIRECTOR);
 
-    createButton(1, ALIGN_TOP, 6, _T("return"), COLOR_RED, STYLE_BORDERLESS, verifyReturnSave);
+    createButton(1, ALIGN_TOP, 6, _T("return"), WARNING_COLOR, STYLE_BORDERLESS, verifyReturnSave);
     // buttonBack(PAGE_DIRECTOR);
 
     initItem(columns, rows);        // Initialisation + affichage du stock
