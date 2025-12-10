@@ -14,6 +14,7 @@ void resetPage(){
 
 
 int main() {
+    clearScreen();      // Clear l'écran (Via .bat retire les anciennes commandes)
     SetConsoleTitle("Art Of Cinema - Terminal Edition");
     hideCursor();
 
