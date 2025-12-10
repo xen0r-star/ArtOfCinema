@@ -23,6 +23,7 @@ int main() {
     loadMovies();
     loadProjections();
     loadProducts();
+    loadReservation();
 
     while(1) {
         // Recuperer la taille de l'écran
