@@ -2,34 +2,30 @@
 
 static int pageIndex = 0;
 static ProductNode *WaitingProducts = NULL;
-static int cooldown = 0;
 
-static void addInList(Product *product, int calcul){
+static void addInList(Product *product, int calcul) {
     Product *pdt = product;
     int idP = pdt->id;
 
     ProductNode *curr = WaitingProducts;
     while (curr != NULL) {
         if (curr->product->id == idP) {
-            if (calcul == 1) {
-                if (curr->product->qte + 1 > 999) {
-                    if (cooldown == 1) return;
-                    cooldown = 1;
-                    createText(ALIGN_CENTER , 12, _T("director.qte.errp"), WARNING_COLOR);
-                    cooldown = 0;
-                    return;
-                }
-                curr->product->qte++;
-            } else {
-                if (curr->product->qte - 1 < 0) {
-                    if (cooldown == 1) return;
-                    cooldown = 1;
-                    createText(ALIGN_CENTER , 12, _T("director.qte.errm"), WARNING_COLOR);
-                    cooldown = 0;
-                    return;
-                }
-                curr->product->qte--;
+            if (curr->product->qte + calcul > 999) {
+                createText(ALIGN_CENTER , 10, _T("director.qte.errp"), WARNING_COLOR);
+                Sleep(1000);
+                setCurrentPage(PAGE_DIRECTOR_SHOP);
+                return;
             }
+
+            if (curr->product->qte + calcul < 0) {
+                createText(ALIGN_CENTER , 12, _T("director.qte.errm"), WARNING_COLOR);
+                Sleep(1000);
+                setCurrentPage(PAGE_DIRECTOR_SHOP);
+                return;
+            }
+
+            curr->product->qte += calcul;
+
             setCurrentPage(PAGE_DIRECTOR_SHOP);
             return;
         }
@@ -100,7 +96,7 @@ static void initItem(int columns, int rows){
                 if (newNode) {
                     Product *newPdt = malloc(sizeof(Product));
                     newPdt->id = node->product->id;
-                    newPdt->qte = node->product->qte+1;
+                    newPdt->qte = node->product->qte;
                     newNode->product = newPdt;
                     newNode->next = NULL;
 
