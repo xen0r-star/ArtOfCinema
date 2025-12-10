@@ -49,10 +49,9 @@ director.qte.errp|La quantite de produit ne peut pas depasser 999 produits !|A F
 director.qte.errm|La quantite de produit ne peut pas descendre en dessous de 0 produit !|A FAIRE
 director.s.btn2|RESERVATION|A FAIRE
 director.s.tbl|Produits dans le stock|A FAIRE
-settings.visual.txt|Vos parametres ARTOFCINEMA|Your ARTOFCINEMA settings
 setting.btn.label|PARAMETRES|SETTINGS
 setting.btn.close|FERMER|CLOSE
 setting.menu.label|PARAMETRES ARTOFCINEMA|ARTOFCINEMA SETTINGS
 setting.menu.o1|Global|A FAIRE
 setting.menu.o2|Langues|A FAIRE
-setting.menu.o3|Affichage|A FAIRE
+setting.menu.o3|Themes|A FAIRE

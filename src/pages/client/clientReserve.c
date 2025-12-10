@@ -319,6 +319,7 @@ void showClientReservePage() {
                                 listStartY + (displayedCount * itemHeight), 
                                 str, WARNING_COLOR
                             );
+
                         } else {
                             snprintf(str, sizeof(str), "%4d places", node->projection.available_seats);
                             createText(
@@ -327,14 +328,17 @@ void showClientReservePage() {
                                 str, SUCCESS_COLOR
                             );
                         }
-    
-                        createDataButton(
-                            startLine + INPUT_WIDTH + 21, 
-                            listStartY + (displayedCount * itemHeight) - 1, 
-                            10, "Reserver", 
-                            TERTIARY_COLOR, STYLE_BORDERLESS, 
-                            reserveMovie, &node->projection.id
-                        );
+                        
+                        if (node->projection.available_seats > 0) {
+                            createDataButton(
+                                startLine + INPUT_WIDTH + 21, 
+                                listStartY + (displayedCount * itemHeight) - 1, 
+                                10, "Reserver", 
+                                TERTIARY_COLOR, STYLE_BORDERLESS, 
+                                reserveMovie, &node->projection.id
+                            );
+                        }
+                        
                         displayedCount++;
     
                     } else {

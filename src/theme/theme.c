@@ -15,6 +15,20 @@ Theme THEMES[] = {
         .warning       = { 179,   0,  21 },
         .error         = { 197,  15,  31 },
         .info          = { 217, 156,   0 }
+    }, 
+    [THEME_GIRLY] = {
+        .primary       = { 255, 105, 180 },
+        .secondary     = { 255, 182, 193 },
+        .tertiary      = { 255, 20, 147 },
+        .background    = { 255, 240, 245 },
+
+        .text          = { 255, 20, 147 },
+        .textSecondary = { 199, 21, 133 },
+
+        .success       = { 255, 105, 180 },
+        .warning       = { 255, 20, 147 },
+        .error         = { 219, 112, 147 },
+        .info          = { 255, 182, 193 }
     }
 };
 

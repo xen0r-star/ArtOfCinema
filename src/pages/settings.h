@@ -16,6 +16,13 @@
 #include "../main.h"
 
 
+typedef enum SettingTab {
+    SETTING_GLOBAL,
+    SETTING_LANGUAGES,
+    SETTING_DISPLAY
+} SettingTab;
+
+
 void showSettingsPage();
 
 

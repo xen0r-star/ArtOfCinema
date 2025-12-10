@@ -99,7 +99,7 @@ void showClientQuotePage() {
                             snprintf(label, sizeof(label), "Reservation #%d (%.2f E)", node->reservation.projectionId, total);
                         }
 
-                        createText(startX, y, label, TEXT_COLOR);
+                        createText(startX, y, label, PRIMARY_COLOR);
                         createDataButton(startX + 60, y - 1, 15, "Voir details", TERTIARY_COLOR, STYLE_DEFAULT, showDetails, &node->reservation);
 
                         y += itemHeight;
@@ -121,13 +121,14 @@ void showClientQuotePage() {
         
         if (hasMore) createButton(startBtnX + 15 + 2, rows - 5, 15, "Suivant", TERTIARY_COLOR, STYLE_DEFAULT, nextPage);
         else         createButton(startBtnX + 15 + 2, rows - 5, 15, "Suivant", TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+
     } else {
         // DETAILS VIEW
         int centerX = columns / 2;
         int y = 4;
         if (rows > 40) y = 14;
 
-        createText(ALIGN_CENTER, y, "DETAIL DU DEVIS", TERTIARY_COLOR);
+        createText(ALIGN_CENTER, y, "DETAIL DU DEVIS", PRIMARY_COLOR);
         y += 2;
 
         Projection *projection = getProjectionById(selectedReservation->projectionId);
@@ -137,11 +138,11 @@ void showClientQuotePage() {
         if (movie) {
             char movieStr[100];
             snprintf(movieStr, sizeof(movieStr), "Film : %s", movie->name);
-            createText(centerX - 20, y, movieStr, TERTIARY_COLOR);
+            createText(centerX - 20, y, movieStr, PRIMARY_COLOR);
             y++;
             char dateStr[100];
             snprintf(dateStr, sizeof(dateStr), "Date : %s", projection->datetime);
-            createText(centerX - 20, y, dateStr, TERTIARY_COLOR);
+            createText(centerX - 20, y, dateStr, TEXT_COLOR);
             y += 2;
         }
 

@@ -1,40 +1,37 @@
 #include "settings.h"
 
+static SettingTab currentTab = SETTING_GLOBAL;
 
-static void test1(){
-    cursor(10,10);
-    printf("TEST1");
-    // Sleep(2000);
-    cursor(10,10);
-    printf("LAST1");
+static void globalTab(){
+    currentTab = SETTING_GLOBAL;
+    setCurrentPage(PAGE_SETTINGS);
 }
 
-static void test2(){
-    cursor(10,10);
-    printf("TEST2");
-    // Sleep(2000);
-    cursor(10,10);
-    printf("LAST2");
+static void languagesTab(){
+    currentTab = SETTING_LANGUAGES;
+    setCurrentPage(PAGE_SETTINGS);
 }
 
-static void test3(){
-    cursor(10,10);
-    printf("TEST3");
-    // Sleep(2000);
-    cursor(10,10);
-    printf("LAST3");
+static void displayTab(){
+    currentTab = SETTING_DISPLAY;
+    setCurrentPage(PAGE_SETTINGS);
 }
 
-static void initMenu(int columns,int rows, int width){
-    int x = (columns-width)/2;
-    int y = (rows/2)-3;
 
-    Button btn1 = {x, y + 2, 12, SECONDARY_COLOR, STYLE_BORDERLESS, _T("setting.menu.o1"), test1};
-    Button btn2 = {x + 12, y + 2, 12, SECONDARY_COLOR, STYLE_BORDERLESS, _T("setting.menu.o2"), test2};
-    Button btn3 = {x + 24, y + 2, 14, SECONDARY_COLOR, STYLE_BORDERLESS, _T("setting.menu.o3"), test3};
 
-    createMenu(x, y, width, (ColorRGB){0, 255, 0}, STYLE_DEFAULT, "setting.menu.label", &btn1, &btn2, &btn3);
+static void changeLanguage(void *data) {
+    const char* language = (const char*)data;
+    setLanguage(language);
+    refreshPage();
 }
+
+static void changeTheme(void *data) {
+    const ThemeID theme = (ThemeID)data;
+    setTheme(theme);
+    refreshPage();
+}
+
+
 
 void showSettingsPage() {
     int columns, rows;
@@ -42,14 +39,58 @@ void showSettingsPage() {
 
     drawLogo((columns / 2) - (LOGO_WIDTH / 2), 4);
     drawFooter();
-    buttonLanguage();
     buttonClose();
 
-    createText(ALIGN_CENTER, 10, _T("settings.visual.txt"), (ColorRGB){0, 255, 0});
 
-    
-    int width = (int)strlen(_T("setting.menu.o1")) +
-                (int)strlen(_T("setting.menu.o2")) + 
-                (int)strlen(_T("setting.menu.o3")) + 16;
-    initMenu(columns, rows, width);
+    int width = 70;
+    int x = (columns - width) / 2;
+    int y = 10;
+
+    Button btn1 = {
+        x, y + 2, width / 3, 
+        currentTab == SETTING_GLOBAL ? TERTIARY_COLOR : SECONDARY_COLOR, 
+        STYLE_BORDERLESS, _T("setting.menu.o1"), globalTab
+    };
+    Button btn2 = {
+        x + width / 3, y + 2, width / 3, 
+        currentTab == SETTING_LANGUAGES ? TERTIARY_COLOR : SECONDARY_COLOR, 
+        STYLE_BORDERLESS, _T("setting.menu.o2"), languagesTab
+    };
+    Button btn3 = {
+        x + 2 * (width / 3), y + 2, width / 3, 
+        currentTab == SETTING_DISPLAY ? TERTIARY_COLOR : SECONDARY_COLOR, 
+        STYLE_BORDERLESS, _T("setting.menu.o3"), displayTab
+    };
+
+    createMenu(x, y, width, PRIMARY_COLOR, STYLE_DEFAULT, "setting.menu.label", &btn1, &btn2, &btn3);
+
+
+
+    if (currentTab == SETTING_GLOBAL) {
+        
+
+    } else if (currentTab == SETTING_LANGUAGES) {
+        createDataButton(
+            x + 4, y + 5, 20, "Francais", 
+            !strcmp(getLanguage(), "fr") ? TERTIARY_COLOR : SECONDARY_COLOR, 
+            STYLE_DEFAULT, changeLanguage, "fr"
+        );
+        createDataButton(
+            x + 25, y + 5, 20, "Anglais", 
+            !strcmp(getLanguage(), "en") ? TERTIARY_COLOR : SECONDARY_COLOR, 
+            STYLE_DEFAULT, changeLanguage, "en"
+        );
+
+    } else if (currentTab == SETTING_DISPLAY) {
+        createDataButton(
+            x + 4, y + 5, 20, "Par defaut", 
+            getTheme() == THEME_DEFAULT ? TERTIARY_COLOR : SECONDARY_COLOR, 
+            STYLE_DEFAULT, changeTheme, (void*) THEME_DEFAULT
+        );
+        createDataButton(
+            x + 25, y + 5, 20, "Girly", 
+            getTheme() == THEME_GIRLY ? TERTIARY_COLOR : SECONDARY_COLOR, 
+            STYLE_DEFAULT, changeTheme, (void*) THEME_GIRLY
+        );
+    }
 }
