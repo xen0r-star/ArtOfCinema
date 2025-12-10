@@ -1,7 +1,6 @@
 #include "user.h"
 
 
-
 Status emailExiste(const char* email) {
     FILE *fdat = fopen(DATA_FILE, "r");
     if (fdat == NULL) return STATUS_ERROR;

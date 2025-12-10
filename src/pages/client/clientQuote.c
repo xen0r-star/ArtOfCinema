@@ -1,4 +1,3 @@
-
 #include "clientQuote.h"
 
 static const float PRICE_ADULT = 10.0f;

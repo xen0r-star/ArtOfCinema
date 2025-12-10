@@ -20,6 +20,7 @@
 #include "./core/movie.h"
 #include "./core/projection.h"
 #include "./core/product.h"
+#include "./core/reservation.h"
 
 #include "./types/page.h"
 
