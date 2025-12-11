@@ -1,7 +1,7 @@
 #include "main.h"
 
 
-static AppPage page = PAGE_LOADING;
+static AppPage page = PAGE_DIRECTOR_ADD_FILM;
 static AppPage previousPage = -1;
 static AppPage savePage = -1;
 
@@ -15,7 +15,7 @@ void resetPage(){
 
 
 int main() {
-    clearScreen();      // Clear l'écran (Via .bat retire les anciennes commandes)
+    clearScreen();
     SetConsoleTitle("Art Of Cinema - Terminal Edition");
     cursorVisibility(0);
 
@@ -58,6 +58,10 @@ int main() {
 
                 case PAGE_DIRECTOR_SHOP:
                     showDirectorShopPage();
+                    break;
+
+                case PAGE_DIRECTOR_ADD_FILM:
+                    showDirectorAddFilmPage();
                     break;
 
                 case PAGE_CLIENT:
