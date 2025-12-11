@@ -202,7 +202,7 @@ static void decQty(void *data) {
 static void drawTicketControl(int x, int y, const char* name, float price, int* qty, int alignRight) {
     char label[64];
     char strQty[4];
-    snprintf(label, sizeof(label), "%s (%.2f E)", name, price);
+    snprintf(label, sizeof(label), "%8s (%5.2f E)", name, price);
     snprintf(strQty, sizeof(strQty), "%02d", *qty);
 
     int labelX, btnDecX, qtyX, btnIncX;
@@ -267,8 +267,7 @@ void showClientReservePage() {
     if (rows > 40) drawLogo((columns / 2) - (LOGO_WIDTH / 2), 4);
 
     drawFooter();
-    buttonLogout();
-    buttonLanguage();
+    buttonSetting();
     buttonBack(PAGE_CLIENT);
 
 

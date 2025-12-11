@@ -34,8 +34,7 @@ void showClientMoviePage() {
     if (rows > 40) drawLogo((columns / 2) - (LOGO_WIDTH / 2), 4);
 
     drawFooter();
-    buttonLogout();
-    buttonLanguage();
+    buttonSetting();
     buttonBack(PAGE_CLIENT);
 
 

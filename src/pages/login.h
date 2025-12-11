@@ -6,7 +6,6 @@
 #include "../components/text.h"
 #include "../components/input.h"
 #include "../components/button.h"
-#include "../components/language.h"
 #include "../components/setting.h"
 
 #include "../core/user.h"

@@ -18,6 +18,15 @@ static void displayTab(){
 }
 
 
+static void closeSettings() {
+    setCurrentPage(PAGE_LOGIN);
+}
+
+
+static void logout() {
+    resetUser();
+    setCurrentPage(PAGE_LOGIN);
+}
 
 static void changeLanguage(void *data) {
     const char* language = (const char*)data;
@@ -39,7 +48,6 @@ void showSettingsPage() {
 
     drawLogo((columns / 2) - (LOGO_WIDTH / 2), 4);
     drawFooter();
-    buttonClose();
 
 
     int width = 70;
@@ -64,31 +72,36 @@ void showSettingsPage() {
 
     createMenu(x, y, width, PRIMARY_COLOR, STYLE_DEFAULT, "setting.menu.label", &btn1, &btn2, &btn3);
 
+    createButton(columns - 20, rows - 3, 20, _T("setting.btn.close"), SECONDARY_COLOR, STYLE_DEFAULT, closeSettings);
+
 
 
     if (currentTab == SETTING_GLOBAL) {
-        
+        createButton(
+            x + 4, y + 5, 20, _T("logout.btn.dec"), 
+            WARNING_COLOR, STYLE_DEFAULT, logout
+        );
 
     } else if (currentTab == SETTING_LANGUAGES) {
         createDataButton(
-            x + 4, y + 5, 20, "Francais", 
+            x + 4, y + 5, 20, _T("setting.language.french"), 
             !strcmp(getLanguage(), "fr") ? TERTIARY_COLOR : SECONDARY_COLOR, 
             STYLE_DEFAULT, changeLanguage, "fr"
         );
         createDataButton(
-            x + 25, y + 5, 20, "Anglais", 
+            x + 25, y + 5, 20, _T("setting.language.english"), 
             !strcmp(getLanguage(), "en") ? TERTIARY_COLOR : SECONDARY_COLOR, 
             STYLE_DEFAULT, changeLanguage, "en"
         );
 
     } else if (currentTab == SETTING_DISPLAY) {
         createDataButton(
-            x + 4, y + 5, 20, "Par defaut", 
+            x + 4, y + 5, 20, _T("setting.theme.default"), 
             getTheme() == THEME_DEFAULT ? TERTIARY_COLOR : SECONDARY_COLOR, 
             STYLE_DEFAULT, changeTheme, (void*) THEME_DEFAULT
         );
         createDataButton(
-            x + 25, y + 5, 20, "Girly", 
+            x + 25, y + 5, 20, _T("setting.theme.girly"), 
             getTheme() == THEME_GIRLY ? TERTIARY_COLOR : SECONDARY_COLOR, 
             STYLE_DEFAULT, changeTheme, (void*) THEME_GIRLY
         );

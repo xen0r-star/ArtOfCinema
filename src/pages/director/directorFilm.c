@@ -105,7 +105,6 @@ void showDirectorFilmPage(){
 
     drawLogo((columns / 2) - (LOGO_WIDTH / 2), 1);
     drawFooter();
-    buttonLanguage();
 
     createText(ALIGN_CENTER, 7, _T("director.f.lbl"), SUCCESS_COLOR);
     createText(ALIGN_CENTER, 9, _T("director.f.desc"), TEXT_COLOR);
