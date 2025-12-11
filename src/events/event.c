@@ -13,6 +13,8 @@ void event() {
 
     ReadConsoleInput(h, &rec, 1, &n);
     if (rec.EventType == MOUSE_EVENT) { // Detection souris
+        if (rec.Event.MouseEvent.dwEventFlags != 0) return;
+
         int x = rec.Event.MouseEvent.dwMousePosition.X;
         int y = rec.Event.MouseEvent.dwMousePosition.Y;
         WORD bstate = rec.Event.MouseEvent.dwButtonState;
