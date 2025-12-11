@@ -16,16 +16,12 @@ int loadMovies() {
     initMovie = true;
 
     FILE *file = fopen("data/movies.dat", "r");
-    if (file == NULL) return -1;
+    if (file == NULL) return 0;
 
     int id, duration, type_count, note, year, cast_count;
     char name[100], typesStr[512], desc[512], director[100], age[10], lang[50], castStr[512];
-    MovieNode *tail = NULL;
 
-    while (fscanf(file, "%5d;%99[^;];%3d;%2d;%511[^;];%3d;%511[^;];%4d;%99[^;];%9[^;];%49[^;];%2d;%511[^\n]\n",
-            &id, name, &duration, &type_count, typesStr, &note,
-            desc, &year, director, age, lang, &cast_count, castStr) == 13) {
-        
+    while (fscanf(file, "%5d;%99[^;];%3d;%2d;%511[^;];%3d;%511[^;];%4d;%99[^;];%9[^;];%49[^;];%2d;%511[^\n]\n", &id, name, &duration, &type_count, typesStr, &note, desc, &year, director, age, lang, &cast_count, castStr) == 13) {
         Movie *newMovie = calloc(1, sizeof(Movie));
 
         newMovie->id = id;
@@ -39,7 +35,6 @@ int loadMovies() {
         newMovie->director = strdup(director);
         newMovie->ageRating = strdup(age);
         newMovie->language = strdup(lang);
-
 
         // Parse Types
         if (newMovie->type_count > 0) {
@@ -83,47 +78,102 @@ int loadMovies() {
             }
         }
     }
+    fclose(file);
+    return 1;
+}
 
+int saveMovies(MovieNode *list) {
+    FILE *file = fopen("data/movies.dat", "r+");
+    if (file == NULL) return -1;
+
+    char buffer[512];
+    while(list != NULL){
+        Movie *tmpMovie = list->movie;
+
+        rewind(file);
+        long lineStart = 0;
+        
+        while (1) {
+            lineStart = ftell(file);
+            if (fgets(buffer, sizeof(buffer), file) == NULL) break;
+            
+            int idRead;
+            if (sscanf(buffer, "%d", &idRead) == 1) {
+                if (tmpMovie->id == idRead) {
+                    char *firstPipe = strchr(buffer, '|');
+                    if (firstPipe) {
+                        char *secondPipe = strchr(firstPipe + 1, '|');
+                        if (secondPipe) {
+                            long qteOffset = (secondPipe - buffer) + 1;
+                            
+                            fseek(file, lineStart + qteOffset, SEEK_SET);
+                            
+                            MovieNode *curr = movieListMain;
+                            while (curr != NULL) {
+                                if (curr->movie->id == tmpMovie->id) {
+                                    // curr->movie->qte = tmpMovie->qte;
+                                    break;
+                                }
+                                curr = curr->next;
+                            }
+                            
+                            // fprintf(file, "%05d", tmpMovie->qte);
+                            
+                            fflush(file);
+                            
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        
+        list = list->next;
+    }
     fclose(file);
     return 0;
 }
 
-void deleteMovie(void *movie){
-    Movie *mv = movie; 
-    // FILE *file = fopen("data/movies.dat", "r"); ⚠️ SUPPR DANS FILES A FAIRE
-    // if (file == NULL) return -1;
+int saveAllMovies(MovieNode *list) {
+    FILE *file = fopen("data/movies.dat", "r+");
+    if (file == NULL) return 0;
 
-    if (mv == NULL) return;
+    char buffer[512];
+    
+    while(list != NULL){
+        Movie *tmpMovie = list->movie;
+        
+        rewind(file);
+        long lineStart = 0;
+        
+        while (fgets(buffer, sizeof(buffer), file) != NULL) {
+            lineStart = ftell(file) - strlen(buffer);
+            int idRead;
 
-    int targetId = mv->id;
-
-    MovieNode *current = movieListMain;
-    MovieNode  *prev = NULL;
-
-    while (current != NULL) {
-        if (current->movie->id == targetId) {
-            if (prev == NULL) {
-                movieListMain = current->next;
-            } else {
-                prev->next = current->next;
+            if (sscanf(buffer, "%d", &idRead) == 1) {
+                if (tmpMovie->id == idRead) {
+                    char *firstPipe = strchr(buffer, '|');
+                    if (firstPipe) {
+                        long startWriteOffset = (firstPipe - buffer) +1;
+                        fseek(file, lineStart + startWriteOffset, SEEK_SET);
+                            
+                        // fprintf(file, "%-30s|%05d|%8.2f\n", tmpMovie->name, tmpMovie->qte, tmpMovie->price);
+                        fflush(file);
+                        break;
+                    }
+                }
             }
-            free(current);
-            return;
-
         }
-        prev = current;
-        current = current->next;
+        
+        list = list->next;
     }
-    cursor(2, 2);
-    printf("Le film avec ID %d n'a pas été trouvé dans la liste chainée.", targetId);
-    Sleep(3000);
-    // fclose(file);
-    return;
+    fclose(file);
+    return 1;
 }
 
 int addMovie(MovieNode *list) { // ⚠️ VERIF DES ENTREES A FAIRE AU NIVEAU DU "FORM"
     FILE *file = fopen("data/movies.dat", "a");
-    if (file == NULL) return -1;
+    if (file == NULL) return 0;
 
     while(list != NULL){
         Movie *tmpMovie = list->movie;
@@ -166,7 +216,108 @@ int addMovie(MovieNode *list) { // ⚠️ VERIF DES ENTREES A FAIRE AU NIVEAU DU
         list = list->next;
     }
     fclose(file);
-    return 0;
+    return 1;
+}
+
+void deleteMovie(void *movie){
+    Movie *mv = movie; 
+    if (mv == NULL) return;
+
+    FILE *file = fopen("data/movies.dat", "r");
+    FILE *fileTemp = fopen("data/moviesTmp.dat", "w");
+    if (file == NULL || fileTemp == NULL) return;
+
+    
+
+    int targetId = mv->id;
+
+    MovieNode *current = movieListMain;
+    MovieNode  *prev = NULL;
+
+    while (current != NULL) {
+        if (current->movie->id == targetId) {
+            if (prev == NULL) {
+                movieListMain = current->next;
+            } else {
+                prev->next = current->next;
+            }
+            int id, duration, type_count, note, year, cast_count;
+            char name[100], typesStr[512], desc[512], director[100], age[10], lang[50], castStr[512];
+
+            while (fscanf(file, "%5d;%99[^;];%3d;%2d;%511[^;];%3d;%511[^;];%4d;%99[^;];%9[^;];%49[^;];%2d;%511[^\n]\n", 
+                            &id, name, &duration, &type_count, typesStr, 
+                            &note, desc, &year, director, age, lang,
+                            &cast_count, castStr) == 13) {
+
+                if (targetId == id) {
+                    continue;
+                }
+
+                fprintf(fileTemp, "%d;%s;%d;%d;", id, name, duration, type_count);
+                // Traitement des types de film
+                if (type_count > 0) {
+                    char type[50];
+                    char *types = typesStr;
+                    
+                    int ret2line = 0;
+                    for(int i = 0; i < type_count; i++){
+                        if (sscanf(types, "%49[^|]|%n", type, &ret2line) == 1) {
+                            fprintf(fileTemp, "%s", type);
+                            types += ret2line;
+
+                            if (i < type_count - 1) {
+                                fprintf(fileTemp, "|");
+                            } else {
+                                fprintf(fileTemp, ";");
+                            }
+                        } else {
+                            break;
+                        }
+                        
+                    }
+                }
+                // Traitement des cast de film
+                fprintf(fileTemp, "%d;%s;%d;%s;%s;%s;%d;", note, desc, year, director, age, lang, cast_count);
+                if (cast_count > 0) {
+                    char cast[50];
+                    char *casts = castStr;
+
+                    for(int i = 0; i < cast_count; i++){
+                        int ret2line = 0;
+                        if (sscanf(casts, "%49[^|]|%n", cast, &ret2line) == 1) {
+                            fprintf(fileTemp, "%s", cast);
+                            casts += ret2line;
+
+                            if (i < cast_count - 1) {
+                                fprintf(fileTemp, "|");
+                            } else {
+                                fprintf(fileTemp, "\n");
+                            }
+                        } else {
+                            break;
+                        }
+                    }
+                } else {
+                    fprintf(fileTemp, "\n");
+                }
+            }
+            fclose(file);
+            fclose(fileTemp);
+            remove("data/movies.dat");
+            rename("data/moviesTmp.dat", "data/movies.dat");
+            free(current);
+            setCurrentPage(PAGE_DIRECTOR_FILM);
+            return;
+
+        }
+        prev = current;
+        current = current->next;
+    }
+    cursor(2, 2);
+    fclose(file);
+    fclose(fileTemp);
+    setCurrentPage(PAGE_DIRECTOR_FILM);
+    return;
 }
 
 MovieNode* getMovieList() {

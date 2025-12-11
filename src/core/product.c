@@ -16,14 +16,13 @@ int loadProducts() {
     initProduct = true;
     
     FILE *file = fopen("data/products.dat", "r");
-    if (file == NULL) return -1;
+    if (file == NULL) return 0;
 
     int tempId, tempQte;
     float tempPrice;
     char tempName[50];
 
-    // ProductNode *tail = NULL;
-    while (fscanf(file, "%5d;%50[^;];%5d;%10f",
+    while (fscanf(file, "%5d;%49[^;];%5d;%10f",
            &tempId, tempName, &tempQte, &tempPrice) == 4) {
         
         Product *newProduct = calloc(1, sizeof(Product));
@@ -48,14 +47,13 @@ int loadProducts() {
             }
         }
     }
-
     fclose(file);
-    return 0;
+    return 1;
 }
 
 int saveProducts(ProductNode *list) {
     FILE *file = fopen("data/products.dat", "r+");
-    if (file == NULL) return -1;
+    if (file == NULL) return 0;
 
     char buffer[512];
     while(list != NULL){
@@ -102,12 +100,12 @@ int saveProducts(ProductNode *list) {
         list = list->next;
     }
     fclose(file);
-    return 0;
+    return 1;
 }
 
 int saveAllProducts(ProductNode *list) {
     FILE *file = fopen("data/products.dat", "r+");
-    if (file == NULL) return -1;
+    if (file == NULL) return 0;
 
     char buffer[512];
     
@@ -139,12 +137,12 @@ int saveAllProducts(ProductNode *list) {
         list = list->next;
     }
     fclose(file);
-    return 0;
+    return 1;
 }
 
 int addProduct(ProductNode *list) { // ⚠️ VERIF DES ENTREES A FAIRE AU NIVEAU DU "FORM"
     FILE *file = fopen("data/products.dat", "a");
-    if (file == NULL) return -1;
+    if (file == NULL) return 0;
 
     while(list != NULL){
         Product *tmpProduct = list->product;
@@ -167,7 +165,56 @@ int addProduct(ProductNode *list) { // ⚠️ VERIF DES ENTREES A FAIRE AU NIVEA
         list = list->next;
     }
     fclose(file);
-    return 0;
+    return 1;
+}
+
+void deleteProduct(void *product){
+    Product *pd = product; 
+    if (pd == NULL) return;
+
+    FILE *file = fopen("data/products.dat", "r");
+    FILE *fileTemp = fopen("data/productsTmp.dat", "w");
+    if (file == NULL || fileTemp == NULL) return;
+    int targetId = pd->id;
+
+    ProductNode *current = productListMain;
+    ProductNode  *prev = NULL;
+
+    while (current != NULL) {
+        if (current->product->id == targetId) {
+            if (prev == NULL) {
+                productListMain = current->next;
+            } else {
+                prev->next = current->next;
+            }
+            int id, qte;
+            float price;
+            char name[50];
+            while (fscanf(file, "%5d;%49[^;];%5d;%10f\n", 
+                            &id, name, &qte, &price) == 4) {
+
+                if (targetId == id) {
+                    continue;
+                }
+                fprintf(fileTemp, "%05d;%s;%05d;%.2f\n", id, name, qte, price);
+            }
+            fclose(file);
+            fclose(fileTemp);
+            remove("data/products.dat");
+            rename("data/productsTmp.dat", "data/products.dat");
+            free(current);
+            setCurrentPage(PAGE_DIRECTOR_SHOP);
+            return;
+
+        }
+        prev = current;
+        current = current->next;
+    }
+    cursor(2, 2);
+    fclose(file);
+    fclose(fileTemp);
+    setCurrentPage(PAGE_DIRECTOR_FILM);
+    return;
 }
 
 ProductNode* getProductList() {    

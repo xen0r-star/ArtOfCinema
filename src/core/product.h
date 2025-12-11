@@ -6,12 +6,14 @@
 #include <string.h>
 #include "../types/product.h"
 #include "../utils/screen.h"
-
+#include "../main.h"
 
 int loadProducts();
 int saveProducts(ProductNode *list);
 int saveAllProducts(ProductNode *list);
 int addProduct(ProductNode *list);
+void deleteProduct(void *product);
+
 ProductNode* getProductList();
 Product* getProductById(int id);
 int searchProductByName(const char *productName, const char *search);
