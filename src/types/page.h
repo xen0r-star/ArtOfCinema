@@ -14,6 +14,7 @@ typedef enum {
     PAGE_CLIENT_RESERVE,
     PAGE_CLIENT_QUOTE,
     PAGE_SETTINGS,
+    PAGE_CREDIT,
     PAGE_EXIT
 } AppPage;
 

@@ -27,6 +27,7 @@
 #include "./pages/loading.h"
 #include "./pages/login.h"
 #include "./pages/settings.h"
+#include "./pages/credit.h"
 
 #include "./pages/director/director.h"
 #include "./pages/director/directorFilm.h"

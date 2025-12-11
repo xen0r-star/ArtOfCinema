@@ -95,6 +95,7 @@ setting.menu.label|PARAMETRES ARTOFCINEMA|ARTOFCINEMA SETTINGS
 setting.menu.o1|Global|Global
 setting.menu.o2|Langues|Languages
 setting.menu.o3|Themes|Themes
+setting.global.credit|Credits|Credits
 setting.language.french|Francais|French
 setting.language.english|Anglais|English
 setting.theme.default|Par defaut|Default
