@@ -19,7 +19,7 @@ static void displayTab(){
 
 
 static void closeSettings() {
-    setCurrentPage(PAGE_LOGIN);
+    setCurrentPage(getSavePage());
 }
 
 

@@ -46,6 +46,8 @@ AppPage getCurrentPage();
 void resetPage();
 void setCurrentPage(AppPage newPage);
 void refreshPage();
+AppPage getSavePage();
+void setSavePage(AppPage newPage);
 
 
 #endif

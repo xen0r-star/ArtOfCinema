@@ -3,6 +3,7 @@
 
 static AppPage page = PAGE_LOADING;
 static AppPage previousPage = -1;
+static AppPage savePage = -1;
 
 void resetPage(){
     deleteAllInputs();
@@ -107,6 +108,14 @@ AppPage getCurrentPage() {
 void setCurrentPage(AppPage newPage) {
     page = newPage;
     previousPage = -1;
+}
+
+AppPage getSavePage() {
+    return savePage;
+}
+
+void setSavePage(AppPage newPage) {
+    savePage = newPage;
 }
 
 void refreshPage() {

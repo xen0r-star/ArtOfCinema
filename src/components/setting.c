@@ -2,7 +2,7 @@
 
 
 static void goToSettings() {
-    resetUser();
+    setSavePage(getCurrentPage());
     setCurrentPage(PAGE_SETTINGS);
 }
 
