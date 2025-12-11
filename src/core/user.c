@@ -7,7 +7,7 @@ Status emailExiste(const char* email) {
 
     char buffer[38];
     while(fscanf(fdat, "%37s%*[^\n]", buffer) != EOF) {
-        if (strcmp(buffer, email) == 0) {
+        if (_stricmp(buffer, email) == 0) {
             fclose(fdat);
             return STATUS_FOUND;
         }
@@ -24,7 +24,7 @@ InfoUser checkLogin(const char* email, const char* password) {
     char fileEmail[38];
     char filePassword[38];
     while(fscanf(fdat, "%37s %37s", fileEmail, filePassword) != EOF) {
-        if (strcmp(fileEmail, email) == 0 && strcmp(filePassword, password) == 0) {
+        if (_stricmp(fileEmail, email) == 0 && strcmp(filePassword, password) == 0) {
             char role[9], tpmN[38], tpmP[38];
             fscanf(fdat,"%37s %37s %8s", tpmN, tpmP, role);
             fclose(fdat);
@@ -54,7 +54,12 @@ void saveUserCredentials(const char* email, const char* password) {
     FILE *fdat = fopen(DATA_FILE, "a");
     if (fdat == NULL) return;
 
-    fprintf(fdat, "%-37s %-37s %37s %37s %-8s\n", email, password, "", "", "CLIENT");
+    char emailLower[38];
+    strncpy(emailLower, email, 37);
+    emailLower[37] = '\0';
+    _strlwr(emailLower);
+
+    fprintf(fdat, "%-37s %-37s %37s %37s %-8s\n", emailLower, password, "", "", "CLIENT");
     fclose(fdat);
 }
 
@@ -66,7 +71,7 @@ Status setName(const char* email, const char* name) {
     char buffer[38];
     long pos = ftell(fdat);
     while(fscanf(fdat, "%37s", buffer) != EOF) {
-        if (strcmp(buffer, email) == 0) {
+        if (_stricmp(buffer, email) == 0) {
             fseek(fdat, pos + 78, SEEK_SET);
             fprintf(fdat, "%-37s", name);
 
@@ -89,7 +94,7 @@ Status setSurname(const char* email, const char* surname) {
     char buffer[38];
     long pos = ftell(fdat);
     while(fscanf(fdat, "%37s", buffer) != EOF) {
-        if (strcmp(buffer, email) == 0) {
+        if (_stricmp(buffer, email) == 0) {
             fseek(fdat, pos + 116, SEEK_SET);
             fprintf(fdat, "%-37s", surname);
 
