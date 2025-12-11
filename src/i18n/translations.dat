@@ -10,6 +10,8 @@ sort|Trier|Sort
 next|SUIVANT|NEXT
 prev|PRECEDENT|PREVIOUS
 cancel|Annuler|Cancel
+close|Fermer|Close
+price|Prix|Price
 confirm|Confirmer|Confirm
 finish|Terminer|Finish
 cfmres|Confirmation de la reservation|Confirmation of the reservation
@@ -69,6 +71,10 @@ client.sch.plh2|Titre du film...|Title of the film...
 client.clt.tlt|Mes Devis / Reservations|My Quotes / Bookings
 client.clt.mr|Voir details|See details
 client.qot.dt|DETAIL DU DEVIS|DETAIL OF THE QUOTE
+client.date|Date|Date
+client.date.UPPERCASE|DATE|DATE
+client.date.format|JJ/MM/AAAA HH:mm|DD/MM/YYYY HH:mm
+client.price.format|Ex: 12.50|Ex: 12.50
 director.visual.lbl|Administration ARTOFCINEMA|Administration ARTOFCINEMA
 director.visual.desc|Bienvenue dans votre espace directeur Art of Cinema|Welcome to your Art of Cinema director space
 director.btn1|FILM|FILM

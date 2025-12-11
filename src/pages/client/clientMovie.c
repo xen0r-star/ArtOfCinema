@@ -2,6 +2,8 @@
 
 static int pageIndex = 0;
 static char filterTitle[100] = "";
+static char filterDate[100] = "";
+static int showSort = 0;
 
 static void prevPage() {
     if (pageIndex > 0) {
@@ -19,11 +21,27 @@ static void onSearch() {
     Input *input = getInput(0);
     if (input) {
         strcpy(filterTitle, input->value);
+        strcpy(filterDate, "");
         pageIndex = 0;
         setCurrentPage(PAGE_CLIENT_MOVIE);
     }
 }
 
+static void onSort() {
+    Input *input = getInput(0);
+    if (input) {
+        strcpy(filterDate, input->value);
+        strcpy(filterTitle, "");
+        pageIndex = 0;
+        showSort = 0;
+        setCurrentPage(PAGE_CLIENT_MOVIE);
+    }
+}
+
+static void changeDisplaySort() {
+    showSort = !showSort;
+    setCurrentPage(PAGE_CLIENT_MOVIE);
+}
 
 
 
@@ -44,12 +62,20 @@ void showClientMoviePage() {
     int itemHeight = 2;
     int maxItems = (rows - 6 - listStartY) / itemHeight;
     if (maxItems < 1) maxItems = 1;
-    
-    
+
+
+
     int startLine = (columns - (INPUT_WIDTH + 16 + 10 + 4)) / 2;
+    if (showSort) {
+        createInput(startLine, listStartY - 4, _T("client.date"), _T("client.date.format"));
+        createButton(startLine + INPUT_WIDTH + 2, listStartY - 4, 16, _T("search"), PRIMARY_COLOR, STYLE_DEFAULT, onSort);
+        createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, listStartY - 4, 10, _T("close"), WARNING_COLOR, STYLE_DEFAULT, changeDisplaySort);
+        return;
+    }
+
     createInput(startLine, listStartY - 4, _T("client.sch.flm"), _T("client.sch.plh2"));
     createButton(startLine + INPUT_WIDTH + 2, listStartY - 4, 16, _T("search"), PRIMARY_COLOR, STYLE_DEFAULT, onSearch);
-    createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, listStartY - 4, 10, _T("sort"), TERTIARY_COLOR, STYLE_DEFAULT, NULL);
+    createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, listStartY - 4, 10, _T("client.date.UPPERCASE"), TERTIARY_COLOR, STYLE_DEFAULT, changeDisplaySort);
 
 
     ProjectionNode *node = getProjectionList();
@@ -62,8 +88,16 @@ void showClientMoviePage() {
     while (node != NULL) {
         Movie *movie = getMovieById(node->projection.movie_id);
         
-        if (movie && searchMovieByName(movie->name, filterTitle)) {
-            
+        int match = 0;
+        if (movie) {
+            if (strlen(filterDate) > 0) {
+                if (strstr(node->projection.datetime, filterDate) != NULL) match = 1;
+            } else if (searchMovieByName(movie->name, filterTitle)) {
+                match = 1;
+            }
+        }
+
+        if (match) {
             if (matchesCount >= skipCount) {
                 if (displayedCount < maxItems) {
                     
