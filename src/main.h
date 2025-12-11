@@ -27,10 +27,12 @@
 #include "./pages/loading.h"
 #include "./pages/login.h"
 #include "./pages/settings.h"
+#include "./pages/credit.h"
 
 #include "./pages/director/director.h"
 #include "./pages/director/directorFilm.h"
 #include "./pages/director/directorShop.h"
+#include "./pages/director/directorAddFilm.h"
 
 #include "./pages/client/client.h"
 #include "./pages/client/clientMovie.h"

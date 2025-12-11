@@ -15,7 +15,7 @@ void resetPage(){
 
 
 int main() {
-    clearScreen();      // Clear l'écran (Via .bat retire les anciennes commandes)
+    clearScreen();
     SetConsoleTitle("Art Of Cinema - Terminal Edition");
     cursorVisibility(0);
 
@@ -60,6 +60,10 @@ int main() {
                     showDirectorShopPage();
                     break;
 
+                case PAGE_DIRECTOR_ADD_FILM:
+                    showDirectorAddFilmPage();
+                    break;
+
                 case PAGE_CLIENT:
                     showClientPage();
                     break;
@@ -82,6 +86,10 @@ int main() {
 
                 case PAGE_SETTINGS:
                     showSettingsPage();
+                    break;
+
+                case PAGE_CREDIT:
+                    showCreditPage();
                     break;
 
                 case PAGE_EXIT: 

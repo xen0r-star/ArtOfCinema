@@ -22,6 +22,9 @@ static void closeSettings() {
     setCurrentPage(getSavePage());
 }
 
+static void showCredit() {
+    setCurrentPage(PAGE_CREDIT);
+}
 
 static void logout() {
     resetUser();
@@ -80,6 +83,10 @@ void showSettingsPage() {
         createButton(
             x + 4, y + 5, 20, _T("logout.btn.dec"), 
             WARNING_COLOR, STYLE_DEFAULT, logout
+        );
+        createButton(
+            x + 25, y + 5, 20, _T("setting.global.credit"), 
+            TERTIARY_COLOR, STYLE_DEFAULT, showCredit
         );
 
     } else if (currentTab == SETTING_LANGUAGES) {
