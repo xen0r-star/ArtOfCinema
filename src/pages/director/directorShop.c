@@ -42,9 +42,29 @@ static void remQteProd(void *product){
     addInList(product, -1);
 }
 
-static void advancedProd(void *test){
-    int *value = test;
-    value = value + 0;
+
+static void advancedProd(){ // ⚠️ REPLACE les id par ceux de product
+    ProductNode *newList = malloc(sizeof(ProductNode));
+
+    Product *newPdt = malloc(sizeof(Product));
+        newPdt->id = 99;
+        int len = strlen("Pizzadelamama") + 1;
+        newPdt->name = malloc(len);
+        if (newPdt->name != NULL) strcpy(newPdt->name, "Pizzadelamama");
+        newPdt->qte = 50;
+        newPdt->price = 8.99;
+        newList->product = newPdt;
+        newList->next = NULL;
+    if (!newList) {
+        ProductNode *temp = newList;
+        while(temp->next != NULL) {
+            temp = temp->next; 
+        }
+        temp->next = newList;
+    }
+
+    addProduct(newList);
+    setCurrentPage(PAGE_DIRECTOR_SHOP);
 }
 
 static void prevPage(){
@@ -126,7 +146,7 @@ static void initItem(int columns, int rows){
             createText(columns*0.55, listStartY + (i * itemHeight), price, TEXT_COLOR);
             createDataButton(columns*0.75, listStartY + (i * itemHeight) - 1, 5, "+", SUCCESS_COLOR, STYLE_DEFAULT, addQteProd, node->product);
             createDataButton(columns*0.80, listStartY + (i * itemHeight) - 1, 5, "-", WARNING_COLOR, STYLE_DEFAULT, remQteProd, node->product);
-            createDataButton(columns*0.85, listStartY + (i * itemHeight) - 1, 5, "...", INFO_COLOR, STYLE_DEFAULT, advancedProd, node->product);
+            createButton(columns*0.85, listStartY + (i * itemHeight) - 1, 5, "...", INFO_COLOR, STYLE_DEFAULT, advancedProd);
             // DANS "..." AJOUTER POSSIIBILITE DE RESERVER DE LA NOURRITURE
         }
         i++;

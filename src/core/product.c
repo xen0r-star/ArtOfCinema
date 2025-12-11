@@ -7,6 +7,7 @@
 #include <windows.h>
 
 static ProductNode *productListMain = NULL;
+static ProductNode *tail = NULL;
 
 static bool initProduct = false;
 
@@ -21,8 +22,8 @@ int loadProducts() {
     float tempPrice;
     char tempName[50];
 
-    ProductNode *tail = NULL;
-    while (fscanf(file, "%5d|%50[^|]|%5d|%10f",
+    // ProductNode *tail = NULL;
+    while (fscanf(file, "%5d;%50[^;];%5d;%10f",
            &tempId, tempName, &tempQte, &tempPrice) == 4) {
         
         Product *newProduct = calloc(1, sizeof(Product));
@@ -135,6 +136,34 @@ int saveAllProducts(ProductNode *list) {
             }
         }
         
+        list = list->next;
+    }
+    fclose(file);
+    return 0;
+}
+
+int addProduct(ProductNode *list) { // ⚠️ VERIF DES ENTREES A FAIRE AU NIVEAU DU "FORM"
+    FILE *file = fopen("data/products.dat", "a");
+    if (file == NULL) return -1;
+
+    while(list != NULL){
+        Product *tmpProduct = list->product;
+        fprintf(file, "%05d;%s;%05d;%.2f\n", tmpProduct->id, tmpProduct->name, tmpProduct->qte, tmpProduct->price);
+        
+        // Create and append Node
+        ProductNode *newNode = malloc(sizeof(ProductNode));
+        if (newNode) {
+            newNode->product = tmpProduct;
+            newNode->next = NULL;
+
+            if (productListMain == NULL) {
+                productListMain = newNode;
+                tail = newNode;
+            } else {
+                tail->next = newNode;
+                tail = newNode;
+            }
+        }
         list = list->next;
     }
     fclose(file);

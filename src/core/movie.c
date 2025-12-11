@@ -7,6 +7,7 @@
 #include <windows.h>
 
 static MovieNode *movieListMain = NULL;
+static MovieNode *tail = NULL;
 
 static bool initMovie = false;
 
@@ -120,6 +121,53 @@ void deleteMovie(void *movie){
     return;
 }
 
+int addMovie(MovieNode *list) { // ⚠️ VERIF DES ENTREES A FAIRE AU NIVEAU DU "FORM"
+    FILE *file = fopen("data/movies.dat", "a");
+    if (file == NULL) return -1;
+
+    while(list != NULL){
+        Movie *tmpMovie = list->movie;
+        
+        char types[511];
+        types[0] = '\0';
+
+        for(int i = 0; i <= tmpMovie->type_count; i++){
+            snprintf(types + strlen(types), sizeof(types) - strlen(types),"%s", tmpMovie->types[i]);
+            if (i + 1 < tmpMovie->type_count) {
+                snprintf(types + strlen(types), sizeof(types) - strlen(types), "|");
+            }
+        }
+
+        char cast[511];
+        cast[0] = '\0';
+
+        for(int i = 0; i <= tmpMovie->cast_count; i++){
+            snprintf(cast + strlen(cast), sizeof(cast) - strlen(cast),"%s", tmpMovie->cast[i]);
+            if (i + 1 < tmpMovie->cast_count) {
+                snprintf(cast + strlen(cast), sizeof(cast) - strlen(cast), "|");
+            }
+        }
+
+        fprintf(file, "%d;%s;%d;%d;%s;%d;%s;%d;%s;%s;%s;%d;%s\n", tmpMovie->id, tmpMovie->name, tmpMovie->duration, tmpMovie->type_count, types, tmpMovie->note, tmpMovie->description, tmpMovie->year, tmpMovie->director, tmpMovie->ageRating, tmpMovie->language, tmpMovie->cast_count, cast);
+
+        MovieNode *newNode = malloc(sizeof(MovieNode));
+        if (newNode) {
+            newNode->movie = tmpMovie;
+            newNode->next = NULL;
+
+            if (movieListMain == NULL) {
+                movieListMain = newNode;
+                tail = newNode;
+            } else {
+                tail->next = newNode;
+                tail = newNode;
+            }
+        }
+        list = list->next;
+    }
+    fclose(file);
+    return 0;
+}
 
 MovieNode* getMovieList() {
     return movieListMain;

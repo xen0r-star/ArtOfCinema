@@ -11,6 +11,7 @@
 int loadProducts();
 int saveProducts(ProductNode *list);
 int saveAllProducts(ProductNode *list);
+int addProduct(ProductNode *list);
 ProductNode* getProductList();
 Product* getProductById(int id);
 int searchProductByName(const char *productName, const char *search);
