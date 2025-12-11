@@ -6,6 +6,5 @@
 
 
 void buttonSetting();
-void buttonClose();
 
 #endif

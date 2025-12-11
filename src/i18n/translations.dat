@@ -89,10 +89,13 @@ director.s.v|Le stock a ete mis à jour avec succès !|The stock has been update
 director.s.btn2|RESERVATION|BOOKING
 director.s.tbl|Produits dans le stock|Products in stock
 director.save|Etes-vous sure de quitter sans sauvegarder ?|Are you sure to exit without saving?
-settings.visual.txt|Vos parametres ARTOFCINEMA|Your ARTOFCINEMA settings
 setting.btn.label|PARAMETRES|SETTINGS
 setting.btn.close|FERMER|CLOSE
 setting.menu.label|PARAMETRES ARTOFCINEMA|ARTOFCINEMA SETTINGS
 setting.menu.o1|Global|Global
 setting.menu.o2|Langues|Languages
-setting.menu.o3|Affichage|Display
+setting.menu.o3|Themes|Themes
+setting.language.french|Francais|French
+setting.language.english|Anglais|English
+setting.theme.default|Par defaut|Default
+setting.theme.girly|Girly|Girly

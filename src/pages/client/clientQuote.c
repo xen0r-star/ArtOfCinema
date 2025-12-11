@@ -57,8 +57,7 @@ void showClientQuotePage() {
     if (rows > 40) drawLogo((columns / 2) - (LOGO_WIDTH / 2), 4);
 
     drawFooter();
-    buttonLogout();
-    buttonLanguage();
+    buttonSetting();
     buttonBack(PAGE_CLIENT);
     
     ReservationNode *node = getReservationList();
@@ -100,7 +99,7 @@ void showClientQuotePage() {
                         }
 
                         createText(startX, y, label, TEXT_COLOR);
-                        createDataButton(startX + 60, y - 1, 15, _T("client.clt.mr"), TERTIARY_COLOR, STYLE_DEFAULT, showDetails, &node->reservation);
+                        createDataButton(startX + 60, y - 1, 16, _T("client.clt.mr"), TERTIARY_COLOR, STYLE_DEFAULT, showDetails, &node->reservation);
 
                         y += itemHeight;
                         displayed++;
@@ -128,7 +127,7 @@ void showClientQuotePage() {
         int y = 4;
         if (rows > 40) y = 14;
 
-        createText(ALIGN_CENTER, y, _T("client.qot.dt"), TERTIARY_COLOR);
+        createText(ALIGN_CENTER, y, _T("client.qot.dt"), SUCCESS_COLOR);
         y += 2;
 
         Projection *projection = getProjectionById(selectedReservation->projectionId);
@@ -138,11 +137,11 @@ void showClientQuotePage() {
         if (movie) {
             char movieStr[100];
             snprintf(movieStr, sizeof(movieStr), _T("movie"), movie->name);
-            createText(centerX - 20, y, movieStr, TERTIARY_COLOR);
+            createText(centerX - 20, y, movieStr, PRIMARY_COLOR);
             y++;
             char dateStr[100];
             snprintf(dateStr, sizeof(dateStr), _T("date"), projection->datetime);
-            createText(centerX - 20, y, dateStr, TERTIARY_COLOR);
+            createText(centerX - 20, y, dateStr, TEXT_COLOR);
             y += 2;
         }
 
@@ -209,7 +208,7 @@ void showClientQuotePage() {
         // Total
         char totalStr[100];
         snprintf(totalStr, sizeof(totalStr), _T("tot"), ticketsTotal + foodTotal);
-        createText(ALIGN_CENTER, y, totalStr, TERTIARY_COLOR);
+        createText(ALIGN_CENTER, y, totalStr, SUCCESS_COLOR);
         y += 3;
 
         createButton(ALIGN_CENTER, y, 20, _T("return"), TERTIARY_COLOR, STYLE_DEFAULT, backToList);

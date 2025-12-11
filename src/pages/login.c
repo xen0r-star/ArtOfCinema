@@ -93,7 +93,6 @@ void showLoginPage() {
 
     drawLogo((columns / 2) - (LOGO_WIDTH / 2), 4);
     drawFooter();
-    buttonLanguage();
     buttonSetting();
 
     createText(ALIGN_CENTER, 10, _T("login.visual.text"), PRIMARY_COLOR);

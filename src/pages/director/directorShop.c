@@ -187,7 +187,6 @@ static void verifyReturnSave() {
     if (WaitingProducts != NULL) {
         drawLogo((columns / 2) - (LOGO_WIDTH / 2), 1);
         drawFooter();
-        buttonLanguage();
 
         createText(ALIGN_CENTER, ALIGN_CENTER, _T("director.save"), TERTIARY_COLOR);
         createDataButton(columns*0.4, rows*0.7, 15, _T("no"), WARNING_COLOR, STYLE_DEFAULT, skipWaitingSave, &FAUX);
@@ -213,7 +212,6 @@ void showDirectorShopPage(){
 
     drawLogo((columns / 2) - (LOGO_WIDTH / 2), 1);
     drawFooter();
-    buttonLanguage();
 
     createText(ALIGN_CENTER, 7, _T("director.s.lbl"), PRIMARY_COLOR);
     createText(ALIGN_CENTER, 9, _T("director.s.desc"), TEXT_COLOR);

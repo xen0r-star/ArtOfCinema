@@ -25,7 +25,7 @@ void createMenu(int x, int y, int width, ColorRGB color, Style style, const char
         cursor(x, y+1);
         printf("\272");     // ║
         setColor(SECONDARY_COLOR);
-        createText(x + (width - (int)strlen(_T(title))) / 2, y + 1, _T(title), TERTIARY_COLOR);
+        createText(x + (width - (int)strlen(_T(title))) / 2, y + 1, _T(title), color);
         setColor(SECONDARY_COLOR);
 
         cursor(x + width - 1, y + 1);
@@ -40,24 +40,41 @@ void createMenu(int x, int y, int width, ColorRGB color, Style style, const char
         if (button3 != NULL) {
             createButton(button3->x, button3->y, button3->width, button3->label, button3->color, button3->style, button3->onClick);
         }
+
+        resetColor();
+
         if(button1 && button2 && button3){  
-            // Modifications des caratères nécessaires
-            cursor(x, y + 2);     // Y + 2
-            printf("\314");     // ╠
-            cursor(x + 12, y + 2);
-            printf("\313");     // ╦
-            cursor(x + 24, y + 2);
-            printf("\313");
-            cursor(x + width - 1, y + 2);
-            printf("\271");     // ╣
-            cursor(x, y + 4);     // Y + 4
-            printf("\314");
-            cursor(x + 12, y + 4);
-            printf("\312");     // ╩
-            cursor(x + 24, y + 4);
-            printf("\312");
-            cursor(x + width - 1, y + 4);
-            printf("\271");     
+            // Ligne Y + 2 (Séparateur Titre / Boutons)
+            cursor(x, y + 2); printf("\314"); // ╠
+            for(int k=0; k<button1->width - 1; k++) printf("\315");
+            printf("\313"); // ╦
+            for(int k=0; k<button2->width - 1; k++) printf("\315");
+            printf("\313"); // ╦
+            for(int k=0; k<button3->width - 1; k++) printf("\315");
+            printf("\271"); // ╣
+
+            // Ligne Y + 3 (Verticales Boutons)
+            cursor(x, y + 3); printf("\272");
+            cursor(x + button1->width, y + 3); printf("\272");
+            cursor(x + button1->width + button2->width, y + 3); printf("\272");
+            cursor(x + width - 1, y + 3); printf("\272");
+
+            // Ligne Y + 4 (Séparateur Boutons / Corps)
+            cursor(x, y + 4); printf("\314"); // ╠
+            for(int k=0; k<button1->width - 1; k++) printf("\315");
+            printf("\312"); // ╩
+            for(int k=0; k<button2->width - 1; k++) printf("\315");
+            printf("\312"); // ╩
+            for(int k=0; k<button3->width - 1; k++) printf("\315");
+            printf("\271"); // ╣
+
+            // Corps du menu
+            for (int i = 5; i < rows - y - 4; i++){
+                cursor(x, y + i); 
+                printf("\272"); 
+                cursor(x + width - 1, y + i); 
+                printf("\272"); 
+            }
             
         }else{
             for (int i = 2; i < rows - y - 4; i++){

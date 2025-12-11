@@ -9,7 +9,6 @@
 #include "../components/text.h"
 #include "../components/input.h"
 #include "../components/button.h"
-#include "../components/language.h"
 
 
 #define MAX_MENUS 5

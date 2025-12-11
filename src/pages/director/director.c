@@ -26,8 +26,7 @@ void showDirectorPage() {
 
     drawLogo((columns / 2) - (LOGO_WIDTH / 2), 4);
     drawFooter();
-    buttonLogout();
-    buttonLanguage();
+    buttonSetting();
 
  
     createText(ALIGN_CENTER, 10, _T("director.visual.lbl"), PRIMARY_COLOR);

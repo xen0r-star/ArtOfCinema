@@ -4,9 +4,10 @@
 
 #include "../utils/color.h"
 
-#define THEME_COUNT 1
+#define THEME_COUNT 2
 typedef enum ThemeID {
-    THEME_DEFAULT
+    THEME_DEFAULT,
+    THEME_GIRLY
 } ThemeID;
 
 

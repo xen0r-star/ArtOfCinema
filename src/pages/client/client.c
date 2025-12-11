@@ -24,8 +24,7 @@ void showClientPage() {
 
     drawLogo((columns / 2) - (LOGO_WIDTH / 2), 4);
     drawFooter();
-    buttonLogout();
-    buttonLanguage();
+    buttonSetting();
 
     createText(ALIGN_CENTER, 10, _T("client.visual.txt"), PRIMARY_COLOR);
     createButton(ALIGN_CENTER, 12, 20, _T("client.btn.view.movies"),  TERTIARY_COLOR, STYLE_DEFAULT, moviesPage);
