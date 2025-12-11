@@ -74,11 +74,12 @@ static void initItem(int columns, int rows){
             snprintf(id, sizeof(id), "%5d", node->movie->id);
             snprintf(duration, sizeof(duration), "%3d", node->movie->duration);
 
-            createText(columns*0.12, listStartY + (i * itemHeight), id, TEXT_COLOR);
-            createText(columns*0.20, listStartY + (i * itemHeight), node->movie->name, TEXT_COLOR);
-            createText(columns*0.45, listStartY + (i * itemHeight), duration, TEXT_COLOR);
+            createText(columns * 0.12, listStartY + (i * itemHeight), id, TEXT_COLOR);
+            createText(columns * 0.20, listStartY + (i * itemHeight), node->movie->name, TEXT_COLOR);
+            createText(columns * 0.45, listStartY + (i * itemHeight), duration, TEXT_COLOR);
             
-            createDataButton(columns*0.80, listStartY + (i * itemHeight) - 1, 5, "X", WARNING_COLOR, STYLE_DEFAULT, deleteMovie, node->movie);
+            createDataButton(columns * 0.80, listStartY + (i * itemHeight) - 1, 5, "X", WARNING_COLOR, STYLE_DEFAULT, deleteMovie, node->movie);
+            // ⚠️ ICI CREER UN BOUTON POUR LE FORM ET ENVOYER dans addMovie une list de products (ou product mais faut modif le add si que product et pas list de product) 
             // createDataButton(columns*0.85, listStartY + (i * itemHeight) - 1, 5, "...", COLOR_BLUE, STYLE_DEFAULT, advancedProd, node->movie);
             // DANS "..." AJOUTER POSSIIBILITE DE RESERVER DE LA NOURRITURE
         }

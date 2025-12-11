@@ -1,7 +1,7 @@
 #include "main.h"
 
 
-static AppPage page = PAGE_LOADING;
+static AppPage page = PAGE_DIRECTOR_FILM;
 static AppPage previousPage = -1;
 static AppPage savePage = -1;
 
