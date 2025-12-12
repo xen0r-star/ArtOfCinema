@@ -6,25 +6,31 @@
 #include <ctype.h>
 #include <windows.h>
 
+#define DATA_FILE "data/movies.dat"
+#define DATA_FILE_TEMP "data/moviesTmp.dat"
+
 static MovieNode *movieListMain = NULL;
 static MovieNode *tail = NULL;
-
+// ⚠️ ENUM COMME DANS USER.H POUR RETURN ERROR OU PAS
 static bool initMovie = false;
+static int nMovie = 0;
 
 int loadMovies() {
     if(initMovie) return 0;
     initMovie = true;
 
-    FILE *file = fopen("data/movies.dat", "r");
+    FILE *file = fopen(DATA_FILE, "r");
     if (file == NULL) return 0;
 
     int id, duration, type_count, note, year, cast_count;
+    float version;
     char name[100], typesStr[512], desc[512], director[100], age[10], lang[50], castStr[512];
 
-    while (fscanf(file, "%5d;%99[^;];%3d;%2d;%511[^;];%3d;%511[^;];%4d;%99[^;];%9[^;];%49[^;];%2d;%511[^\n]\n", &id, name, &duration, &type_count, typesStr, &note, desc, &year, director, age, lang, &cast_count, castStr) == 13) {
+    while (fscanf(file, "%5d;%99[^;];%3f;%3d;%2d;%511[^;];%3d;%511[^;];%4d;%99[^;];%9[^;];%49[^;];%2d;%511[^\n]\n", &id, name, &version, &duration, &type_count, typesStr, &note, desc, &year, director, age, lang, &cast_count, castStr) == 14) {
         Movie *newMovie = calloc(1, sizeof(Movie));
 
         newMovie->id = id;
+        newMovie->version = version;
         newMovie->name = strdup(name);
         newMovie->duration = duration;
         newMovie->type_count = type_count;
@@ -77,13 +83,14 @@ int loadMovies() {
                 tail = newNode;
             }
         }
+        nMovie++;
     }
     fclose(file);
     return 1;
 }
 
 int saveMovies(MovieNode *list) {
-    FILE *file = fopen("data/movies.dat", "r+");
+    FILE *file = fopen(DATA_FILE, "r+");
     if (file == NULL) return -1;
 
     char buffer[512];
@@ -135,7 +142,7 @@ int saveMovies(MovieNode *list) {
 }
 
 int saveAllMovies(MovieNode *list) {
-    FILE *file = fopen("data/movies.dat", "r+");
+    FILE *file = fopen(DATA_FILE, "r+");
     if (file == NULL) return 0;
 
     char buffer[512];
@@ -171,63 +178,62 @@ int saveAllMovies(MovieNode *list) {
     return 1;
 }
 
-int addMovie(MovieNode *list) { // ⚠️ VERIF DES ENTREES A FAIRE AU NIVEAU DU "FORM"
-    FILE *file = fopen("data/movies.dat", "a");
-    if (file == NULL) return 0;
+int addMovie(Movie *movie) {
+    Movie *mv = movie;
+    if (mv == NULL) return MSTATUS_ERROR;
+    mv->id = nMovie + 1;
+    
+    FILE *file = fopen(DATA_FILE, "a");
+    if (file == NULL) return MSTATUS_ERROR;
 
-    while(list != NULL){
-        Movie *tmpMovie = list->movie;
-        
-        char types[511];
-        types[0] = '\0';
+    char types[511];
+    types[0] = '\0';
 
-        for(int i = 0; i <= tmpMovie->type_count; i++){
-            snprintf(types + strlen(types), sizeof(types) - strlen(types),"%s", tmpMovie->types[i]);
-            if (i + 1 < tmpMovie->type_count) {
-                snprintf(types + strlen(types), sizeof(types) - strlen(types), "|");
-            }
+    for (int i = 0; i < mv->type_count; i++) {
+        snprintf(types + strlen(types), sizeof(types) - strlen(types),"%s", mv->types[i]);
+
+        if (i < mv->type_count - 1) {
+            snprintf(types + strlen(types), sizeof(types) - strlen(types), "|");
         }
-
-        char cast[511];
-        cast[0] = '\0';
-
-        for(int i = 0; i <= tmpMovie->cast_count; i++){
-            snprintf(cast + strlen(cast), sizeof(cast) - strlen(cast),"%s", tmpMovie->cast[i]);
-            if (i + 1 < tmpMovie->cast_count) {
-                snprintf(cast + strlen(cast), sizeof(cast) - strlen(cast), "|");
-            }
-        }
-
-        fprintf(file, "%d;%s;%d;%d;%s;%d;%s;%d;%s;%s;%s;%d;%s\n", tmpMovie->id, tmpMovie->name, tmpMovie->duration, tmpMovie->type_count, types, tmpMovie->note, tmpMovie->description, tmpMovie->year, tmpMovie->director, tmpMovie->ageRating, tmpMovie->language, tmpMovie->cast_count, cast);
-
-        MovieNode *newNode = malloc(sizeof(MovieNode));
-        if (newNode) {
-            newNode->movie = tmpMovie;
-            newNode->next = NULL;
-
-            if (movieListMain == NULL) {
-                movieListMain = newNode;
-                tail = newNode;
-            } else {
-                tail->next = newNode;
-                tail = newNode;
-            }
-        }
-        list = list->next;
     }
+    
+    char cast[511];
+    cast[0] = '\0';
+
+    for(int i = 0; i < mv->cast_count; i++){
+        snprintf(cast + strlen(cast), sizeof(cast) - strlen(cast),"%s", mv->cast[i]);
+        if (i < mv->cast_count - 1) {
+            snprintf(cast + strlen(cast), sizeof(cast) - strlen(cast), "|");
+        }
+    }
+
+    fprintf(file, "%d;%s;%.1f;%d;%d;%s;%d;%s;%d;%s;%s;%s;%d;%s\n", mv->id, mv->name, mv->version, mv->duration, mv->type_count, types, mv->note, mv->description, mv->year, mv->director, mv->ageRating, mv->language, mv->cast_count, cast);
+
+    MovieNode *newNode = malloc(sizeof(MovieNode));
+    if (newNode) {
+        newNode->movie = mv;
+        newNode->next = NULL;
+
+        if (movieListMain == NULL) {
+            movieListMain = newNode;
+            tail = newNode;
+        } else {
+            tail->next = newNode;
+            tail = newNode;
+        }
+    }
+    nMovie++;
     fclose(file);
-    return 1;
+    return MSTATUS_SUCCESS;
 }
 
-void deleteMovie(void *movie){
+void deleteMovie(void *movie) {
     Movie *mv = movie; 
     if (mv == NULL) return;
 
-    FILE *file = fopen("data/movies.dat", "r");
-    FILE *fileTemp = fopen("data/moviesTmp.dat", "w");
+    FILE *file = fopen(DATA_FILE, "r");
+    FILE *fileTemp = fopen(DATA_FILE_TEMP, "w");
     if (file == NULL || fileTemp == NULL) return;
-
-    
 
     int targetId = mv->id;
 
@@ -242,18 +248,19 @@ void deleteMovie(void *movie){
                 prev->next = current->next;
             }
             int id, duration, type_count, note, year, cast_count;
+            float version;
             char name[100], typesStr[512], desc[512], director[100], age[10], lang[50], castStr[512];
 
-            while (fscanf(file, "%5d;%99[^;];%3d;%2d;%511[^;];%3d;%511[^;];%4d;%99[^;];%9[^;];%49[^;];%2d;%511[^\n]\n", 
-                            &id, name, &duration, &type_count, typesStr, 
+            while (fscanf(file, "%5d;%99[^;];%3f;%3d;%2d;%511[^;];%3d;%511[^;];%4d;%99[^;];%9[^;];%49[^;];%2d;%511[^\n]\n", 
+                            &id, name, &version, &duration, &type_count, typesStr, 
                             &note, desc, &year, director, age, lang,
-                            &cast_count, castStr) == 13) {
+                            &cast_count, castStr) == 14) {
 
                 if (targetId == id) {
                     continue;
                 }
 
-                fprintf(fileTemp, "%d;%s;%d;%d;", id, name, duration, type_count);
+                fprintf(fileTemp, "%d;%s;%.1f;%d;%d;", id, name, version, duration, type_count);
                 // Traitement des types de film
                 if (type_count > 0) {
                     char type[50];
@@ -303,10 +310,11 @@ void deleteMovie(void *movie){
             }
             fclose(file);
             fclose(fileTemp);
-            remove("data/movies.dat");
-            rename("data/moviesTmp.dat", "data/movies.dat");
+            remove(DATA_FILE);
+            rename(DATA_FILE_TEMP, DATA_FILE);
             free(current);
             setCurrentPage(PAGE_DIRECTOR_FILM);
+            nMovie--;
             return;
 
         }
@@ -318,6 +326,10 @@ void deleteMovie(void *movie){
     fclose(fileTemp);
     setCurrentPage(PAGE_DIRECTOR_FILM);
     return;
+}
+
+int getNMovie() {
+    return nMovie;
 }
 
 MovieNode* getMovieList() {

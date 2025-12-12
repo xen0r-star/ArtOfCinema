@@ -3,22 +3,30 @@
 
 static StepPage currentStep = STEP_PAGE_1;
 static Movie newMovie;
+static ProjectionNode newProjectionNode;
 
 
 static void cancelAction() {
-    setCurrentPage(PAGE_DIRECTOR);
+    setCurrentPage(PAGE_DIRECTOR_FILM);
+    currentStep = STEP_PAGE_1;
 }
 
 static void confirmStep1() {
     if (strcmp(getInput(0)->value, "") == 0 || 
-        strcmp(getInput(1)->value, "") == 0
+        strcmp(getInput(1)->value, "") == 0 ||
+        strcmp(getInput(2)->value, "") == 0
     ) {
         createText(ALIGN_CENTER, 9, "Veuillez remplir tous les champs", ERROR_COLOR);
         return;
     }
 
+    float version = atoi(getInput(2)->value);
+    if (version < 0.0) version = 1.0;
+    if (version > 1000.0) version = 10.0;
+
     newMovie.name = strdup(getInput(0)->value);
     newMovie.description = strdup(getInput(1)->value);
+    newMovie.version = version;
     currentStep = STEP_PAGE_2;
     setCurrentPage(PAGE_DIRECTOR_ADD_FILM);
 }
@@ -83,10 +91,40 @@ static void confirmStep5() {
         createText(ALIGN_CENTER, 9, "Veuillez ajouter au moins un genre", ERROR_COLOR);
         return;
     }
+    currentStep = STEP_PAGE_6;
+    setCurrentPage(PAGE_DIRECTOR_ADD_FILM);
+}
 
-    
-    // add(newMovie) in file
+static void confirmStep6() {
+    if (newProjectionNode.projection == NULL) {
+        createText(ALIGN_CENTER, 9, "Veuillez ajouter au moins une projection", ERROR_COLOR);
+        return;
+    }
 
+    // ⚠️ FAIRE LES TRAITEMENTS POUR PROJECTIONS / FAIRE BOUCLE QUI addProjection toutes les projections de la listes
+
+    currentStep = STEP_PAGE_1;
+    addMovie(&newMovie);
+    addProjection(newProjectionNode.projection);
+    // Libération de la mémoire ⚠️
+    // if (newMovie.name) free(newMovie.name);
+    // if (newMovie.types) {
+    //     for(int i=0; i < newMovie.type_count; i++) {
+    //         if (newMovie.types[i]) free(newMovie.types[i]);
+    //     }
+    //     free(newMovie.types);
+    // }
+    // if (newMovie.description) free(newMovie.description);
+    // if (newMovie.director) free(newMovie.director);
+    // if (newMovie.ageRating) free(newMovie.ageRating);
+    // if (newMovie.language) free(newMovie.language);
+    // if (newMovie.cast) {
+    //     for(int i=0; i < newMovie.cast_count; i++) {
+    //         if (newMovie.cast[i]) free(newMovie.cast[i]);
+    //     }
+    //     free(newMovie.cast);
+    // }
+    // memset(&newMovie, 0, sizeof(Movie));
     setCurrentPage(PAGE_DIRECTOR);
 }
 
@@ -140,7 +178,7 @@ void showDirectorAddFilmPage() {
 
 
     char str[32];
-    snprintf(str, sizeof(str),  "Ajout d'un film - Etape %1d/5", currentStep + 1);
+    snprintf(str, sizeof(str),  "Ajout d'un film - Etape %1d/6", currentStep + 1);
     createText(ALIGN_CENTER, 8, str, PRIMARY_COLOR);
 
     int centerX = columns / 2;
@@ -151,6 +189,7 @@ void showDirectorAddFilmPage() {
 
         createInput(ALIGN_CENTER, 11, "Titre", "Entrez le titre");
         createInput(ALIGN_CENTER, 14, "Description", "Entrez la description");
+        createInput(ALIGN_CENTER, 17, "Version", "Entrez la version");
 
         createButton(centerX + 1, rows - 6, 15, "Suivant", SUCCESS_COLOR, STYLE_DEFAULT, confirmStep1);
         
@@ -186,8 +225,17 @@ void showDirectorAddFilmPage() {
         for (int i = 0; i < newMovie.type_count; i++) {
             createText(startX, 14 + i, newMovie.types[i], TEXT_COLOR);
         }
+        createButton(centerX + 1, rows - 6, 15, "Suivant", SUCCESS_COLOR, STYLE_DEFAULT, confirmStep5);
+    } else if (currentStep == STEP_PAGE_6) {
+        // ⚠️ GERER LES PRODUCTIONS POUR ADD PROJECTIONS DATE HEURE DU FILM
+        int startX = (columns - INPUT_WIDTH + 2 + 3) / 2;
+        createInput(startX, 11, "Test", "Entrez le genre");
+        createButton(startX + INPUT_WIDTH + 2, 11, 3, "+", TERTIARY_COLOR, STYLE_DEFAULT, addGenre);
 
-        createButton(centerX + 1, rows - 6, 15, "Sauvegarder", SUCCESS_COLOR, STYLE_DEFAULT, confirmStep5);
+        for (int i = 0; i < newMovie.type_count; i++) {
+            createText(startX, 14 + i, newMovie.types[i], TEXT_COLOR);
+        }
+        createButton(centerX + 1, rows - 6, 15, "Sauvegarder", SUCCESS_COLOR, STYLE_DEFAULT, confirmStep6);
     }
 
     createButton(centerX - 16, rows - 6, 15, "Annuler", WARNING_COLOR, STYLE_DEFAULT, cancelAction);

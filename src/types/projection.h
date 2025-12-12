@@ -9,7 +9,7 @@ typedef struct Projection {
 } Projection;
 
 typedef struct ProjectionNode {
-    Projection projection;
+    Projection *projection;
     struct ProjectionNode *next;
 } ProjectionNode;
 

@@ -4,6 +4,7 @@
 
 typedef struct Movie {
     int id;
+    float version;
     char *name;
     int duration;
     char **types;

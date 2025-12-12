@@ -60,7 +60,7 @@ void showClientMoviePage() {
     int hasMore = 0;
 
     while (node != NULL) {
-        Movie *movie = getMovieById(node->projection.movie_id);
+        Movie *movie = getMovieById(node->projection->movie_id);
         
         if (movie && searchMovieByName(movie->name, filterTitle)) {
             
@@ -74,11 +74,11 @@ void showClientMoviePage() {
                     createText(
                         startLine + INPUT_WIDTH + 1, 
                         listStartY + (displayedCount * itemHeight), 
-                        node->projection.datetime, TEXT_COLOR
+                        node->projection->datetime, TEXT_COLOR
                     );
                     
                     char str[16];
-                    if (node->projection.available_seats == 0) {
+                    if (node->projection->available_seats == 0) {
                         strcpy(str, _T("full"));
                         createText(
                             startLine + INPUT_WIDTH + 2 + 16 + 1, 
@@ -86,7 +86,7 @@ void showClientMoviePage() {
                             str, WARNING_COLOR
                         );
                     } else {
-                        snprintf(str, sizeof(str), _T("seats"), node->projection.available_seats);
+                        snprintf(str, sizeof(str), _T("seats"), node->projection->available_seats);
                         createText(
                             startLine + INPUT_WIDTH + 2 + 16 + 1, 
                             listStartY + (displayedCount * itemHeight), 

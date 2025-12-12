@@ -6,6 +6,9 @@
 #include <ctype.h>
 #include <windows.h>
 
+#define DATA_FILE "data/products.dat"
+#define DATA_FILE_TEMP "data/productsTmp.dat"
+
 static ProductNode *productListMain = NULL;
 static ProductNode *tail = NULL;
 
@@ -15,7 +18,7 @@ int loadProducts() {
     if(initProduct) return 0;
     initProduct = true;
     
-    FILE *file = fopen("data/products.dat", "r");
+    FILE *file = fopen(DATA_FILE, "r");
     if (file == NULL) return 0;
 
     int tempId, tempQte;
@@ -52,7 +55,7 @@ int loadProducts() {
 }
 
 int saveProducts(ProductNode *list) {
-    FILE *file = fopen("data/products.dat", "r+");
+    FILE *file = fopen(DATA_FILE, "r+");
     if (file == NULL) return 0;
 
     char buffer[512];
@@ -104,7 +107,7 @@ int saveProducts(ProductNode *list) {
 }
 
 int saveAllProducts(ProductNode *list) {
-    FILE *file = fopen("data/products.dat", "r+");
+    FILE *file = fopen(DATA_FILE, "r+");
     if (file == NULL) return 0;
 
     char buffer[512];
@@ -141,7 +144,7 @@ int saveAllProducts(ProductNode *list) {
 }
 
 int addProduct(ProductNode *list) { // ⚠️ VERIF DES ENTREES A FAIRE AU NIVEAU DU "FORM"
-    FILE *file = fopen("data/products.dat", "a");
+    FILE *file = fopen(DATA_FILE, "a");
     if (file == NULL) return 0;
 
     while(list != NULL){
@@ -172,8 +175,8 @@ void deleteProduct(void *product){
     Product *pd = product; 
     if (pd == NULL) return;
 
-    FILE *file = fopen("data/products.dat", "r");
-    FILE *fileTemp = fopen("data/productsTmp.dat", "w");
+    FILE *file = fopen(DATA_FILE, "r");
+    FILE *fileTemp = fopen(DATA_FILE_TEMP, "w");
     if (file == NULL || fileTemp == NULL) return;
     int targetId = pd->id;
 
@@ -200,8 +203,8 @@ void deleteProduct(void *product){
             }
             fclose(file);
             fclose(fileTemp);
-            remove("data/products.dat");
-            rename("data/productsTmp.dat", "data/products.dat");
+            remove(DATA_FILE);
+            rename(DATA_FILE_TEMP, DATA_FILE);
             free(current);
             setCurrentPage(PAGE_DIRECTOR_SHOP);
             return;

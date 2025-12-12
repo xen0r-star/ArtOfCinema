@@ -1,10 +1,11 @@
-1;Inception;148;3;TYPE_ACTION|TYPE_SCI_FI|TYPE_THRILLER;88;A thief who steals corporate secrets through dream-sharing technology.;2010;Christopher Nolan;PG-13;English;3;Leonardo DiCaprio|Joseph Gordon-Levitt|Ellen Page
-2;The Dark Knight;152;3;TYPE_ACTION|TYPE_DRAMA|TYPE_THRILLER;90;Batman faces the Joker,  a criminal mastermind unleashing chaos on Gotham.;2008;Christopher Nolan;PG-13;English;3;Christian Bale|Heath Ledger|Aaron Eckhart
-3;Interstellar;169;2;TYPE_SCI_FI|TYPE_DRAMA;86;A team travels through a wormhole to find a new home for humanity.;2014;Christopher Nolan;PG-13;English;3;Matthew McConaughey|Anne Hathaway|Jessica Chastain
-4;Spirited Away;125;2;TYPE_ANIMATION|TYPE_FANTASY;85;A young girl enters a magical world ruled by spirits.;2001;Hayao Miyazaki;PG;Japanese;3;Rumi Hiiragi|Miyu Irino|Mari Natsuki
-5;The Conjuring;112;2;TYPE_HORROR|TYPE_THRILLER;75;Paranormal investigators help a family terrorized by a dark presence.;2013;James Wan;R;English;3;Patrick Wilson|Vera Farmiga|Ron Livingston
-6;Amélie;122;3;TYPE_ROMANCE|TYPE_COMEDY|TYPE_DRAMA;83;A whimsical depiction of contemporary Parisian life.;2001;Jean-Pierre Jeunet;R;French;3;Audrey Tautou|Mathieu Kassovitz|Rufus
-7;Toy Story;81;3;TYPE_ANIMATION|TYPE_COMEDY|TYPE_FAMILY;82;Toys come to life when humans aren't around.;1995;John Lasseter;G;English;3;Tom Hanks|Tim Allen|Don Rickles
-8;Planet Earth;550;1;TYPE_DOCUMENTARY;94;A series documenting Earth's natural wonders.;2006;David Attenborough;G;English;1;David Attenborough
-9;Mad Max: Fury Road;120;2;TYPE_ACTION|TYPE_SCI_FI;81;In a apocalyptic wasteland,  Max helps a rebellious woman escape a tyrant.;2015;George Miller;R;English;3;Tom Hardy|Charlize Theron|Nicholas H²oult
-10;La La Land;128;3;TYPE_ROMANCE|TYPE_COMEDY|TYPE_DRAMA;80;A jazz musician and an actress fall in love while chasing their dreams.;2016;Damien Chazelle;PG-13;English;3;Ryan Gosling|Emma Stone|John Legend
+1;Inception;1.0;148;3;TYPE_ACTION|TYPE_SCI_FI|TYPE_THRILLER;88;A thief who steals corporate secrets through dream-sharing technology.;2010;Christopher Nolan;PG-13;English;3;Leonardo DiCaprio|Joseph Gordon-Levitt|Ellen Page
+2;The Dark Knight;1.0;152;3;TYPE_ACTION|TYPE_DRAMA|TYPE_THRILLER;90;Batman faces the Joker,  a criminal mastermind unleashing chaos on Gotham.;2008;Christopher Nolan;PG-13;English;3;Christian Bale|Heath Ledger|Aaron Eckhart
+3;Interstellar;1.0;169;2;TYPE_SCI_FI|TYPE_DRAMA;86;A team travels through a wormhole to find a new home for humanity.;2014;Christopher Nolan;PG-13;English;3;Matthew McConaughey|Anne Hathaway|Jessica Chastain
+4;Spirited Away;1.0;125;2;TYPE_ANIMATION|TYPE_FANTASY;85;A young girl enters a magical world ruled by spirits.;2001;Hayao Miyazaki;PG;Japanese;3;Rumi Hiiragi|Miyu Irino|Mari Natsuki
+5;The Conjuring;1.0;112;2;TYPE_HORROR|TYPE_THRILLER;75;Paranormal investigators help a family terrorized by a dark presence.;2013;James Wan;R;English;3;Patrick Wilson|Vera Farmiga|Ron Livingston
+6;Amélie;1.0;122;3;TYPE_ROMANCE|TYPE_COMEDY|TYPE_DRAMA;83;A whimsical depiction of contemporary Parisian life.;2001;Jean-Pierre Jeunet;R;French;3;Audrey Tautou|Mathieu Kassovitz|Rufus
+7;Toy Story;1.0;81;3;TYPE_ANIMATION|TYPE_COMEDY|TYPE_FAMILY;82;Toys come to life when humans aren't around.;1995;John Lasseter;G;English;3;Tom Hanks|Tim Allen|Don Rickles
+8;Planet Earth;1.0;550;1;TYPE_DOCUMENTARY;94;A series documenting Earth's natural wonders.;2006;David Attenborough;G;English;1;David Attenborough
+9;Mad Max: Fury Road;1.0;120;2;TYPE_ACTION|TYPE_SCI_FI;81;In a apocalyptic wasteland,  Max helps a rebellious woman escape a tyrant.;2015;George Miller;R;English;3;Tom Hardy|Charlize Theron|Nicholas H²oult
+10;La La Land;1.0;128;3;TYPE_ROMANCE|TYPE_COMEDY|TYPE_DRAMA;80;A jazz musician and an actress fall in love while chasing their dreams.;2016;Damien Chazelle;PG-13;English;3;Ryan Gosling|Emma Stone|John Legend
+11;CACA;1.0;1;3;CACA|CACA|CACA;1;CACA;1800;CACA;CACA;CACA;5;CACA|CACA|CACA|CACA|CACA

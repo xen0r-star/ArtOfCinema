@@ -14,7 +14,8 @@ typedef enum StepPage {
     STEP_PAGE_2,
     STEP_PAGE_3,
     STEP_PAGE_4,
-    STEP_PAGE_5
+    STEP_PAGE_5,
+    STEP_PAGE_6
 } StepPage;
 
 void showDirectorAddFilmPage();

@@ -48,6 +48,10 @@ static void nextPage(){
     setCurrentPage(PAGE_DIRECTOR_FILM);
 }
 
+static void addFilm() {
+    setCurrentPage(PAGE_DIRECTOR_ADD_FILM);
+}
+
 static void initItem(int columns, int rows){
     int listStartY = 15;
     int itemHeight = 3;
@@ -78,7 +82,7 @@ static void initItem(int columns, int rows){
             createText(columns * 0.20, listStartY + (i * itemHeight), node->movie->name, TEXT_COLOR);
             createText(columns * 0.45, listStartY + (i * itemHeight), duration, TEXT_COLOR);
             
-            createDataButton(columns * 0.80, listStartY + (i * itemHeight) - 1, 5, "X", WARNING_COLOR, STYLE_DEFAULT, deleteMovie, node->movie);
+            createDataButton(columns * 0.85, listStartY + (i * itemHeight) - 1, 5, "X", WARNING_COLOR, STYLE_DEFAULT, deleteMovie, node->movie);
             // ⚠️ ICI CREER UN BOUTON POUR LE FORM ET ENVOYER dans addMovie une list de products (ou product mais faut modif le add si que product et pas list de product) 
             // createDataButton(columns*0.85, listStartY + (i * itemHeight) - 1, 5, "...", COLOR_BLUE, STYLE_DEFAULT, advancedProd, node->movie);
             // DANS "..." AJOUTER POSSIIBILITE DE RESERVER DE LA NOURRITURE
@@ -97,8 +101,11 @@ static void initItem(int columns, int rows){
         createButton(startBtnX + 17, rows - 3, 15, _T("next"), TERTIARY_COLOR, STYLE_DEFAULT, nextPage);
     else
         createButton(startBtnX + 17, rows - 3, 15, _T("next"), TEXTSECONDARY_COLOR, STYLE_DEFAULT, NULL);
+    createButton(columns - 40, rows - 3, 16, _T("director.f.btn1"), SUCCESS_COLOR, STYLE_DEFAULT, addFilm);
 
 }
+
+
 
 void showDirectorFilmPage(){
     int columns, rows;

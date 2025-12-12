@@ -1,8 +1,10 @@
 #include "reservation.h"
 
+#define DATA_FILE "data/reservation.dat"
+#define DATA_FILE_TEMP "data/productsTmp.dat"
 
 void saveReservation(Reservation *reservation) {
-    FILE *file = fopen("data/reservation.dat", "a");
+    FILE *file = fopen(DATA_FILE, "a");
 
     if (!file) return;
 
@@ -47,7 +49,7 @@ void loadReservation() {
     reservationList = NULL;
 
 
-    FILE *file = fopen("data/reservation.dat", "r");
+    FILE *file = fopen(DATA_FILE, "r");
     if (!file) return;
 
     Reservation reservation = {0};

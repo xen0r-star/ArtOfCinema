@@ -7,7 +7,6 @@
 #include "../pages/login.h"
 #include "../types/user.h"
 
-#define DATA_FILE "data/account.dat"
 
 typedef enum Status {
     STATUS_ERROR = -1,

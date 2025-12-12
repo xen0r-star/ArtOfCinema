@@ -1,5 +1,7 @@
 #include "user.h"
 
+#define DATA_FILE "data/account.dat"
+
 
 Status emailExiste(const char* email) {
     FILE *fdat = fopen(DATA_FILE, "r");

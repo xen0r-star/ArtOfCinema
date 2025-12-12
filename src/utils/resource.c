@@ -19,7 +19,7 @@ char* loadResource(UINT id, DWORD* outSize) {
     if (!buffer) return NULL;
 
     memcpy(buffer, data, size);
-    buffer[size] = '\0';  // pratique pour texte/CSV
+    buffer[size] = '\0';  // pratique pour texte/DAT
 
     *outSize = size;
     return buffer;

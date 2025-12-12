@@ -294,7 +294,7 @@ void showClientReservePage() {
         int hasMore = 0;
     
         while (node != NULL) {
-            Movie *movie = getMovieById(node->projection.movie_id);
+            Movie *movie = getMovieById(node->projection->movie_id);
             
             if (movie && searchMovieByName(movie->name, filterTitle)) {
                 
@@ -307,11 +307,11 @@ void showClientReservePage() {
                         createText(
                             startLine + INPUT_WIDTH - 10, 
                             listStartY + (displayedCount * itemHeight), 
-                            node->projection.datetime, TEXT_COLOR
+                            node->projection->datetime, TEXT_COLOR
                         );
 
                         char str[16];
-                        if (node->projection.available_seats == 0) {
+                        if (node->projection->available_seats == 0) {
                             strcpy(str, _T("full"));
                             createText(
                                 startLine + INPUT_WIDTH + 8, 
@@ -320,7 +320,7 @@ void showClientReservePage() {
                             );
 
                         } else {
-                            snprintf(str, sizeof(str),  _T("seats"), node->projection.available_seats);
+                            snprintf(str, sizeof(str),  _T("seats"), node->projection->available_seats);
                             createText(
                                 startLine + INPUT_WIDTH + 8, 
                                 listStartY + (displayedCount * itemHeight), 
@@ -333,7 +333,7 @@ void showClientReservePage() {
                             listStartY + (displayedCount * itemHeight) - 1, 
                             10, _T("client.btn.view.reserve"), 
                             TERTIARY_COLOR, STYLE_BORDERLESS, 
-                            reserveMovie, &node->projection.id
+                            reserveMovie, &node->projection->id
                         );
                         displayedCount++;
     

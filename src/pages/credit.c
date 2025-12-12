@@ -78,15 +78,15 @@ void showCreditPage() {
         createText(ALIGN_CENTER, i - 25, "Github: https://github.com/xen0r-star", TERTIARY_COLOR);
 
 
-        createText(ALIGN_CENTER, i - 8,  " _____                           _____                   ", PRIMARY_COLOR);
-        createText(ALIGN_CENTER, i - 7,  "|_   _|                         /  __ \\                  ", PRIMARY_COLOR);
-        createText(ALIGN_CENTER, i - 6,  "  | | ___  _ __ ___  _   _ ___  | /  \\/ ___  _ __ _ __   ", PRIMARY_COLOR);
+        createText(ALIGN_CENTER, i - 8, " _____                           _____                   ", PRIMARY_COLOR);
+        createText(ALIGN_CENTER, i - 7, "|_   _|                         /  __ \\                  ", PRIMARY_COLOR);
+        createText(ALIGN_CENTER, i - 6, "  | | ___  _ __ ___  _   _ ___  | /  \\/ ___  _ __ _ __   ", PRIMARY_COLOR);
         createText(ALIGN_CENTER, i - 5, "  | |/ _ \\| '_ ` _ \\| | | / __| | |    / _ \\| '__| '_ \\  ", PRIMARY_COLOR);
         createText(ALIGN_CENTER, i - 4, "  | | (_) | | | | | | |_| \\__ \\ | \\__/\\ (_) | |  | |_) | ", PRIMARY_COLOR);
         createText(ALIGN_CENTER, i - 3, "  \\_/\\___/|_| |_| |_|\\__,_|___/  \\____/\\___/|_|  | .__( )", PRIMARY_COLOR);
-        createText(ALIGN_CENTER, i - 2, "                                                 | |     ", PRIMARY_COLOR);
-        createText(ALIGN_CENTER, i - 1, " Github: https://github.com/TomusLeVrai          |_|     ", PRIMARY_COLOR);
-
+        createText(ALIGN_CENTER, i - 2, "                                                | |     ", PRIMARY_COLOR);
+        createText(ALIGN_CENTER, i - 1, "                                                |_|     ", PRIMARY_COLOR);
+        createText(ALIGN_CENTER, i - 1, "Github: https://github.com/TomusLeVrai", TERTIARY_COLOR);
 
         
         Sleep(400);
