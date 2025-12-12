@@ -43,7 +43,7 @@ static void remQteProd(void *product){
 }
 
 
-static void advancedProd(){ // ⚠️ REPLACE les id par ceux de product
+static void advancedProd(){
     ProductNode *newList = malloc(sizeof(ProductNode));
 
     Product *newPdt = malloc(sizeof(Product));
@@ -189,8 +189,8 @@ static void verifyReturnSave() {
         drawFooter();
 
         createText(ALIGN_CENTER, ALIGN_CENTER, _T("director.save"), TERTIARY_COLOR);
-        createDataButton(columns*0.4, rows*0.7, 15, _T("no"), WARNING_COLOR, STYLE_DEFAULT, skipWaitingSave, &FAUX);
-        createDataButton(columns*0.6, rows*0.7, 15, _T("yes"), SUCCESS_COLOR, STYLE_DEFAULT, skipWaitingSave, &VRAI);
+        createDataButton((columns / 2) - 25, rows*0.6, 15, _T("no"), WARNING_COLOR, STYLE_DEFAULT, skipWaitingSave, &FAUX);
+        createDataButton((columns / 2) + 10, rows*0.6, 15, _T("yes"), SUCCESS_COLOR, STYLE_DEFAULT, skipWaitingSave, &VRAI);
         WaitingProducts = NULL;
         return;
     }

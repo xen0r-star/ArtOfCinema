@@ -1,40 +1,6 @@
 #include "directorFilm.h"
 
 static int pageIndex = 0;
-static MovieNode *WaitingMovies = NULL;
-
-static void addIdList(void *movie){
-    Movie *mv = movie;
-    int idP = mv->id;
-
-    MovieNode *curr = WaitingMovies;
-    while (curr != NULL) {
-        if (curr->movie->id == idP) {
-            
-            return;
-        }
-        curr = curr->next;
-    }
-
-    MovieNode *newNode = malloc(sizeof(MovieNode));
-    if (newNode) {
-        Movie *newPdt = malloc(sizeof(Movie));
-        newPdt->id = idP;
-        newNode->movie = newPdt;
-        newNode->next = NULL;
-
-        if (WaitingMovies == NULL) {
-            WaitingMovies = newNode;
-            
-        } else {
-            MovieNode *temp = WaitingMovies;
-            while(temp->next != NULL) {
-                temp = temp->next; 
-            }
-            temp->next = newNode;
-        }
-    }
-}
 
 static void prevPage(){
     if (pageIndex > 0){
@@ -73,19 +39,17 @@ static void initItem(int columns, int rows){
         Movie *movie = getMovieById(node->movie->id);
 
         if (movie) {
-            char id[6], duration[4];
+            char id[20], duration[30], title[51];
 
-            snprintf(id, sizeof(id), "%5d", node->movie->id);
-            snprintf(duration, sizeof(duration), "%3d", node->movie->duration);
+            snprintf(id, sizeof(id), "ID : %5d", node->movie->id);
+            snprintf(duration, sizeof(duration), "Temps : %3d minutes", node->movie->duration);
+            snprintf(title, sizeof(title), "Titre : %s", node->movie->name);
 
             createText(columns * 0.12, listStartY + (i * itemHeight), id, TEXT_COLOR);
-            createText(columns * 0.20, listStartY + (i * itemHeight), node->movie->name, TEXT_COLOR);
-            createText(columns * 0.45, listStartY + (i * itemHeight), duration, TEXT_COLOR);
+            createText(columns * 0.25, listStartY + (i * itemHeight), title, TEXT_COLOR);
+            createText(columns * 0.65, listStartY + (i * itemHeight), duration, TEXT_COLOR);
             
             createDataButton(columns * 0.85, listStartY + (i * itemHeight) - 1, 5, "X", WARNING_COLOR, STYLE_DEFAULT, deleteMovie, node->movie);
-            // ⚠️ ICI CREER UN BOUTON POUR LE FORM ET ENVOYER dans addMovie une list de products (ou product mais faut modif le add si que product et pas list de product) 
-            // createDataButton(columns*0.85, listStartY + (i * itemHeight) - 1, 5, "...", COLOR_BLUE, STYLE_DEFAULT, advancedProd, node->movie);
-            // DANS "..." AJOUTER POSSIIBILITE DE RESERVER DE LA NOURRITURE
         }
         i++;
         node = node->next;
@@ -117,10 +81,8 @@ void showDirectorFilmPage(){
     createText(ALIGN_CENTER, 7, _T("director.f.lbl"), SUCCESS_COLOR);
     createText(ALIGN_CENTER, 9, _T("director.f.desc"), TEXT_COLOR);
 
-    createDataButton(columns - 20, rows - 3, 20, _T("save"), TEXT_COLOR, STYLE_DEFAULT, saveMovie, &WaitingMovies);
-
     createMenu(ALIGN_CENTER, 11, columns*0.8, SUCCESS_COLOR, STYLE_DEFAULT, "director.f.tbl", NULL, NULL, NULL);
 
     buttonBack(PAGE_DIRECTOR);
-    initItem(columns, rows);        // Initialisation + affichage du stock
+    initItem(columns, rows);        // Initialisation + affichage des films
 }

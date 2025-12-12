@@ -1,6 +1,10 @@
-00006;banane;00004;1.50
-00002;pomme verte;00001;2.50
-00001;pomme rouge;00002;2.50
-00004;pomme jauneABCDE;00003;2.50
-00009;pomme juteuse;00004;2.51   
-00099;Pizzadelamama;00050;8.99
+00001;Popcorn Sucre (Grand);00100;7.90
+00002;Popcorn Sale (Moyen);00100;6.50
+00003;Soft Drink (50cl);00100;4.20
+00004;Nachos Sauce Fromage;00100;7.50
+00005;Bonbons en Vrac (100g);00100;3.50
+00006;Biere;00100;4.80
+00007;Glace Emballee;00100;3.90
+00008;Hot-Dog;00100;6.50
+00009;Slushie (Moyen);00100;5.00
+00010;Eau (Bouteille 50cl);00100;3.00

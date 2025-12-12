@@ -106,44 +106,7 @@ int saveProducts(ProductNode *list) {
     return 1;
 }
 
-int saveAllProducts(ProductNode *list) {
-    FILE *file = fopen(DATA_FILE, "r+");
-    if (file == NULL) return 0;
-
-    char buffer[512];
-    
-    while(list != NULL){
-        Product *tmpProduct = list->product;
-        
-        rewind(file);
-        long lineStart = 0;
-        
-        while (fgets(buffer, sizeof(buffer), file) != NULL) {
-            lineStart = ftell(file) - strlen(buffer);
-            int idRead;
-
-            if (sscanf(buffer, "%d", &idRead) == 1) {
-                if (tmpProduct->id == idRead) {
-                    char *firstPipe = strchr(buffer, '|');
-                    if (firstPipe) {
-                        long startWriteOffset = (firstPipe - buffer) +1;
-                        fseek(file, lineStart + startWriteOffset, SEEK_SET);
-                            
-                        fprintf(file, "%-30s|%05d|%8.2f\n", tmpProduct->name, tmpProduct->qte, tmpProduct->price);
-                        fflush(file);
-                        break;
-                    }
-                }
-            }
-        }
-        
-        list = list->next;
-    }
-    fclose(file);
-    return 1;
-}
-
-int addProduct(ProductNode *list) { // ⚠️ VERIF DES ENTREES A FAIRE AU NIVEAU DU "FORM"
+int addProduct(ProductNode *list) {
     FILE *file = fopen(DATA_FILE, "a");
     if (file == NULL) return 0;
 

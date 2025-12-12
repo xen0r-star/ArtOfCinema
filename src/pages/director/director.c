@@ -8,18 +8,6 @@ static void shopPage(){
     setCurrentPage(PAGE_DIRECTOR_SHOP);
 }
 
-void saveProduct(void *list) {
-    ProductNode *pdt = (ProductNode*)list;
-    saveProducts(pdt);
-    shopPage();
-}
-
-void saveMovie(void *list) {
-    MovieNode *mv = (MovieNode*)list;
-    // saveProducts(mv);
-    filmPage();
-}
-
 void showDirectorPage() {
     int columns, rows;
     sizeScreen(&columns, &rows);
@@ -27,7 +15,6 @@ void showDirectorPage() {
     drawLogo((columns / 2) - (LOGO_WIDTH / 2), 4);
     drawFooter();
     buttonSetting();
-
  
     createText(ALIGN_CENTER, 10, _T("director.visual.lbl"), PRIMARY_COLOR);
     createText(ALIGN_CENTER, 12, _T("director.visual.desc"), TEXT_COLOR);

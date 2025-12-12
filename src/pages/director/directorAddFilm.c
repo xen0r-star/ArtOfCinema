@@ -3,8 +3,9 @@
 
 static StepPage currentStep = STEP_PAGE_1;
 static Movie newMovie;
-static ProjectionNode newProjectionNode;
-
+static ProjectionNode *newProjectionNode;
+static ProjectionNode *tail = NULL;
+static int nProj = 0;
 
 static void cancelAction() {
     setCurrentPage(PAGE_DIRECTOR_FILM);
@@ -96,35 +97,30 @@ static void confirmStep5() {
 }
 
 static void confirmStep6() {
-    if (newProjectionNode.projection == NULL) {
+    if (newProjectionNode == NULL) {
         createText(ALIGN_CENTER, 9, "Veuillez ajouter au moins une projection", ERROR_COLOR);
         return;
     }
 
-    // ⚠️ FAIRE LES TRAITEMENTS POUR PROJECTIONS / FAIRE BOUCLE QUI addProjection toutes les projections de la listes
+    ProjectionNode *current = newProjectionNode;
+    ProjectionNode *nextNode;
+
+    while(current != NULL){
+        nextNode =  current->next;
+
+        Projection *tmpProjection = current->projection;
+        
+        addProjection(tmpProjection);
+
+        free(current);
+
+        current = nextNode;
+    }
+
+    newProjectionNode = NULL;
 
     currentStep = STEP_PAGE_1;
     addMovie(&newMovie);
-    addProjection(newProjectionNode.projection);
-    // Libération de la mémoire ⚠️
-    // if (newMovie.name) free(newMovie.name);
-    // if (newMovie.types) {
-    //     for(int i=0; i < newMovie.type_count; i++) {
-    //         if (newMovie.types[i]) free(newMovie.types[i]);
-    //     }
-    //     free(newMovie.types);
-    // }
-    // if (newMovie.description) free(newMovie.description);
-    // if (newMovie.director) free(newMovie.director);
-    // if (newMovie.ageRating) free(newMovie.ageRating);
-    // if (newMovie.language) free(newMovie.language);
-    // if (newMovie.cast) {
-    //     for(int i=0; i < newMovie.cast_count; i++) {
-    //         if (newMovie.cast[i]) free(newMovie.cast[i]);
-    //     }
-    //     free(newMovie.cast);
-    // }
-    // memset(&newMovie, 0, sizeof(Movie));
     setCurrentPage(PAGE_DIRECTOR);
 }
 
@@ -165,6 +161,134 @@ static void addGenre() {
     setCurrentPage(PAGE_DIRECTOR_ADD_FILM);
 }
 
+bool is_bix(int year) {
+    return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+}
+
+static void addProj() {
+    char *date = getInput(0)->value;
+    char *time = getInput(1)->value;
+    char *seats = getInput(2)->value;
+
+    Projection *newProjection = NULL;
+
+    if (date == NULL || strcmp(date, "") == 0) {
+        createText(ALIGN_CENTER, 7, "Veuillez entrer une date de projection", ERROR_COLOR);
+        return;
+    }
+    if (time == NULL || strcmp(time, "") == 0) {
+        createText(ALIGN_CENTER, 7, "Veuillez entrer une heure de projection", ERROR_COLOR);
+        return;
+    }
+    if (seats == NULL || strcmp(seats, "") == 0) {
+        createText(ALIGN_CENTER, 7, "Veuillez entrer le nombre de places disponibles", ERROR_COLOR);
+        return;
+    }
+
+    if (nProj >= 5) {
+        createText(ALIGN_CENTER, 7, "Nombre maximum de projection atteint", ERROR_COLOR);
+        return;
+    }
+
+    int day, month, year;
+    if (strlen(date) != 10) {
+        createText(ALIGN_CENTER, 7, "La date est incorrect", ERROR_COLOR);
+        return;
+    }
+
+    int matchday = sscanf(date, "%d/%d/%d", &day, &month, &year);
+    if (matchday != 3) {
+        createText(ALIGN_CENTER, 7, "Le format de la date est incorrect", ERROR_COLOR);
+        return;
+    }
+
+    if (month < 1 || month > 12 || year < 1900 || year > 3000) {
+        createText(ALIGN_CENTER, 7, "Le mois ou l'annee sont invalides", ERROR_COLOR);
+        return;
+    }
+
+    int days_month[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+    if (month == 2 && is_bix(year)) {
+        days_month[2] = 29;
+    }
+
+    if (day < 1 ||day > days_month[month]) {
+        createText(ALIGN_CENTER, 7, "Le jour est invalide", ERROR_COLOR);
+        return;
+    }
+
+    int hour, minute;
+
+    if (strlen(time) != 5) {
+        createText(ALIGN_CENTER, 7, "L heure est incorrect", ERROR_COLOR);
+        return;
+    }
+
+    int matchtime = sscanf(time, "%d:%d", &hour, &minute);
+
+    if (matchtime != 2) {
+        createText(ALIGN_CENTER, 7, "Le format de l heure est incorrect", ERROR_COLOR);
+        return;
+    }
+
+    if (hour < 0 || hour > 23) {
+        createText(ALIGN_CENTER, 7, "L heure est invalide", ERROR_COLOR);
+        return;
+    }
+
+    if (minute < 0 || minute > 59) {
+        createText(ALIGN_CENTER, 7, "Les minutes sont invalides", ERROR_COLOR);
+        return;
+    }
+
+    int available_seats = atoi(seats);
+
+    if (available_seats < 0 || available_seats > 200) {
+        createText(ALIGN_CENTER, 7, "Le nombre de sièges est invalides", ERROR_COLOR);
+        return;
+    }
+
+    newProjection = calloc(1, sizeof(Projection));
+    if (newProjection == NULL) {
+        createText(ALIGN_CENTER, 7, "ERREUR DALLOC", ERROR_COLOR);
+        return;
+    }
+    
+    newProjection->datetime = (char *)malloc(strlen(date) + 1 + strlen(time) + 1);
+
+    if (newProjection->datetime == NULL) {
+        createText(ALIGN_CENTER, 7, "ERREUR DALLOC DATE", ERROR_COLOR);
+        free(newProjection);
+        return;
+    }
+
+    newProjection->movie_id = getNMovie() + 1;
+    sprintf(newProjection->datetime, "%s %s", date, time);
+    newProjection->available_seats = available_seats;
+    
+    // Create and append Node
+    ProjectionNode *newNode = malloc(sizeof(ProjectionNode));
+    if (newNode == NULL) {
+        createText(ALIGN_CENTER, 7, "ERREUR DALLOC NEWNODE", ERROR_COLOR);
+        free(newProjection->datetime);
+        free(newProjection);
+        return;
+    }
+    newNode->projection = newProjection;
+    newNode->next = NULL;
+
+    if (newProjectionNode == NULL) {
+        newProjectionNode = newNode;
+        tail = newNode;
+    } else {
+        tail->next = newNode;
+        tail = newNode;
+    }
+
+    nProj++;
+    setCurrentPage(PAGE_DIRECTOR_ADD_FILM);
+}
 
 
 void showDirectorAddFilmPage() {
@@ -179,7 +303,7 @@ void showDirectorAddFilmPage() {
 
     char str[32];
     snprintf(str, sizeof(str),  "Ajout d'un film - Etape %1d/6", currentStep + 1);
-    createText(ALIGN_CENTER, 8, str, PRIMARY_COLOR);
+    createText(ALIGN_CENTER, 6, str, PRIMARY_COLOR);
 
     int centerX = columns / 2;
 
@@ -227,14 +351,25 @@ void showDirectorAddFilmPage() {
         }
         createButton(centerX + 1, rows - 6, 15, "Suivant", SUCCESS_COLOR, STYLE_DEFAULT, confirmStep5);
     } else if (currentStep == STEP_PAGE_6) {
-        // ⚠️ GERER LES PRODUCTIONS POUR ADD PROJECTIONS DATE HEURE DU FILM
         int startX = (columns - INPUT_WIDTH + 2 + 3) / 2;
-        createInput(startX, 11, "Test", "Entrez le genre");
-        createButton(startX + INPUT_WIDTH + 2, 11, 3, "+", TERTIARY_COLOR, STYLE_DEFAULT, addGenre);
+        createInput(startX, 9, "Date", "Entrez la date de projection");
+        createInput(startX, 12, "Heure", "Entrez l heure de projection");
+        createInput(startX, 15, "Places", "Entrez le nombre de place disponible");
 
-        for (int i = 0; i < newMovie.type_count; i++) {
-            createText(startX, 14 + i, newMovie.types[i], TEXT_COLOR);
+        createButton(startX + INPUT_WIDTH + 2, 15, 3, "+", TERTIARY_COLOR, STYLE_DEFAULT, addProj);
+
+        ProjectionNode *current = newProjectionNode;
+        int i = 0;
+        while (current != NULL) {
+            Projection *tempProjection = current->projection;
+            char text[100];
+
+            sprintf(text, "%s - %d places disponibles", tempProjection->datetime, tempProjection->available_seats);
+            createText(startX, 17 + i, text, TEXT_COLOR);
+            current = current->next;
+            i++;
         }
+
         createButton(centerX + 1, rows - 6, 15, "Sauvegarder", SUCCESS_COLOR, STYLE_DEFAULT, confirmStep6);
     }
 

@@ -10,7 +10,6 @@
 
 int loadProducts();
 int saveProducts(ProductNode *list);
-int saveAllProducts(ProductNode *list);
 int addProduct(ProductNode *list);
 void deleteProduct(void *product);
 

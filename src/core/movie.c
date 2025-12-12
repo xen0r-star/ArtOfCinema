@@ -11,7 +11,6 @@
 
 static MovieNode *movieListMain = NULL;
 static MovieNode *tail = NULL;
-// ⚠️ ENUM COMME DANS USER.H POUR RETURN ERROR OU PAS
 static bool initMovie = false;
 static int nMovie = 0;
 

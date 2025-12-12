@@ -5,7 +5,6 @@
 #include <string.h>
 
 #define DATA_FILE "data/projections.dat"
-// #define DATA_FILE_TEMP "data/projectionsTmp.dat"
 
 static ProjectionNode *projectionList = NULL;
 static ProjectionNode *tail = NULL;
@@ -62,9 +61,8 @@ int addProjection(Projection *projection) {
     FILE *file = fopen(DATA_FILE, "a");
     if (file == NULL) return PRSTATUS_ERROR;
 
-    
-    // ⚠️⚠️ FAIRE AJOUT DUNE PROJ
-    
+    pj->id = nProjection + 1;
+    fprintf(file, "%d;%d;%s;%d\n", pj->id, pj->movie_id, pj->datetime, pj->available_seats);
 
     ProjectionNode *newNode = malloc(sizeof(ProjectionNode));
     if (newNode) {

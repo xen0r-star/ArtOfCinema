@@ -324,7 +324,7 @@ void showClientReservePage() {
             int match = 0;
             if (movie) {
                 if (strlen(filterDate) > 0) {
-                    if (strstr(node->projection.datetime, filterDate) != NULL) match = 1;
+                    if (strstr(node->projection->datetime, filterDate) != NULL) match = 1;
                 } else if (searchMovieByName(movie->name, filterTitle)) {
                     match = 1;
                 }
