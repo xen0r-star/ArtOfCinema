@@ -166,10 +166,6 @@ static void initItem(int columns, int rows){
 
 }
 
-static void showReservF(){
-
-}
-
 static void skipWaitingSave(void *val) {
     int value = *((int *)val);
     if (value == 0) {

@@ -365,7 +365,7 @@ void showDirectorAddFilmPage() {
             char text[100];
 
             sprintf(text, "%s - %d places disponibles", tempProjection->datetime, tempProjection->available_seats);
-            createText(startX, 17 + i, text, TEXT_COLOR);
+            createText(startX, 18 + i, text, TEXT_COLOR);
             current = current->next;
             i++;
         }
