@@ -46,11 +46,10 @@ void showClientFoodPage() {
     int maxItems = (rows - 6 - listStartY) / itemHeight;
     if (maxItems < 1) maxItems = 1;
 
-    
-    int startLine = (columns - (INPUT_WIDTH + 16 + 10)) / 2;
+
+    int startLine = (columns - (INPUT_WIDTH + 16 + 2)) / 2;
     createInput(startLine, listStartY - 4, _T("client.sch.pdt"), _T("client.sch.plh"));
     createButton(startLine + INPUT_WIDTH + 2, listStartY - 4, 16, _T("search"), PRIMARY_COLOR, STYLE_DEFAULT, onSearch);
-    createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, listStartY - 4, 10, _T("sort"), TERTIARY_COLOR, STYLE_DEFAULT, NULL);
 
 
     ProductNode *node = getProductList();
@@ -61,8 +60,12 @@ void showClientFoodPage() {
     int hasMore = 0;
 
     while (node != NULL) {
+        int match = 0;
         if (searchProductByName(node->product->name, filterName)) {
-            
+            match = 1;
+        }
+
+        if (match) {
             if (matchesCount >= skipCount) {
                 if (displayedCount < maxItems) {
                     char priceStr[16];
@@ -78,20 +81,20 @@ void showClientFoodPage() {
 
                     if (node->product->qte == 0) {
                         createText(
-                            startLine + INPUT_WIDTH + 3, 
+                            startLine + INPUT_WIDTH - 5, 
                             listStartY + (displayedCount * itemHeight), 
                             stockStr, WARNING_COLOR
                         );
                     } else {
                         createText(
-                            startLine + INPUT_WIDTH + 3, 
+                            startLine + INPUT_WIDTH - 5, 
                             listStartY + (displayedCount * itemHeight), 
                             stockStr, SUCCESS_COLOR
                         );
                     }
                     
                     createText(
-                        startLine + INPUT_WIDTH + 24, 
+                        startLine + INPUT_WIDTH + 13, 
                         listStartY + (displayedCount * itemHeight), 
                         priceStr, TEXT_COLOR
                     );

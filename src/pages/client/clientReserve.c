@@ -9,6 +9,8 @@ static const float PRICE_SENIOR = 6.0f;
 
 static int pageIndex = 0;
 static char filterTitle[100] = "";
+static char filterDate[100] = "";
+static int showSortMovie = 0;
 static int reserveProjectionId = -1;
 static StepReserve step = RESERVE_STEP_TICKETS;
 
@@ -246,9 +248,26 @@ static void onSearch() {
     Input *input = getInput(0);
     if (input) {
         strcpy(filterTitle, input->value);
+        strcpy(filterDate, "");
         pageIndex = 0;
         setCurrentPage(PAGE_CLIENT_RESERVE);
     }
+}
+
+static void onSortMovie() {
+    Input *input = getInput(0);
+    if (input) {
+        strcpy(filterDate, input->value);
+        strcpy(filterTitle, "");
+        pageIndex = 0;
+        showSortMovie = 0;
+        setCurrentPage(PAGE_CLIENT_RESERVE);
+    }
+}
+
+static void changeDisplaySortMovie() {
+    showSortMovie = !showSortMovie;
+    setCurrentPage(PAGE_CLIENT_RESERVE);
 }
 
 static void reserveMovie(void* data) {
@@ -281,9 +300,15 @@ void showClientReservePage() {
 
 
         int startLine = (columns - (INPUT_WIDTH + 16 + 10 + 4)) / 2;
-        createInput(startLine, listStartY - 4, _T("client.sch.flm"), _T("client.sch.plh2"));
-        createButton(startLine + INPUT_WIDTH + 2, listStartY - 4, 16, _T("search"), PRIMARY_COLOR, STYLE_DEFAULT, onSearch);
-        createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, listStartY - 4, 10, _T("sort"), TERTIARY_COLOR, STYLE_DEFAULT, NULL);
+        if (showSortMovie) {
+            createInput(startLine, listStartY - 4, _T("client.date"), _T("client.date.format"));
+            createButton(startLine + INPUT_WIDTH + 2, listStartY - 4, 16, _T("search"), PRIMARY_COLOR, STYLE_DEFAULT, onSortMovie);
+            createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, listStartY - 4, 10, _T("close"), WARNING_COLOR, STYLE_DEFAULT, changeDisplaySortMovie);
+        } else {
+            createInput(startLine, listStartY - 4, _T("client.sch.flm"), _T("client.sch.plh2"));
+            createButton(startLine + INPUT_WIDTH + 2, listStartY - 4, 16, _T("search"), PRIMARY_COLOR, STYLE_DEFAULT, onSearch);
+            createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, listStartY - 4, 10, _T("client.date.UPPERCASE"), TERTIARY_COLOR, STYLE_DEFAULT, changeDisplaySortMovie);
+        }
     
     
         ProjectionNode *node = getProjectionList();
@@ -296,8 +321,16 @@ void showClientReservePage() {
         while (node != NULL) {
             Movie *movie = getMovieById(node->projection->movie_id);
             
-            if (movie && searchMovieByName(movie->name, filterTitle)) {
-                
+            int match = 0;
+            if (movie) {
+                if (strlen(filterDate) > 0) {
+                    if (strstr(node->projection.datetime, filterDate) != NULL) match = 1;
+                } else if (searchMovieByName(movie->name, filterTitle)) {
+                    match = 1;
+                }
+            }
+
+            if (match) {
                 if (matchesCount >= skipCount) {
                     if (displayedCount < maxItems) {
                         createText(startLine, 
@@ -412,10 +445,9 @@ void showClientReservePage() {
                 if (maxItems < 1) maxItems = 1;
 
 
-                int startLine = (columns - (INPUT_WIDTH + 16 + 10)) / 2;
+                int startLine = (columns - (INPUT_WIDTH + 16 + 2)) / 2;
                 createInput(startLine, y - 4, _T("client.sch.pdt"), _T("client.sch.plh"));
                 createButton(startLine + INPUT_WIDTH + 2, y - 4, 16, _T("search"), PRIMARY_COLOR, STYLE_DEFAULT, onSearchFood);
-                createButton(startLine + INPUT_WIDTH + 2 + 16 + 2, y - 4, 10, _T("sort"), TERTIARY_COLOR, STYLE_DEFAULT, NULL);
     
 
                 ProductNode *node = getProductList();
@@ -434,7 +466,12 @@ void showClientReservePage() {
                 }
 
                 while (node != NULL) {
+                    int match = 0;
                     if (searchProductByName(node->product->name, filterFoodName)) {
+                        match = 1;
+                    }
+
+                    if (match) {
                         if (matchesCount >= skipCount) {
                             if (displayedCount < maxItems) {
                                 int itemY = y + (displayedCount * itemHeight);
@@ -453,7 +490,7 @@ void showClientReservePage() {
                                 char qtyStr[4];
                                 snprintf(qtyStr, sizeof(qtyStr), "%d", currentQty);
                                 
-                                int ctrlX = startLine + 50;
+                                int ctrlX = startLine + 49;
                                 createDataButton(ctrlX, itemY - 1, 3, "-", WARNING_COLOR, STYLE_DEFAULT, decFoodQty, &node->product->id);
                                 createText(ctrlX + 4, itemY, qtyStr, TEXT_COLOR);
                                 createDataButton(ctrlX + 7, itemY - 1, 3, "+", SUCCESS_COLOR, STYLE_DEFAULT, incFoodQty, &node->product->id);
