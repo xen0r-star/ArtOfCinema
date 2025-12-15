@@ -32,8 +32,7 @@ const Releases = () => {
     useEffect(() => {
         const fetchReleases = async () => {
             try {
-                const response = await fetch('https://api.github.com/repos/LaurieWired/GhidraMCP/releases');
-                // const response = await fetch('https://api.github.com/repos/xen0r-star/ArtOfCinema/releases');
+                const response = await fetch('https://api.github.com/repos/xen0r-star/ArtOfCinema/releases');
                 if (!response.ok) {
                     throw new Error('Impossible de récupérer les versions depuis GitHub');
                 }
